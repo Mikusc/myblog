@@ -157,20 +157,28 @@
     function getSchedule(location, now) {
       const day = now.getDay(); // 0 = Sunday, 6 = Saturday
       const isWeekend = (day === 0 || day === 6);
+
       if (location === 'HOLA') {
-          if (isWeekend) return schedules.HOLA.weekend;
-          // Check for morning peak (between 07:55 and 08:30)
-          const startPeak = parseTimeToDate('07:55');
-          const endPeak   = parseTimeToDate('08:30');
-          if (now >= startPeak && now < endPeak) {
-            return schedules.HOLA.morningPeak;
-          }
-          return schedules.HOLA.weekday;
-      } else if (location === 'UNNC') {
-          return isWeekend ? schedules.UNNC.weekend : schedules.UNNC.weekday;
+        if (isWeekend) return schedules.HOLA.weekend;
+
+        const endPeak = parseTimeToDate('08:30');
+
+        // 工作日：早高峰结束前，把早高峰+非高峰拼在一起
+        if (now < endPeak) {
+          return schedules.HOLA.morningPeak.concat(schedules.HOLA.weekday);
+        }
+
+        // 早高峰结束后就只看非高峰
+        return schedules.HOLA.weekday;
       }
+
+      if (location === 'UNNC') {
+        return isWeekend ? schedules.UNNC.weekend : schedules.UNNC.weekday;
+      }
+
       return [];
     }
+
 
     // Given a list of times and the current time, return the next two departures.
     function getNextDepartures(scheduleTimes, now) {
