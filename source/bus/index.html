@@ -53,6 +53,39 @@
       text-align: center;
       color: #666;
     }
+  
+    /* Timetable (full schedule) */
+    .secondary-btn{
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px 12px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      cursor: pointer;
+    }
+    .tt-controls{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .tt-controls label{
+      margin: 0;
+    }
+    .time-chip{
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #f2f3f5;
+      font-size: 0.95rem;
+    }
+    .section-title{
+      font-weight: 700;
+      margin: 12px 0 6px 0;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +110,35 @@
     </div>
     <!-- status messages (e.g. geolocation results) -->
     <div class="status" id="statusMessage" style="margin-top:10px;font-size:0.9rem;color:#555;"></div>
+
+    <button id="toggleTimetable" class="secondary-btn" type="button">查看总时刻表</button>
+
+    <div id="timetablePanel" style="display:none; margin-top:12px;">
+      <div class="tt-controls">
+        <label>
+          站点：
+          <select id="ttLocation">
+            <option value="HOLA">HOLA → 校园</option>
+            <option value="UNNC">校园 → HOLA</option>
+          </select>
+        </label>
+
+        <label>
+          日期类型：
+          <select id="ttDayType">
+            <option value="auto">自动（按今天）</option>
+            <option value="weekday">周一至周五</option>
+            <option value="weekend">周末</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="timetableTable"></div>
+      <div style="font-size:0.8rem;color:#666;margin-top:10px;">
+        * 时间按你设备本地时区显示
+      </div>
+    </div>
+
   </div>
   <footer>
     <p>Schedule information sourced from the on‑campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
@@ -260,6 +322,84 @@
     // Initial load and periodic refresh every minute
     refreshDisplay();
     setInterval(refreshDisplay, 60000);
+
+    // ===== Full timetable (collapsible) =====
+    function isWeekendDay(d) { return d === 0 || d === 6; }
+
+    function buildTimetableData(location, dayType, now) {
+      const useWeekend =
+        dayType === 'weekend' ? true :
+        dayType === 'weekday' ? false :
+        isWeekendDay(now.getDay()); // auto
+
+      if (location === 'HOLA') {
+        if (useWeekend) {
+          return {
+            title: "HOLA（周末）",
+            sections: [{ name: "周末", times: schedules.HOLA.weekend }]
+          };
+        }
+        return {
+          title: "HOLA（周一至周五）",
+          sections: [
+            { name: "早高峰 (07:55–08:25)", times: schedules.HOLA.morningPeak },
+            { name: "非高峰", times: schedules.HOLA.weekday }
+          ]
+        };
+      }
+
+      if (location === 'UNNC') {
+        if (useWeekend) {
+          return {
+            title: "UNNC（周末）",
+            sections: [{ name: "周末", times: schedules.UNNC.weekend }]
+          };
+        }
+        return {
+          title: "UNNC（周一至周五）",
+          sections: [{ name: "周一至周五", times: schedules.UNNC.weekday }]
+        };
+      }
+
+      return { title: "", sections: [] };
+    }
+
+    function renderTimetable() {
+      const loc = document.getElementById("ttLocation").value;
+      const dayType = document.getElementById("ttDayType").value;
+      const now = new Date();
+      const data = buildTimetableData(loc, dayType, now);
+
+      document.getElementById("timetableTable").innerHTML = `
+        <div style="font-weight:700;margin:0 0 8px 0;">总时刻表：${data.title}</div>
+        ${data.sections.map(sec => `
+          <div style="margin:10px 0;">
+            <div class="section-title">${sec.name}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              ${sec.times.map(t => `<span class="time-chip">${t}</span>`).join("")}
+            </div>
+          </div>
+        `).join("")}
+      `;
+    }
+
+    document.getElementById("toggleTimetable").addEventListener("click", () => {
+      const panel = document.getElementById("timetablePanel");
+      const btn = document.getElementById("toggleTimetable");
+      const open = panel.style.display !== "none";
+      panel.style.display = open ? "none" : "block";
+      btn.textContent = open ? "查看总时刻表" : "收起总时刻表";
+      if (!open) {
+        // 默认跟随当前选择站点
+        const current = document.getElementById('locationSelect').value;
+        document.getElementById('ttLocation').value = (current === 'UNNC') ? 'UNNC' : 'HOLA';
+        renderTimetable();
+      }
+    });
+
+    document.getElementById("ttLocation").addEventListener("change", renderTimetable);
+    document.getElementById("ttDayType").addEventListener("change", renderTimetable);
+
   </script>
 </body>
 </html>
