@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shuttle Bus Next Departure</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .field {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, button {
+      padding: 8px 12px;
+      font-size: 1rem;
+    }
+    .times {
+      font-size: 1.2rem;
+      margin-top: 15px;
+    }
+    .times span {
+      display: block;
+      margin-bottom: 5px;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 0.8rem;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shuttle Bus Next Departure</h1>
+    <p>Get the next shuttle bus times from HOLA or UNNC based on your location and the current time.</p>
+  </header>
+  <div class="container">
+    <div class="field">
+      <label for="locationSelect">Departure Location:</label>
+      <select id="locationSelect">
+        <option value="auto">Auto detect</option>
+        <option value="HOLA">HOLA (West Gate)</option>
+        <option value="UNNC">UNNC (Building 23)</option>
+      </select>
+    </div>
+    <div class="field">
+      <button id="refreshBtn">Refresh Times</button>
+    </div>
+    <div class="times" id="timesDisplay">
+      <!-- times will appear here -->
+    </div>
+    <!-- status messages (e.g. geolocation results) -->
+    <div class="status" id="statusMessage" style="margin-top:10px;font-size:0.9rem;color:#555;"></div>
+  </div>
+  <footer>
+    <p>Schedule information sourced from the on‑campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
+  </footer>
+  <script>
+    // Coordinates for the two boarding locations. These are approximate and only used
+    // to determine which stop is closer when auto detecting.
+    const LOCATION_COORDS = {
+      // Updated coordinates provided by the user (longitude, latitude).
+      // We assign lng to the provided longitude value and lat to the provided latitude value.
+      HOLA: { lat: 29.79190, lng: 121.53518 },       // West Gate of HOLA
+      UNNC: { lat: 29.79979, lng: 121.56306 }        // Building 23 (UNNC campus)
+    };
+
+    // Schedules. Times are strings in HH:MM format. The weekday HOLA schedule
+    // distinguishes between morning peak and non‑peak.
+    const schedules = {
+      HOLA: {
+        morningPeak: [
+          '07:55','08:00','08:05','08:10','08:15','08:20','08:25'
+        ],
+        weekday: [
+          '09:00','09:30','10:00','10:30','11:00',
+          '11:30','12:01','12:30','13:00','13:30',
+          '14:00','14:30','15:00','15:30','16:00',
+          '16:30','17:00','17:30','18:00','18:30',
+          '19:00','19:30','20:00','20:30','21:00','21:30','22:00'
+        ],
+        weekend: [
+          '08:30','09:00','09:30','10:00','10:30',
+          '11:00','11:30','12:01','12:30','13:00',
+          '13:30','14:00','14:30','15:00','15:30',
+          '16:00','16:30','17:00','17:30','18:00',
+          '18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00'
+        ]
+      },
+      UNNC: {
+        weekday: [
+          '09:30','10:00','10:30','11:00','11:20',
+          '11:50','12:20','12:50','13:20','13:50',
+          '14:20','14:50','15:20','15:50','16:20',
+          '16:50','17:20','17:50','18:20','18:50',
+          '19:20','19:50','20:10','20:30','20:45',
+          '21:00','21:30','22:00','22:30'
+        ],
+        weekend: [
+          '09:00','09:30','10:00','10:30','11:00',
+          '11:30','12:01','12:30','13:00','13:30',
+          '14:00','14:30','15:00','15:30','16:00',
+          '16:30','17:00','17:30','18:00','18:30',
+          '19:00','19:30','20:00','20:30','21:00',
+          '21:30','22:00','22:30'
+        ]
+      }
+    };
+
+    // Utility to convert HH:MM string to a Date object on the current day
+    function parseTimeToDate(timeStr) {
+      const [h, m] = timeStr.split(':').map(Number);
+      const now = new Date();
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+    }
+
+    // Compute great‑circle distance between two lat/lng points using Haversine formula
+    function haversineDistance(coord1, coord2) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 6371; // Earth radius in km
+      const dLat = toRad(coord2.lat - coord1.lat);
+      const dLon = toRad(coord2.lng - coord1.lng);
+      const lat1 = toRad(coord1.lat);
+      const lat2 = toRad(coord2.lat);
+      const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    // Determine which schedule applies based on location and day/time
+    function getSchedule(location, now) {
+      const day = now.getDay(); // 0 = Sunday, 6 = Saturday
+      const isWeekend = (day === 0 || day === 6);
+      if (location === 'HOLA') {
+          if (isWeekend) return schedules.HOLA.weekend;
+          // Check for morning peak (between 07:55 and 08:30)
+          const startPeak = parseTimeToDate('07:55');
+          const endPeak   = parseTimeToDate('08:30');
+          if (now >= startPeak && now < endPeak) {
+            return schedules.HOLA.morningPeak;
+          }
+          return schedules.HOLA.weekday;
+      } else if (location === 'UNNC') {
+          return isWeekend ? schedules.UNNC.weekend : schedules.UNNC.weekday;
+      }
+      return [];
+    }
+
+    // Given a list of times and the current time, return the next two departures.
+    function getNextDepartures(scheduleTimes, now) {
+      const departures = scheduleTimes.map(t => ({ time: t, date: parseTimeToDate(t) }))
+        .filter(obj => obj.date >= now)
+        .sort((a, b) => a.date - b.date);
+      return departures.slice(0, 2);
+    }
+
+    // Format Date object to HH:MM display
+    function formatTime(date) {
+      const h = String(date.getHours()).padStart(2, '0');
+      const m = String(date.getMinutes()).padStart(2, '0');
+      return `${h}:${m}`;
+    }
+
+    // Determine selected location based on user choice or auto detection.
+    // When auto detection is used, a status message will explain the result or fallback.
+    function determineLocation(callback) {
+      const selectValue = document.getElementById('locationSelect').value;
+      const statusDiv = document.getElementById('statusMessage');
+      // Clear any previous status
+      statusDiv.textContent = '';
+      if (selectValue === 'auto') {
+        if (!navigator.geolocation) {
+          // Geolocation API not supported
+          statusDiv.textContent = '无法获取定位信息，已默认采用 HOLA。';
+          callback({ location: 'HOLA', status: statusDiv.textContent });
+          return;
+        }
+        navigator.geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          const userCoord = { lat: latitude, lng: longitude };
+          const distToHOLA = haversineDistance(userCoord, LOCATION_COORDS.HOLA);
+          const distToUNNC = haversineDistance(userCoord, LOCATION_COORDS.UNNC);
+          const selected = distToHOLA <= distToUNNC ? 'HOLA' : 'UNNC';
+          const nearest = selected === 'HOLA' ? 'HOLA' : 'UNNC';
+          const nearestDist = (selected === 'HOLA' ? distToHOLA : distToUNNC).toFixed(2);
+          statusDiv.textContent = `自动定位成功，距离最近的站点是 ${nearest}（约 ${nearestDist} 公里）。`;
+          callback({ location: selected, status: statusDiv.textContent });
+        }, err => {
+          // Permission denied or error
+          statusDiv.textContent = '未允许定位或发生错误，已默认采用 HOLA。';
+          callback({ location: 'HOLA', status: statusDiv.textContent });
+        });
+      } else {
+        // Manual selection; clear status
+        callback({ location: selectValue, status: '' });
+      }
+    }
+
+    // Main function to refresh display
+    function refreshDisplay() {
+      const now = new Date();
+      determineLocation(({ location, status }) => {
+        const schedule = getSchedule(location, now);
+        const next = getNextDepartures(schedule, now);
+        const timesDiv = document.getElementById('timesDisplay');
+        let html = '';
+        html += `<span>当前时间：${formatTime(now)}</span>`;
+        html += `<span>出发站点：<strong>${location}</strong></span>`;
+        if (next.length === 0) {
+          html += '<span>今日班车已全部结束。</span>';
+        } else if (next.length === 1) {
+          html += `<span>下一班：<strong>${next[0].time}</strong></span>`;
+          html += '<span>之后已无班车。</span>';
+        } else {
+          html += `<span>下一班：<strong>${next[0].time}</strong></span>`;
+          html += `<span>下两班：<strong>${next[1].time}</strong></span>`;
+        }
+        timesDiv.innerHTML = html;
+      });
+    }
+
+    // Event handlers
+    document.getElementById('refreshBtn').addEventListener('click', refreshDisplay);
+    document.getElementById('locationSelect').addEventListener('change', refreshDisplay);
+
+    // Initial load and periodic refresh every minute
+    refreshDisplay();
+    setInterval(refreshDisplay, 60000);
+  </script>
+</body>
+</html>
