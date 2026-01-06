@@ -5,64 +5,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shuttle Bus Next Departure</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Manrope:wght@400;600;700&display=swap');
+
+    :root{
+      --bg-1: #f7f1e7;
+      --bg-2: #e4f1f2;
+      --ink: #1c2b2d;
+      --muted: #4f5d5e;
+      --card: #ffffff;
+      --accent: #2d6a6f;
+      --accent-2: #e39c44;
+      --accent-3: #f5e6c7;
+      --ring: rgba(45, 106, 111, 0.2);
+      --shadow: 0 18px 45px rgba(12, 28, 32, 0.12);
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: "Manrope", "Segoe UI", sans-serif;
       margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
-      color: #333;
+      padding: 24px;
+      min-height: 100vh;
+      background: radial-gradient(900px 400px at 10% -10%, #fff6df 0%, transparent 60%),
+        radial-gradient(800px 380px at 110% 0%, #e7f6f6 0%, transparent 65%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      color: var(--ink);
+      line-height: 1.5;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before,
+    body::after{
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.35;
+    }
+    body::before{
+      top: 80px;
+      left: -60px;
+      background: #ffe6bf;
+    }
+    body::after{
+      bottom: 40px;
+      right: -80px;
+      background: #d5f0f2;
     }
     header {
       text-align: center;
-      margin-bottom: 20px;
+      margin: 16px auto 28px;
+      max-width: 640px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.7s ease both;
     }
     h1 {
+      margin: 0 0 8px 0;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-family: "Fraunces", "Georgia", serif;
+      letter-spacing: 0.5px;
+    }
+    header p{
       margin: 0;
-      font-size: 1.8rem;
+      color: var(--muted);
+      font-size: 1rem;
     }
     .container {
-      max-width: 600px;
+      max-width: 640px;
       margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background: rgba(255, 255, 255, 0.92);
+      padding: 22px 22px 26px;
+      border-radius: 18px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(6px);
+      animation: liftIn 0.65s ease both;
     }
     .field {
-      margin-bottom: 15px;
+      margin-bottom: 16px;
     }
     label {
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.2px;
     }
-    select, button {
-      padding: 8px 12px;
+    select, button, input[type="time"] {
+      padding: 10px 14px;
       font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #d3d9dc;
+      background: #fff;
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    select:focus-visible,
+    button:focus-visible,
+    input[type="time"]:focus-visible{
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--ring);
+    }
+    button{
+      cursor: pointer;
+      background: linear-gradient(135deg, #2d6a6f, #3f868b);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    button:hover{
+      transform: translateY(-1px);
+    }
+    button:active{
+      transform: translateY(0);
     }
     .times {
-      font-size: 1.2rem;
-      margin-top: 15px;
+      font-size: 1.05rem;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fef8ec, #f4fbfb);
+      border: 1px solid rgba(45, 106, 111, 0.12);
+      display: grid;
+      gap: 6px;
     }
     .times span {
       display: block;
-      margin-bottom: 5px;
+      color: #243637;
+    }
+    .times span strong{
+      color: var(--accent);
     }
     footer {
       margin-top: 30px;
       font-size: 0.8rem;
       text-align: center;
-      color: #666;
+      color: #6a7374;
     }
   
     /* Timetable (full schedule) */
     .secondary-btn{
       width: 100%;
-      margin-top: 10px;
-      padding: 10px 12px;
+      margin-top: 12px;
+      padding: 12px 14px;
       font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      background: #fafafa;
+      border-radius: 12px;
+      border: 1px solid #d8dee0;
+      background: #ffffff;
+      color: var(--accent);
+      font-weight: 700;
       cursor: pointer;
     }
     .tt-controls{
@@ -70,22 +169,28 @@
       gap: 10px;
       flex-wrap: wrap;
       align-items: center;
-      margin: 10px 0;
+      margin: 12px 0;
     }
     .tt-controls label{
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
     .time-chip{
       display: inline-block;
       padding: 6px 10px;
       border-radius: 999px;
-      background: #f2f3f5;
+      background: #f2f5f6;
+      border: 1px solid #e2e6e7;
       font-size: 0.95rem;
+      animation: chipIn 0.35s ease;
     }
     .time-chip.next-time{
-      background: #fff1b5;
-      border: 1px solid #e3c665;
+      background: var(--accent-3);
+      border: 1px solid #e1c989;
       font-weight: 700;
+      box-shadow: 0 6px 14px rgba(227, 156, 68, 0.25);
     }
     .next-badge{
       margin-left: 6px;
@@ -97,27 +202,67 @@
       font-weight: 700;
     }
     .tt-input{
-      padding: 6px 10px;
+      padding: 10px 14px;
       font-size: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      border: 1px solid #d3d9dc;
+      border-radius: 10px;
     }
     .tt-btn{
-      padding: 6px 12px;
+      padding: 10px 14px;
       font-size: 0.95rem;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #d3d9dc;
+      background: #ffffff;
+      color: var(--accent);
+      font-weight: 700;
       cursor: pointer;
+    }
+    .tt-btn:hover{
+      background: #f1f6f7;
     }
     .tt-search-result{
       margin-top: 8px;
       font-size: 0.95rem;
-      color: #444;
+      color: #3b4b4c;
     }
     .section-title{
       font-weight: 700;
       margin: 12px 0 6px 0;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-size: 0.78rem;
+    }
+    #timetablePanel{
+      background: #fbfdfd;
+      border: 1px solid #eef2f3;
+      border-radius: 14px;
+      padding: 14px 14px 16px;
+    }
+    #timetableTable{
+      margin-top: 6px;
+    }
+    #timetableTable .time-chip{
+      font-size: 0.9rem;
+    }
+    @keyframes liftIn{
+      from{ opacity: 0; transform: translateY(14px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp{
+      from{ opacity: 0; transform: translateY(10px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    @keyframes chipIn{
+      from{ opacity: 0; transform: translateY(6px) scale(0.98); }
+      to{ opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (max-width: 600px){
+      body{ padding: 18px; }
+      .container{ padding: 18px; }
+      .tt-controls{ gap: 8px; }
+      .secondary-btn{ padding: 12px; }
+      select, button, input[type="time"]{ width: 100%; }
     }
   </style>
 </head>
