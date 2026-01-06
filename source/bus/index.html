@@ -272,6 +272,7 @@
       to{ opacity: 1; transform: translateY(0) scale(1); }
     }
     @media (max-width: 600px){
+      header{ margin-top: 64px; } /* Avoid overlapping with top-right controls */
       body{ padding: 18px; }
       .container{ padding: 18px; }
       .tt-controls{ gap: 8px; }
@@ -318,48 +319,53 @@
     
     /* Dark Mode Overrides */
     body.dark-mode {
-      --bg-1: #1a1f20;
-      --bg-2: #0f1516;
-      --ink: #e0e6e7;
-      --muted: #aab6b8;
+      --bg-1: #121415; /* Darker background */
+      --bg-2: #090c0d;
+      --ink: #f0f6f7;  /* High brightness text */
+      --muted: #bbc5c7; /* Lighter muted text */
       --card: #1c2b2d;
       --accent-3: #2d3b3d;
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
-      --ring: rgba(120, 200, 207, 0.3);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      --ring: rgba(120, 200, 207, 0.4);
     }
-    body.dark-mode::before { background: #6b4c20; opacity: 0.15; }
-    body.dark-mode::after { background: #263537; opacity: 0.2; }
+    body.dark-mode::before { background: #6b4c20; opacity: 0.1; }
+    body.dark-mode::after { background: #263537; opacity: 0.15; }
     
     body.dark-mode .container {
-      background: rgba(30, 40, 42, 0.85);
-      border-color: rgba(255,255,255,0.08);
+      background: rgba(28, 36, 38, 0.94); /* More opacity for legibility */
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
     body.dark-mode select, 
     body.dark-mode input {
-      background: #263436;
-      border-color: #3f4e50;
+      background: #242e30;
+      border-color: #4a5a5c;
       color: #fff;
     }
     body.dark-mode .icon-btn {
-      background: rgba(30, 40, 42, 0.6);
-      border-color: rgba(255,255,255,0.08);
+      background: rgba(35, 45, 48, 0.7);
+      border-color: rgba(255,255,255,0.15);
+      color: #f1f1f1;
+    }
+    body.dark-mode .icon-btn svg {
+      stroke: #f1f1f1;
     }
     body.dark-mode .icon-btn:hover {
       background: #354547;
       color: #fff;
     }
     body.dark-mode .times {
-      background: #232d2f;
-      border-color: rgba(255,255,255,0.05);
+      background: #20292b; /* Darker panel background */
+      border-color: rgba(255,255,255,0.08);
     }
-    body.dark-mode .times span { color: #ccd6d8; }
-    body.dark-mode .times span strong { color: #6dbfb8; }
+    body.dark-mode .times span { color: #dce3e5; }
+    body.dark-mode .times span strong { color: #8be0d8; } /* Brighter accent */
     
     body.dark-mode .secondary-btn,
     body.dark-mode .tt-btn {
-      background: #263436;
-      border-color: #3f4e50;
-      color: #92cacc;
+      background: #242e30;
+      border-color: #4a5a5c;
+      color: #9fe0e2;
     }
     body.dark-mode .secondary-btn:hover,
     body.dark-mode .tt-btn:hover {
@@ -367,24 +373,24 @@
     }
     
     body.dark-mode .timetable-panel {
-      background: #1e282a;
-      border-color: #2f3e40;
+      background: #1e2526;
+      border-color: #364647;
     }
     body.dark-mode .time-chip {
-      background: #2a3638;
-      border-color: #3f4e50;
-      color: #d0dbe0;
+      background: #2b3537;
+      border-color: #425254;
+      color: #e0e9ec;
     }
     body.dark-mode .time-chip.next-time {
-      background: #3d5254; /* Darker green background */
-      border-color: #c9a35b;
+      background: #1c4f52; 
+      border-color: #e8c070;
       color: #fff;
     }
     body.dark-mode .next-badge {
-      background: #c9a35b;
+      background: #e8c070;
       color: #1a1f20;
     }
-    body.dark-mode .tt-search-result { color: #b0bfc0; }
+    body.dark-mode .tt-search-result { color: #cedadb; }
   </style>
 </head>
 <body>
