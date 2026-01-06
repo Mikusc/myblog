@@ -233,11 +233,25 @@
       letter-spacing: 0.6px;
       font-size: 0.78rem;
     }
-    #timetablePanel{
+    .timetable-panel{
       background: #fbfdfd;
       border: 1px solid #eef2f3;
       border-radius: 14px;
       padding: 14px 14px 16px;
+      margin-top: 0;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease, margin-top 0.25s ease;
+    }
+    .timetable-panel.open{
+      margin-top: 12px;
+      max-height: 1200px;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
     #timetableTable{
       margin-top: 6px;
@@ -291,7 +305,7 @@
 
     <button id="toggleTimetable" class="secondary-btn" type="button">查看总时刻表</button>
 
-    <div id="timetablePanel" style="display:none; margin-top:12px;">
+    <div id="timetablePanel" class="timetable-panel">
       <div class="tt-controls">
         <label>
           站点：
@@ -522,7 +536,7 @@
         timesDiv.innerHTML = html;
 
         const panel = document.getElementById("timetablePanel");
-        if (panel.style.display !== "none") {
+        if (panel.classList.contains("open")) {
           renderTimetable();
           runSearch();
         }
@@ -655,8 +669,8 @@
     document.getElementById("toggleTimetable").addEventListener("click", () => {
       const panel = document.getElementById("timetablePanel");
       const btn = document.getElementById("toggleTimetable");
-      const open = panel.style.display !== "none";
-      panel.style.display = open ? "none" : "block";
+      const open = panel.classList.contains("open");
+      panel.classList.toggle("open", !open);
       btn.textContent = open ? "查看总时刻表" : "收起总时刻表";
       if (!open) {
         // 默认跟随当前选择站点
