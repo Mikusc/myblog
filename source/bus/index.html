@@ -278,24 +278,139 @@
       .secondary-btn{ padding: 12px; }
       select, button, input[type="time"]{ width: 100%; }
     }
+
+    /* Language & Theme Controls */
+    .top-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+      animation: fadeUp 0.8s ease backwards;
+    }
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: all 0.25s ease;
+      padding: 0;
+    }
+    .icon-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--ink);
+    }
+    
+    /* Dark Mode Overrides */
+    body.dark-mode {
+      --bg-1: #1a1f20;
+      --bg-2: #0f1516;
+      --ink: #e0e6e7;
+      --muted: #aab6b8;
+      --card: #1c2b2d;
+      --accent-3: #2d3b3d;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+      --ring: rgba(120, 200, 207, 0.3);
+    }
+    body.dark-mode::before { background: #6b4c20; opacity: 0.15; }
+    body.dark-mode::after { background: #263537; opacity: 0.2; }
+    
+    body.dark-mode .container {
+      background: rgba(30, 40, 42, 0.85);
+      border-color: rgba(255,255,255,0.08);
+    }
+    body.dark-mode select, 
+    body.dark-mode input {
+      background: #263436;
+      border-color: #3f4e50;
+      color: #fff;
+    }
+    body.dark-mode .icon-btn {
+      background: rgba(30, 40, 42, 0.6);
+      border-color: rgba(255,255,255,0.08);
+    }
+    body.dark-mode .icon-btn:hover {
+      background: #354547;
+      color: #fff;
+    }
+    body.dark-mode .times {
+      background: #232d2f;
+      border-color: rgba(255,255,255,0.05);
+    }
+    body.dark-mode .times span { color: #ccd6d8; }
+    body.dark-mode .times span strong { color: #6dbfb8; }
+    
+    body.dark-mode .secondary-btn,
+    body.dark-mode .tt-btn {
+      background: #263436;
+      border-color: #3f4e50;
+      color: #92cacc;
+    }
+    body.dark-mode .secondary-btn:hover,
+    body.dark-mode .tt-btn:hover {
+      background: #2f3e40;
+    }
+    
+    body.dark-mode .timetable-panel {
+      background: #1e282a;
+      border-color: #2f3e40;
+    }
+    body.dark-mode .time-chip {
+      background: #2a3638;
+      border-color: #3f4e50;
+      color: #d0dbe0;
+    }
+    body.dark-mode .time-chip.next-time {
+      background: #3d5254; /* Darker green background */
+      border-color: #c9a35b;
+      color: #fff;
+    }
+    body.dark-mode .next-badge {
+      background: #c9a35b;
+      color: #1a1f20;
+    }
+    body.dark-mode .tt-search-result { color: #b0bfc0; }
   </style>
 </head>
 <body>
+  <div class="top-controls">
+    <button class="icon-btn" id="langBtn" title="Change Language" aria-label="Change Language">
+      <span style="font-size:0.9rem; font-weight:700;">文/A</span>
+    </button>
+    <button class="icon-btn" id="themeBtn" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+  </div>
   <header>
-    <h1>Shuttle Bus Next Departure</h1>
-    <p>Get the next shuttle bus times from HOLA or UNNC based on your location and the current time.</p>
+    <h1 data-i18n="title">Shuttle Bus Next Departure</h1>
+    <p data-i18n="subtitle">Get the next shuttle bus times from HOLA or UNNC based on your location and the current time.</p>
   </header>
   <div class="container">
     <div class="field">
-      <label for="locationSelect">Departure Location:</label>
+      <label for="locationSelect" data-i18n="labelLocation">Departure Location:</label>
       <select id="locationSelect">
-        <option value="auto">Auto detect</option>
-        <option value="HOLA">HOLA (West Gate)</option>
-        <option value="UNNC">UNNC (Building 23)</option>
+        <option value="auto" data-i18n="optionAuto">Auto detect</option>
+        <option value="HOLA" data-i18n="optionHola">HOLA (West Gate)</option>
+        <option value="UNNC" data-i18n="optionUnnc">UNNC (Building 23)</option>
       </select>
     </div>
     <div class="field">
-      <button id="refreshBtn">Refresh Times</button>
+      <button id="refreshBtn" data-i18n="btnRefresh">Refresh Times</button>
     </div>
     <div class="times" id="timesDisplay">
       <!-- times will appear here -->
@@ -303,46 +418,46 @@
     <!-- status messages (e.g. geolocation results) -->
     <div class="status" id="statusMessage" style="margin-top:10px;font-size:0.9rem;color:#555;"></div>
 
-    <button id="toggleTimetable" class="secondary-btn" type="button">查看总时刻表</button>
+    <button id="toggleTimetable" class="secondary-btn" type="button" data-i18n="btnTimetableShow">查看总时刻表</button>
 
     <div id="timetablePanel" class="timetable-panel">
       <div class="tt-controls">
         <label>
-          站点：
+          <span data-i18n="ttLabelLoc">站点：</span>
           <select id="ttLocation">
-            <option value="HOLA">HOLA → 校园</option>
-            <option value="UNNC">校园 → HOLA</option>
+            <option value="HOLA" data-i18n="ttOptionHola">HOLA → 校园</option>
+            <option value="UNNC" data-i18n="ttOptionUnnc">校园 → HOLA</option>
           </select>
         </label>
 
         <label>
-          日期类型：
+          <span data-i18n="ttLabelDay">日期类型：</span>
           <select id="ttDayType">
-            <option value="auto">自动（按今天）</option>
-            <option value="weekday">周一至周五</option>
-            <option value="weekend">周末</option>
+            <option value="auto" data-i18n="ttOptionAuto">自动（按今天）</option>
+            <option value="weekday" data-i18n="ttOptionWeekday">周一至周五</option>
+            <option value="weekend" data-i18n="ttOptionWeekend">周末</option>
           </select>
         </label>
       </div>
 
       <div class="tt-controls">
         <label>
-          搜索时间：
+          <span data-i18n="ttLabelSearch">搜索时间：</span>
           <input id="ttSearchInput" class="tt-input" type="time" step="60" placeholder="13:20">
         </label>
-        <button id="ttSearchBtn" class="tt-btn" type="button">搜索</button>
+        <button id="ttSearchBtn" class="tt-btn" type="button" data-i18n="ttBtnSearch">搜索</button>
       </div>
       <div id="ttSearchResult" class="tt-search-result"></div>
 
       <div id="timetableTable"></div>
-      <div style="font-size:0.8rem;color:#666;margin-top:10px;">
+      <div style="font-size:0.8rem;color:#666;margin-top:10px;" data-i18n="ttNote">
         * 时间按你设备本地时区显示
       </div>
     </div>
 
   </div>
   <footer>
-    <p>Schedule information sourced from the on‑campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
+    <p data-i18n="footer">Schedule information sourced from the on‑campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
   </footer>
   <script>
     // Coordinates for the two boarding locations. These are approximate and only used
@@ -395,6 +510,144 @@
         ]
       }
     };
+
+    const translations = {
+      zh: {
+        title: "下一班校车",
+        subtitle: "获取下一班往返 HOLA 和 UNNC 的校车时间。",
+        labelLocation: "出发站点：",
+        optionAuto: "自动检测",
+        optionHola: "HOLA (西门)",
+        optionUnnc: "UNNC (23号楼)",
+        btnRefresh: "刷新时间",
+        btnTimetableShow: "查看总时刻表",
+        btnTimetableHide: "收起总时刻表",
+        footer: "时刻表通过2025年10月校内班车时刻表整理。",
+        currTime: "当前时间：",
+        depLoc: "出发站点：",
+        todayEnd: "今日班车已全部结束。",
+        nextBus: "下一班：",
+        minLeft: "距离该班还有：",
+        min: " 分钟",
+        noMoreNext: "之后已无班车。",
+        nextTwoBus: "下两班：", 
+        ttLabelLoc: "站点：",
+        ttLabelDay: "日期类型：",
+        ttLabelSearch: "搜索时间：",
+        ttOptionHola: "HOLA → 校园",
+        ttOptionUnnc: "校园 → HOLA",
+        ttOptionAuto: "自动（按今天）",
+        ttOptionWeekday: "周一至周五",
+        ttOptionWeekend: "周末",
+        ttBtnSearch: "搜索",
+        ttNote: "* 时间按你设备本地时区显示",
+        geoAutoSuccess: "自动定位成功，距离最近的站点是 {stop}（约 {dist} 公里）。",
+        geoFail: "无法获取定位信息，已默认采用 HOLA。",
+        geoErr: "未允许定位或发生错误，已默认采用 HOLA。",
+        enterTime: "请输入时间（例如 13:20）。",
+        noTimes: "当前设置下没有班车时刻。",
+        prevBus: "上一班",
+        nextBusLabel: "下一班",
+        searchResultPrefix: "搜索时间",
+        none: "无",
+        ttTitle: "总时刻表",
+        sectionWeekend: "周末",
+        sectionMorningPeak: "早高峰 (07:55–08:25)",
+        sectionOffPeak: "非高峰",
+        sectionWeekday: "周一至周五"
+      },
+      en: {
+        title: "Bus Next Departure",
+        subtitle: "Get next shuttle bus times from HOLA or UNNC.",
+        labelLocation: "Departure Location:",
+        optionAuto: "Auto detect",
+        optionHola: "HOLA (West Gate)",
+        optionUnnc: "UNNC (Building 23)",
+        btnRefresh: "Refresh Times",
+        btnTimetableShow: "View Full Timetable",
+        btnTimetableHide: "Hide Timetable",
+        footer: "Schedule based on Oct 2025 timetable. Local time zone shown.",
+        currTime: "Time: ",
+        depLoc: "From: ",
+        todayEnd: "No more buses today.",
+        nextBus: "Next: ",
+        minLeft: "Leaves in: ",
+        min: " min",
+        noMoreNext: "No more buses after this.",
+        nextTwoBus: "Next two: ",
+        ttLabelLoc: "Stop:",
+        ttLabelDay: "Day Type:",
+        ttLabelSearch: "Search:",
+        ttOptionHola: "HOLA -> UNNC",
+        ttOptionUnnc: "UNNC -> HOLA",
+        ttOptionAuto: "Auto (Today)",
+        ttOptionWeekday: "Weekday",
+        ttOptionWeekend: "Weekend",
+        ttBtnSearch: "Search",
+        ttNote: "* Times shown in your local time zone.",
+        geoAutoSuccess: "Auto-detected: {stop} (approx {dist} km).",
+        geoFail: "Geolocation failed, defaulting to HOLA.",
+        geoErr: "Geolocation denied/error, defaulting to HOLA.",
+        enterTime: "Enter time (e.g. 13:20).",
+        noTimes: "No schedule found.",
+        prevBus: "Previous",
+        nextBusLabel: "Next",
+        searchResultPrefix: "Search for",
+        none: "None",
+        ttTitle: "Timetable",
+        sectionWeekend: "Weekend",
+        sectionMorningPeak: "Morning Peak (07:55-08:25)",
+        sectionOffPeak: "Off-peak",
+        sectionWeekday: "Weekday"
+      }
+    };
+
+    let currentLang = 'zh';
+
+    function setLanguage(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
+      
+      const t = translations[lang];
+      
+      // Update data-i18n elements
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          if (key === 'btnTimetableShow') {
+             const panel = document.getElementById("timetablePanel");
+             el.textContent = panel.classList.contains("open") ? t.btnTimetableHide : t.btnTimetableShow;
+          } else {
+             el.textContent = t[key];
+          }
+        }
+      });
+      
+      refreshDisplay();
+      if (document.getElementById("timetablePanel").classList.contains("open")) {
+        renderTimetable();
+        const searchRes = document.getElementById("ttSearchResult");
+        if(searchRes.innerHTML !== "") runSearch();
+      }
+    }
+
+    // Toggle Language
+    document.getElementById('langBtn').addEventListener('click', () => {
+      const newLang = currentLang === 'zh' ? 'en' : 'zh';
+      setLanguage(newLang);
+    });
+
+    // Toggle Theme
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      const btn = document.getElementById('themeBtn');
+      if (isDark) {
+         btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+      } else {
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+      }
+    });
 
     // Utility to convert HH:MM string to a Date object on the current day
     function parseTimeToDate(timeStr) {
@@ -478,13 +731,13 @@
     function determineLocation(callback) {
       const selectValue = document.getElementById('locationSelect').value;
       const statusDiv = document.getElementById('statusMessage');
-      // Clear any previous status
+      const t = translations[currentLang];
+      
       statusDiv.textContent = '';
       if (selectValue === 'auto') {
         if (!navigator.geolocation) {
-          // Geolocation API not supported
-          statusDiv.textContent = '无法获取定位信息，已默认采用 HOLA。';
-          callback({ location: 'HOLA', status: statusDiv.textContent });
+          statusDiv.textContent = t.geoFail;
+          callback({ location: 'HOLA' });
           return;
         }
         navigator.geolocation.getCurrentPosition(position => {
@@ -495,50 +748,52 @@
           const selected = distToHOLA <= distToUNNC ? 'HOLA' : 'UNNC';
           const nearest = selected === 'HOLA' ? 'HOLA' : 'UNNC';
           const nearestDist = (selected === 'HOLA' ? distToHOLA : distToUNNC).toFixed(2);
-          statusDiv.textContent = `自动定位成功，距离最近的站点是 ${nearest}（约 ${nearestDist} 公里）。`;
-          callback({ location: selected, status: statusDiv.textContent });
+          
+          let msg = t.geoAutoSuccess.replace('{stop}', nearest).replace('{dist}', nearestDist);
+          statusDiv.textContent = msg;
+          callback({ location: selected });
         }, err => {
-          // Permission denied or error
-          statusDiv.textContent = '未允许定位或发生错误，已默认采用 HOLA。';
-          callback({ location: 'HOLA', status: statusDiv.textContent });
+          statusDiv.textContent = t.geoErr;
+          callback({ location: 'HOLA' });
         });
       } else {
-        // Manual selection; clear status
-        callback({ location: selectValue, status: '' });
+        callback({ location: selectValue });
       }
     }
 
     // Main function to refresh display
     function refreshDisplay() {
       const now = new Date();
-      determineLocation(({ location, status }) => {
+      determineLocation(({ location }) => {
         const schedule = getSchedule(location, now);
         const next = getNextDepartures(schedule, now);
         const timesDiv = document.getElementById('timesDisplay');
+        const t = translations[currentLang];
+        
         let html = '';
-        html += `<span>当前时间：${formatTime(now)}</span>`;
-        html += `<span>出发站点：<strong>${location}</strong></span>`;
+        html += `<span>${t.currTime}${formatTime(now)}</span>`;
+        html += `<span>${t.depLoc}<strong>${location}</strong></span>`;
+        
         if (next.length === 0) {
-          html += '<span>今日班车已全部结束。</span>';
+          html += `<span>${t.todayEnd}</span>`;
         } else if (next.length === 1) {
-          html += `<span>下一班：<strong>${next[0].time}</strong></span>`;
+          html += `<span>${t.nextBus}<strong>${next[0].time}</strong></span>`;
           const diffMs = next[0].date - now;
           const diffMin = diffMs <= 0 ? 0 : Math.ceil(diffMs / 60000);
-          html += `<span>距离该班还有：<strong>${diffMin}</strong> 分钟</span>`;
-          html += '<span>之后已无班车。</span>';
+          html += `<span>${t.minLeft}<strong>${diffMin}</strong>${t.min}</span>`;
+          html += `<span>${t.noMoreNext}</span>`;
         } else {
-          html += `<span>下一班：<strong>${next[0].time}</strong></span>`;
+          html += `<span>${t.nextBus}<strong>${next[0].time}</strong></span>`;
           const diffMs = next[0].date - now;
           const diffMin = diffMs <= 0 ? 0 : Math.ceil(diffMs / 60000);
-          html += `<span>距离该班还有：<strong>${diffMin}</strong> 分钟</span>`;
-          html += `<span>下两班：<strong>${next[1].time}</strong></span>`;
+          html += `<span>${t.minLeft}<strong>${diffMin}</strong>${t.min}</span>`;
+          html += `<span>${t.nextTwoBus}<strong>${next[1].time}</strong></span>`;
         }
         timesDiv.innerHTML = html;
 
         const panel = document.getElementById("timetablePanel");
         if (panel.classList.contains("open")) {
           renderTimetable();
-          runSearch();
         }
       });
     }
@@ -548,13 +803,14 @@
     document.getElementById('locationSelect').addEventListener('change', refreshDisplay);
 
     // Initial load and periodic refresh every minute
-    refreshDisplay();
+    setLanguage('zh');
     setInterval(refreshDisplay, 60000);
 
     // ===== Full timetable (collapsible) =====
     function isWeekendDay(d) { return d === 0 || d === 6; }
 
     function buildTimetableData(location, dayType, now) {
+      const t = translations[currentLang];
       const useWeekend =
         dayType === 'weekend' ? true :
         dayType === 'weekday' ? false :
@@ -563,15 +819,15 @@
       if (location === 'HOLA') {
         if (useWeekend) {
           return {
-            title: "HOLA（周末）",
-            sections: [{ name: "周末", times: schedules.HOLA.weekend }]
+            title: `HOLA (${t.sectionWeekend})`,
+            sections: [{ name: t.sectionWeekend, times: schedules.HOLA.weekend }]
           };
         }
         return {
-          title: "HOLA（周一至周五）",
+          title: `HOLA (${t.sectionWeekday})`,
           sections: [
-            { name: "早高峰 (07:55–08:25)", times: schedules.HOLA.morningPeak },
-            { name: "非高峰", times: schedules.HOLA.weekday }
+            { name: t.sectionMorningPeak, times: schedules.HOLA.morningPeak },
+            { name: t.sectionOffPeak, times: schedules.HOLA.weekday }
           ]
         };
       }
@@ -579,13 +835,13 @@
       if (location === 'UNNC') {
         if (useWeekend) {
           return {
-            title: "UNNC（周末）",
-            sections: [{ name: "周末", times: schedules.UNNC.weekend }]
+            title: `UNNC (${t.sectionWeekend})`,
+            sections: [{ name: t.sectionWeekend, times: schedules.UNNC.weekend }]
           };
         }
         return {
-          title: "UNNC（周一至周五）",
-          sections: [{ name: "周一至周五", times: schedules.UNNC.weekday }]
+          title: `UNNC (${t.sectionWeekday})`,
+          sections: [{ name: t.sectionWeekday, times: schedules.UNNC.weekday }]
         };
       }
 
@@ -621,11 +877,12 @@
     }
 
     function runSearch() {
+      const t = translations[currentLang];
       const input = document.getElementById("ttSearchInput").value;
       const normalized = parseSearchInput(input);
       const resultDiv = document.getElementById("ttSearchResult");
       if (!normalized) {
-        resultDiv.textContent = "请输入时间（例如 13:20）。";
+        resultDiv.textContent = t.enterTime;
         return;
       }
       const loc = document.getElementById("ttLocation").value;
@@ -633,16 +890,17 @@
       const now = new Date();
       const times = getTimetableTimes(loc, dayType, now);
       if (times.length === 0) {
-        resultDiv.textContent = "当前设置下没有班车时刻。";
+        resultDiv.textContent = t.noTimes;
         return;
       }
       const surrounding = findSurroundingTimes(times, normalized);
-      const prevText = surrounding.previous ? surrounding.previous : "无";
-      const nextText = surrounding.next ? surrounding.next : "无";
-      resultDiv.innerHTML = `搜索时间 <strong>${normalized}</strong>：上一班 <span class="time-chip">${prevText}</span> 下一班 <span class="time-chip">${nextText}</span>`;
+      const prevText = surrounding.previous ? surrounding.previous : t.none;
+      const nextText = surrounding.next ? surrounding.next : t.none;
+      resultDiv.innerHTML = `${t.searchResultPrefix} <strong>${normalized}</strong>：${t.prevBus} <span class="time-chip">${prevText}</span> ${t.nextBusLabel} <span class="time-chip">${nextText}</span>`;
     }
 
     function renderTimetable() {
+      const t = translations[currentLang];
       const loc = document.getElementById("ttLocation").value;
       const dayType = document.getElementById("ttDayType").value;
       const now = new Date();
@@ -651,14 +909,14 @@
       const nextTime = getNextDepartures(times, now)[0]?.time || null;
 
       document.getElementById("timetableTable").innerHTML = `
-        <div style="font-weight:700;margin:0 0 8px 0;">总时刻表：${data.title}</div>
+        <div style="font-weight:700;margin:0 0 8px 0;">${t.ttTitle}: ${data.title}</div>
         ${data.sections.map(sec => `
           <div style="margin:10px 0;">
             <div class="section-title">${sec.name}</div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;">
-              ${sec.times.map(t => {
-                const isNext = nextTime && t === nextTime;
-                return `<span class="time-chip ${isNext ? 'next-time' : ''}">${t}${isNext ? '<span class="next-badge">下一班</span>' : ''}</span>`;
+              ${sec.times.map(timeStr => {
+                const isNext = nextTime && timeStr === nextTime;
+                return `<span class="time-chip ${isNext ? 'next-time' : ''}">${timeStr}${isNext ? `<span class="next-badge">${t.nextBusLabel}</span>` : ''}</span>`;
               }).join("")}
             </div>
           </div>
@@ -669,9 +927,10 @@
     document.getElementById("toggleTimetable").addEventListener("click", () => {
       const panel = document.getElementById("timetablePanel");
       const btn = document.getElementById("toggleTimetable");
+      const t = translations[currentLang];
       const open = panel.classList.contains("open");
       panel.classList.toggle("open", !open);
-      btn.textContent = open ? "查看总时刻表" : "收起总时刻表";
+      btn.textContent = open ? t.btnTimetableShow : t.btnTimetableHide;
       if (!open) {
         // 默认跟随当前选择站点
         const current = document.getElementById('locationSelect').value;
