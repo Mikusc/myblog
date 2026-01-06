@@ -1,0 +1,126 @@
+@import "nib"
+@import "_variables"
+@import "_util/mixin"
+@import "_util/grid"
+
+global-reset()
+
+input, button
+  margin: 0
+  padding: 0
+  &::-moz-focus-inner
+    border: 0
+    padding: 0
+
+:root
+  --bg-1: #f7f1e7
+  --bg-2: #e4f1f2
+  --ink: #1c2b2d
+  --muted: #4f5d5e
+  --card: #ffffff
+  --accent: #2d6a6f
+  --accent-2: #e39c44
+  --accent-3: #f5e6c7
+  --ring: rgba(45, 106, 111, 0.2)
+  --shadow: 0 18px 45px rgba(12, 28, 32, 0.12)
+
+html, body, #container
+  height: 100%
+
+body
+  background: radial-gradient(900px 400px at 10% -10%, #fff6df 0%, transparent 60%),
+    radial-gradient(800px 380px at 110% 0%, #e7f6f6 0%, transparent 65%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2))
+  font: font-size font-sans
+  -webkit-text-size-adjust: 100%
+  color: color-default
+  line-height: line-height
+  position: relative
+  overflow-x: hidden
+
+body:before,
+body:after
+  content: ""
+  position: absolute
+  z-index: 0
+  width: 240px
+  height: 240px
+  border-radius: 50%
+  filter: blur(20px)
+  opacity: 0.35
+
+body:before
+  top: 80px
+  left: -60px
+  background: #ffe6bf
+
+body:after
+  bottom: 40px
+  right: -80px
+  background: #d5f0f2
+
+h1, h2, h3, h4, h5, h6,
+#logo, #subtitle
+  font-family: font-serif
+  letter-spacing: 0.4px
+
+.outer
+  clearfix()
+  max-width: (column-width + gutter-width) * columns + gutter-width
+  margin: 0 auto
+  padding: 0 gutter-width
+  position: relative
+  z-index: 1
+
+.inner
+  column(columns)
+
+.left, .alignleft
+  float: left
+
+.right, .alignright
+  float: right
+
+.clear
+  clear: both
+
+#container
+  position: relative
+  z-index: 1
+
+.mobile-nav-on
+  overflow: hidden
+
+#wrap
+  height: 100%
+  width: 100%
+  position: absolute
+  top: 0
+  left: 0
+  transition: 0.2s ease-out
+  z-index: 1
+  background: transparent
+  .mobile-nav-on &
+    left: mobile-nav-width
+
+if sidebar and sidebar isnt bottom
+  #main
+    @media mq-normal
+      column(main-column)
+
+if sidebar is left
+  @media mq-normal
+    #main
+      float: right
+
+@import "_extend"
+@import "_partial/header"
+@import "_partial/article"
+@import "_partial/comment"
+@import "_partial/archive"
+@import "_partial/footer"
+@import "_partial/highlight"
+@import "_partial/mobile"
+
+if sidebar
+  @import "_partial/sidebar"
