@@ -103,3 +103,22 @@ theme: landscape
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+
+
+
+
+# Markdown-it config
+markdown:
+  preset: 'default'
+  render:
+    html: true
+    xhtmlOut: false
+    langPrefix: 'language-'
+    breaks: true
+    linkify: true
+    typographer: true
+  plugins:
+    - markdown-it-katex
+
+
