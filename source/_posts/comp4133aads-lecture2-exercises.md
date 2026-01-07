@@ -131,7 +131,7 @@ What is the advantage of separating the hash function into two components, namel
 - `h(x) = x mod 13`
 - 按顺序插入 keys：`18, 41, 22, 44, 59, 32, 31, 73`
 - 冲突处理：线性探测（冲突就 `(i+1) mod N` 继续找空位）  
-- **要求：**画出最终 hash table（0..12），并写出每个 key 的 probe 序列或 probe 次数。
+- <strong>要求：</strong>画出最终 hash table（0..12），并写出每个 key 的 probe 序列或 probe 次数。
 
 ### 解题思路（机械流程）
 对每个 key：
@@ -242,7 +242,7 @@ What is the advantage of separating the hash function into two components, namel
 - `d(k) = 7 - (k mod 7)`
 - 按顺序插入 keys：`18, 41, 22, 44, 59, 32, 31, 73`
 - probe：`(h(k) + j*d(k)) mod 13`，`j=0,1,2,...`
-- **要求：**画出最终表，并为每个 key 写出 probe 序列（至少写到落位为止）。
+- <strong>要求：</strong>画出最终表，并为每个 key 写出 probe 序列（至少写到落位为止）。
 
 ### 解题思路（每个 key 都要算两件事）
 1) 算 `h(k)`  
