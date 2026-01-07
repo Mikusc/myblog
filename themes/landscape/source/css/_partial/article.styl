@@ -38,6 +38,12 @@
   a&:hover
     color: color-link
 
+@media mq-mobile-tablet
+  .article-title
+    font-size: clamp(24px, 6vw, 36px)
+    word-break: break-word
+    overflow-wrap: anywhere
+
 .article-entry
   @extend $base-style
   clearfix()
@@ -66,6 +72,21 @@
     margin: auto
   iframe
     border: none
+    max-width: 100%
+    height: auto
+    display: block
+    margin: auto
+
+  pre, code
+    max-width: 100%
+
+  pre
+    overflow-x: auto
+
+  table
+    display: block
+    overflow-x: auto
+    max-width: 100%
   table
     width: 100%
     border-collapse: collapse

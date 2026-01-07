@@ -17,3 +17,13 @@
     font-weight: bold
     &:hover
       color: #fff
+
+// Force single-column layout on mobile/tablet
+@media mq-mobile-tablet
+  #main
+    float: none
+    width: 100%
+    margin: 0
+
+  #sidebar
+    display: none
