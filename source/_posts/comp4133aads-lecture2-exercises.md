@@ -131,7 +131,7 @@ What is the advantage of separating the hash function into two components, namel
 - `h(x) = x mod 13`
 - 按顺序插入 keys：`18, 41, 22, 44, 59, 32, 31, 73`
 - 冲突处理：线性探测（冲突就 `(i+1) mod N` 继续找空位）  
-- <strong>要求：</strong>画出最终 hash table（0..12），并写出每个 key 的 probe 序列或 probe 次数。
+- **要求**：画出最终 hash table（0..12），并写出每个 key 的 probe 序列或 probe 次数。
 
 ### 解题思路（机械流程）
 对每个 key：
@@ -162,8 +162,8 @@ What is the advantage of separating the hash function into two components, namel
 
 ## 练习 2：线性探测查找过程（Lecture2 p32–34）
 
-**题目 A（概念题）：**How to search with linear probing?  
-**题目 B（手算题）：**在练习 1 的表里，追踪查找 `key=32` 的 probe 过程，写出访问下标序列。
+**题目 A（概念题）**：How to search with linear probing?  
+**题目 B（手算题）**：在练习 1 的表里，追踪查找 `key=32` 的 probe 过程，写出访问下标序列。
 
 ### 解题思路（查找规则）
 从 `i=h(k)` 开始：
@@ -181,7 +181,7 @@ What is the advantage of separating the hash function into two components, namel
 
 ## 练习 3：线性探测删除（Lecture2 p35–36）
 
-**题目：**How do you remove an element x?
+**题目**：How do you remove an element x?
 
 ### 解题思路（为什么不能直接置空）
 线性探测的查找依赖“探测链”。如果你把中间某格直接清空：
@@ -242,7 +242,7 @@ What is the advantage of separating the hash function into two components, namel
 - `d(k) = 7 - (k mod 7)`
 - 按顺序插入 keys：`18, 41, 22, 44, 59, 32, 31, 73`
 - probe：`(h(k) + j*d(k)) mod 13`，`j=0,1,2,...`
-- <strong>要求：</strong>画出最终表，并为每个 key 写出 probe 序列（至少写到落位为止）。
+- **要求**：画出最终表，并为每个 key 写出 probe 序列（至少写到落位为止）。
 
 ### 解题思路（每个 key 都要算两件事）
 1) 算 `h(k)`  
