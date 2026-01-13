@@ -26,9 +26,15 @@
   });
 
   $('.search-form-input').on('blur', function(){
-    startSearchAnim();
-    $searchWrap.removeClass('on');
-    stopSearchAnim();
+    setTimeout(function(){
+      // Check if we just clicked on a search result
+      if ($('#local-search-result:hover').length > 0) {
+          return;
+      }
+      startSearchAnim();
+      $searchWrap.removeClass('on');
+      stopSearchAnim();
+    }, 100);
   });
 
   // Share
