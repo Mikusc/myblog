@@ -98,11 +98,12 @@ $nav-link
   height: 40px
   padding: 0
   border-radius: 50%
-  line-height: 1
   position: relative
   cursor: pointer
   .fa
+    display: block
     line-height: 1
+    margin-top: 0px
 
 .main-nav-link
   @extend $nav-link
@@ -115,6 +116,8 @@ $nav-link
   display: none
   @media mq-mobile
     display: block
+  .fa
+    margin-top: 12px
 
 #sub-nav
   float: right
