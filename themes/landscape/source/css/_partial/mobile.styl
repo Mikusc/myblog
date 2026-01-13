@@ -2,11 +2,16 @@
   #mobile-nav
     position: absolute
     top: 0
-    left: 0
+    left: -1 * mobile-nav-width
     width: mobile-nav-width
     height: 100%
     background: color-mobile-nav-background
     border-right: 1px solid #fff
+    transition: 0.2s ease-out
+
+.mobile-nav-on
+  #mobile-nav
+    left: 0
 
 @media mq-mobile
   .mobile-nav-link
@@ -27,3 +32,27 @@
 
   #sidebar
     display: none
+
+  // Fix layout overlapping issues and typography
+  .article-title
+    font-size: 1.6rem !important
+    line-height: 1.3em !important
+    margin-bottom: 0.5em
+  
+  .article-inner
+    padding: 24px 16px !important
+    // Ensure content card doesn't overlap meta info too aggressively
+    margin-top: 20px !important 
+  
+  .article-meta
+    margin-bottom: 10px
+    padding-left: 10px
+    display: block
+    width: 100%
+    
+  .article-entry
+    padding: 0 !important
+    
+  // Adjust header/banner height if necessary for mobile
+  #header
+    height: 220px
