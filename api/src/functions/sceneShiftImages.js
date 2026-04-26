@@ -16,7 +16,9 @@ function getContainer() {
 
 function authOk(request) {
   const token = getSetting('SCENESHIFT_UPLOAD_TOKEN');
-  return token && request.headers.get('authorization') === `Bearer ${token}`;
+  const bearer = request.headers.get('authorization');
+  const uploadToken = request.headers.get('x-sceneshift-upload-token');
+  return token && (bearer === `Bearer ${token}` || uploadToken === token);
 }
 
 function isPng(buffer) {
@@ -24,36 +26,6 @@ function isPng(buffer) {
     buffer[0] === 0x89 && buffer[1] === 0x50 &&
     buffer[2] === 0x4e && buffer[3] === 0x47;
 }
-
-function settingInfo(name) {
-  const direct = process.env[name];
-  const prefixed = process.env[`APPSETTING_${name}`];
-  const selected = getSetting(name);
-  return {
-    directLength: direct ? direct.length : 0,
-    prefixedLength: prefixed ? prefixed.length : 0,
-    selectedLength: selected ? selected.length : 0,
-    selectedHash: selected ? crypto.createHash('sha256').update(selected).digest('hex') : null
-  };
-}
-
-app.http('debugSceneShiftConfig', {
-  methods: ['GET'],
-  authLevel: 'anonymous',
-  route: 'scene-shift/config-check',
-  handler: async () => ({
-    status: 200,
-    jsonBody: {
-      matchingKeys: Object.keys(process.env)
-        .filter((key) => key.includes('SCENESHIFT') || key.includes('AZURE_STORAGE'))
-        .sort(),
-      token: settingInfo('SCENESHIFT_UPLOAD_TOKEN'),
-      container: settingInfo('SCENESHIFT_UPLOAD_CONTAINER'),
-      storage: settingInfo('AZURE_STORAGE_CONNECTION_STRING'),
-      publicBase: settingInfo('SCENESHIFT_PUBLIC_API_BASE_URL')
-    }
-  })
-});
 
 app.http('uploadSceneShiftImage', {
   methods: ['POST'],
