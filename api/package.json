@@ -1,0 +1,10 @@
+{
+  "name": "myblog-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@azure/functions": "^4.7.3",
+    "@azure/storage-blob": "^12.28.0"
+  }
+}

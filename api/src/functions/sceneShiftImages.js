@@ -1,0 +1,80 @@
+const { app } = require('@azure/functions');
+const { BlobServiceClient } = require('@azure/storage-blob');
+const crypto = require('node:crypto');
+
+const containerName = process.env.SCENESHIFT_UPLOAD_CONTAINER || 'scene-shift';
+
+function getContainer() {
+  const conn = process.env.AZURE_STORAGE_CONNECTION_STRING;
+  if (!conn) throw new Error('Missing AZURE_STORAGE_CONNECTION_STRING');
+  return BlobServiceClient.fromConnectionString(conn).getContainerClient(containerName);
+}
+
+function authOk(request) {
+  const token = process.env.SCENESHIFT_UPLOAD_TOKEN;
+  return token && request.headers.get('authorization') === `Bearer ${token}`;
+}
+
+function isPng(buffer) {
+  return buffer.length >= 8 &&
+    buffer[0] === 0x89 && buffer[1] === 0x50 &&
+    buffer[2] === 0x4e && buffer[3] === 0x47;
+}
+
+app.http('uploadSceneShiftImage', {
+  methods: ['POST'],
+  authLevel: 'anonymous',
+  route: 'scene-shift/upload',
+  handler: async (request) => {
+    if (!authOk(request)) {
+      return { status: 401, jsonBody: { error: 'unauthorized' } };
+    }
+
+    const form = await request.formData();
+    const file = form.get('file');
+    if (!file || typeof file.arrayBuffer !== 'function') {
+      return { status: 400, jsonBody: { error: 'missing file field' } };
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    if (!isPng(buffer)) {
+      return { status: 415, jsonBody: { error: 'only png is accepted' } };
+    }
+
+    const name = `${Date.now()}-${crypto.randomUUID()}.png`;
+    const blobName = `seed3d/${name}`;
+
+    const container = getContainer();
+    await container.createIfNotExists();
+    await container.getBlockBlobClient(blobName).uploadData(buffer, {
+      blobHTTPHeaders: { blobContentType: 'image/png' }
+    });
+
+    const base = process.env.SCENESHIFT_PUBLIC_API_BASE_URL || `${new URL(request.url).origin}/api`;
+    return {
+      status: 200,
+      jsonBody: {
+        url: `${base.replace(/\/+$/, '')}/scene-shift/seed3d/${name}`
+      }
+    };
+  }
+});
+
+app.http('getSceneShiftImage', {
+  methods: ['GET'],
+  authLevel: 'anonymous',
+  route: 'scene-shift/seed3d/{name}',
+  handler: async (request) => {
+    const name = request.params.name || '';
+    if (!/^[a-zA-Z0-9._-]+\.png$/.test(name)) return { status: 400 };
+
+    const blob = getContainer().getBlockBlobClient(`seed3d/${name}`);
+    if (!(await blob.exists())) return { status: 404 };
+
+    return {
+      status: 200,
+      headers: { 'content-type': 'image/png' },
+      body: await blob.downloadToBuffer()
+    };
+  }
+});
