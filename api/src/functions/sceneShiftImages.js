@@ -2,16 +2,20 @@ const { app } = require('@azure/functions');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const crypto = require('node:crypto');
 
-const containerName = process.env.SCENESHIFT_UPLOAD_CONTAINER || 'scene-shift';
+function getSetting(name) {
+  return process.env[name] || process.env[`APPSETTING_${name}`];
+}
+
+const containerName = getSetting('SCENESHIFT_UPLOAD_CONTAINER') || 'scene-shift';
 
 function getContainer() {
-  const conn = process.env.AZURE_STORAGE_CONNECTION_STRING;
+  const conn = getSetting('AZURE_STORAGE_CONNECTION_STRING');
   if (!conn) throw new Error('Missing AZURE_STORAGE_CONNECTION_STRING');
   return BlobServiceClient.fromConnectionString(conn).getContainerClient(containerName);
 }
 
 function authOk(request) {
-  const token = process.env.SCENESHIFT_UPLOAD_TOKEN;
+  const token = getSetting('SCENESHIFT_UPLOAD_TOKEN');
   return token && request.headers.get('authorization') === `Bearer ${token}`;
 }
 
@@ -50,7 +54,7 @@ app.http('uploadSceneShiftImage', {
       blobHTTPHeaders: { blobContentType: 'image/png' }
     });
 
-    const base = process.env.SCENESHIFT_PUBLIC_API_BASE_URL || `${new URL(request.url).origin}/api`;
+    const base = getSetting('SCENESHIFT_PUBLIC_API_BASE_URL') || `${new URL(request.url).origin}/api`;
     return {
       status: 200,
       jsonBody: {
