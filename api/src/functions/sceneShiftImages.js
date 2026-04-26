@@ -27,6 +27,33 @@ function isPng(buffer) {
     buffer[2] === 0x4e && buffer[3] === 0x47;
 }
 
+async function readUploadBuffer(request) {
+  const contentType = request.headers.get('content-type') || '';
+
+  if (contentType.includes('multipart/form-data')) {
+    let form;
+    try {
+      form = await request.formData();
+    } catch {
+      return { response: { status: 400, jsonBody: { error: 'invalid multipart body' } } };
+    }
+
+    const file = form.get('file');
+    if (!file || typeof file.arrayBuffer !== 'function') {
+      return { response: { status: 400, jsonBody: { error: 'missing file field' } } };
+    }
+
+    return { buffer: Buffer.from(await file.arrayBuffer()) };
+  }
+
+  const buffer = Buffer.from(await request.arrayBuffer());
+  if (buffer.length === 0) {
+    return { response: { status: 400, jsonBody: { error: 'missing request body' } } };
+  }
+
+  return { buffer };
+}
+
 app.http('uploadSceneShiftImage', {
   methods: ['POST'],
   authLevel: 'anonymous',
@@ -36,13 +63,10 @@ app.http('uploadSceneShiftImage', {
       return { status: 401, jsonBody: { error: 'unauthorized' } };
     }
 
-    const form = await request.formData();
-    const file = form.get('file');
-    if (!file || typeof file.arrayBuffer !== 'function') {
-      return { status: 400, jsonBody: { error: 'missing file field' } };
-    }
+    const upload = await readUploadBuffer(request);
+    if (upload.response) return upload.response;
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const buffer = upload.buffer;
     if (!isPng(buffer)) {
       return { status: 415, jsonBody: { error: 'only png is accepted' } };
     }
