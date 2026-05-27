@@ -10,12 +10,46 @@ const STATE_RUNTIME_MODEL_READY = 10;
 
 const DEFAULT_ENDPOINT = 'https://ark.cn-beijing.volces.com/api/v3/contents/generations/tasks';
 const DEFAULT_MODEL = 'doubao-seed3d-2-0-260328';
+const DEFAULT_DEEPSEEK_ENDPOINT = 'https://api.deepseek.com/chat/completions';
+const DEFAULT_DEEPSEEK_MODEL = 'deepseek-v4-flash';
+const DEFAULT_APIMART_IMAGE_ENDPOINT = 'https://api.apimart.ai/v1/images/generations';
+const DEFAULT_APIMART_TASK_ENDPOINT_BASE = 'https://api.apimart.ai/v1/tasks';
+const DEFAULT_IMAGE2_MODEL = 'gpt-image-2';
 
 function getSetting(name) {
   return process.env[name] || process.env[`APPSETTING_${name}`];
 }
 
 const containerName = getSetting('SCENESHIFT_UPLOAD_CONTAINER') || 'scene-shift';
+
+function configuredProvider() {
+  return (getSetting('SCENESHIFT_BACKEND_PROVIDER') || 'seed3d').toLowerCase().replace(/_/g, '-');
+}
+
+function isFullChainProvider(provider) {
+  return [
+    'full-chain',
+    'fullchain',
+    'deepseek-image2-seed3d',
+    'deepseek-v4-image2-seed3d'
+  ].includes(String(provider || '').toLowerCase().replace(/_/g, '-'));
+}
+
+function isSeed3DProvider(provider) {
+  return String(provider || '').toLowerCase().replace(/_/g, '-') === 'seed3d';
+}
+
+function isSupportedProvider(provider) {
+  return isSeed3DProvider(provider) || isFullChainProvider(provider);
+}
+
+function getFirstSetting(names) {
+  for (const name of names) {
+    const value = getSetting(name);
+    if (value) return value;
+  }
+  return '';
+}
 
 function getContainer() {
   const conn = getSetting('AZURE_STORAGE_CONNECTION_STRING');
@@ -143,7 +177,7 @@ function buildJobRecord(jobId, metadata, outputState, statusNote, extra = {}) {
   const now = utcNow();
   return {
     job_id: jobId,
-    provider: (getSetting('SCENESHIFT_BACKEND_PROVIDER') || 'seed3d').toLowerCase(),
+    provider: configuredProvider(),
     request_id: metadata.RequestId || '',
     object_id: metadata.ObjectId || '',
     theme_id: metadata.ThemeId || '',
@@ -248,16 +282,13 @@ async function createJob(container, submission) {
 }
 
 function buildSeed3DPrompt(metadata) {
-  const prompt = metadata.PromptText || metadata.UserStyleIntent || 'Generate a coherent stylized furniture asset.';
-  const size = `Target physical size: length=${metadata.TargetLengthMeters || 0}m, width=${metadata.TargetWidthMeters || 0}m, height=${metadata.TargetHeightMeters || 0}m, aspect=${metadata.TargetAspectRatio || 0}, verticalFit=${metadata.VerticalFitMode || ''}.`;
-  const semantic = `Semantic target: ${metadata.SemanticLabel || ''}; function: ${metadata.FunctionTag || ''}.`;
-  const subdivision = safeCommandToken(getSetting('SEED3D_SUBDIVISION_LEVEL') || 'medium');
+  const subdivision = safeCommandToken(getSetting('SEED3D_SUBDIVISION_LEVEL') || 'low');
   const fileFormat = safeCommandToken(getSetting('SEED3D_FILE_FORMAT') || 'glb');
-  return `${prompt}\n${semantic}\n${size}\nGenerate one clean 3D model from the captured object image. Preserve footprint, bottom support/contact surfaces, dominant yaw, walkable clearance, and high-level furniture function for mixed-reality replacement. --subdivisionlevel ${subdivision} --fileformat ${fileFormat}`;
+  return `--subdivisionlevel ${subdivision} --fileformat ${fileFormat}`;
 }
 
 function safeCommandToken(value) {
-  return String(value || '').replace(/[^A-Za-z0-9_.-]/g, '') || 'medium';
+  return String(value || '').replace(/[^A-Za-z0-9_.-]/g, '') || 'low';
 }
 
 async function httpJson(method, url, payload, apiKey) {
@@ -304,10 +335,371 @@ function findModelUrl(payload) {
   return match ? match[0] : '';
 }
 
+function findImageUrl(payload) {
+  const found = findFirstKey(payload, ['image_url', 'image', 'file_url', 'download_url', 'url']);
+  if (typeof found === 'string' && found.startsWith('http')) return found;
+  const match = JSON.stringify(payload).match(/https?:\/\/[^"\\\s]+/);
+  return match ? match[0] : '';
+}
+
+function isSuccessStatus(status) {
+  return ['succeeded', 'success', 'completed', 'done'].includes(String(status || '').toLowerCase());
+}
+
+function isFailureStatus(status) {
+  return ['failed', 'error', 'cancelled', 'canceled'].includes(String(status || '').toLowerCase());
+}
+
+function numberSetting(name, fallback) {
+  const value = Number(getSetting(name));
+  return Number.isFinite(value) ? value : fallback;
+}
+
+function booleanSetting(name, fallback) {
+  const value = getSetting(name);
+  if (value == null || value === '') return fallback;
+  return !['0', 'false', 'no', 'off'].includes(String(value).toLowerCase());
+}
+
+function shortenText(value, maxLength) {
+  const text = String(value || '');
+  return text.length <= maxLength ? text : `${text.slice(0, maxLength)}...`;
+}
+
+function stripJsonFences(value) {
+  let text = String(value || '').trim();
+  if (text.startsWith('```')) {
+    const firstNewline = text.indexOf('\n');
+    if (firstNewline >= 0) text = text.slice(firstNewline + 1);
+    const lastFence = text.lastIndexOf('```');
+    if (lastFence >= 0) text = text.slice(0, lastFence);
+  }
+  return text.trim();
+}
+
+function buildDeepSeekSystemPrompt() {
+  return [
+    'You are the backend planner for SceneShift, a Meta Quest mixed-reality room stylization prototype.',
+    'Convert the user intent and target-object metadata into concrete prompts for generating one replacement furniture asset.',
+    'Output valid JSON only. Do not include Markdown or explanations.',
+    'Preserve the real object function, footprint, proportions, bottom contact/support surfaces, dominant yaw, and room readability.',
+    'Do not invent extra furniture, people, walls, floor, ceiling, labels, UI text, or unrelated background.',
+    'The image_generation_prompt must describe a single isolated stylized object suitable as a reference image for Seed3D.',
+    'For gpt-image-2, request an opaque plain white or light gray studio background. Do not request transparent backgrounds or green chroma-key backgrounds.',
+    'The JSON schema is:',
+    '{',
+    '  "global_style_summary": "one concise sentence",',
+    '  "style_keywords": ["5 to 8 visual keywords"],',
+    '  "material_keywords": ["3 to 6 material keywords"],',
+    '  "color_keywords": ["3 to 6 color or lighting keywords"],',
+    '  "motif_keywords": ["3 to 6 motif/detail keywords"],',
+    '  "negative_style_keywords": ["3 to 8 things to avoid"],',
+    '  "object_style_directive": "one sentence preserving function and geometry",',
+    '  "image_generation_prompt": "prompt for image2/gpt-image-2",',
+    '  "negative_prompt": "compact negative prompt"',
+    '}'
+  ].join('\n');
+}
+
+function buildDeepSeekUserPrompt(metadata) {
+  const promptData = {
+    user_style_intent: metadata.UserStyleIntent || metadata.PromptText || metadata.ThemeId || '',
+    theme_id: metadata.ThemeId || '',
+    style_variant_id: metadata.StyleVariantId || '',
+    semantic_label: metadata.SemanticLabel || '',
+    function_tag: metadata.FunctionTag || '',
+    object_id: metadata.ObjectId || '',
+    target_length_meters: metadata.TargetLengthMeters || '',
+    target_width_meters: metadata.TargetWidthMeters || '',
+    target_height_meters: metadata.TargetHeightMeters || '',
+    target_aspect_ratio: metadata.TargetAspectRatio || '',
+    vertical_fit_mode: metadata.VerticalFitMode || '',
+    original_prompt_text: metadata.PromptText || '',
+    source_request_json_preview: shortenText(metadata.SourceRequestJson || '', 1800)
+  };
+  return `SceneShift target metadata:\n${JSON.stringify(promptData, null, 2)}`;
+}
+
+function extractDeepSeekContent(response) {
+  const error = findFirstKey(response, ['message']);
+  if (response && response.error && response.error.message) {
+    throw new Error(response.error.message);
+  }
+  const content = response?.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error(`DeepSeek response did not include assistant content: ${shortenText(JSON.stringify(response), 400)}`);
+  }
+  if (response?.error && error) throw new Error(String(error));
+  return content;
+}
+
+async function requestDeepSeekPlan(container, jobId, metadata) {
+  const apiKey = getSetting('DEEPSEEK_API_KEY');
+  if (!apiKey) {
+    throw new Error('DEEPSEEK_API_KEY is not set in the Azure Function environment.');
+  }
+
+  const payload = {
+    model: getSetting('DEEPSEEK_MODEL') || DEFAULT_DEEPSEEK_MODEL,
+    messages: [
+      { role: 'system', content: buildDeepSeekSystemPrompt() },
+      { role: 'user', content: buildDeepSeekUserPrompt(metadata) }
+    ],
+    stream: false,
+    temperature: numberSetting('DEEPSEEK_TEMPERATURE', 0.2),
+    max_tokens: Math.max(256, Math.floor(numberSetting('DEEPSEEK_MAX_TOKENS', 900))),
+    response_format: { type: 'json_object' }
+  };
+  if (booleanSetting('DEEPSEEK_DISABLE_THINKING', true)) {
+    payload.thinking = { type: 'disabled' };
+  }
+
+  await uploadJson(container, runtimeBlob(jobId, 'deepseek.request.json'), payload);
+  const endpoint = getSetting('DEEPSEEK_ENDPOINT_URL') || DEFAULT_DEEPSEEK_ENDPOINT;
+  const response = await httpJson('POST', endpoint, payload, apiKey);
+  await uploadJson(container, runtimeBlob(jobId, 'deepseek.response.json'), response);
+
+  const content = stripJsonFences(extractDeepSeekContent(response));
+  let parsed;
+  try {
+    parsed = JSON.parse(content);
+  } catch (error) {
+    throw new Error(`DeepSeek content was not valid JSON: ${String(error.message || error)} | ${shortenText(content, 400)}`);
+  }
+
+  const plan = {
+    global_style_summary: parsed.global_style_summary || '',
+    style_keywords: Array.isArray(parsed.style_keywords) ? parsed.style_keywords : [],
+    material_keywords: Array.isArray(parsed.material_keywords) ? parsed.material_keywords : [],
+    color_keywords: Array.isArray(parsed.color_keywords) ? parsed.color_keywords : [],
+    motif_keywords: Array.isArray(parsed.motif_keywords) ? parsed.motif_keywords : [],
+    negative_style_keywords: Array.isArray(parsed.negative_style_keywords) ? parsed.negative_style_keywords : [],
+    object_style_directive: parsed.object_style_directive || '',
+    image_generation_prompt: parsed.image_generation_prompt || '',
+    negative_prompt: parsed.negative_prompt || '',
+    source: `deepseek_api:${payload.model}`,
+    created_at: utcNow()
+  };
+  await uploadJson(container, runtimeBlob(jobId, 'deepseek.plan.json'), plan);
+  return plan;
+}
+
+function buildFallbackImage2Prompt(metadata, plan) {
+  const style = [
+    plan.global_style_summary,
+    ...(plan.style_keywords || []),
+    ...(plan.material_keywords || []),
+    ...(plan.color_keywords || []),
+    ...(plan.motif_keywords || [])
+  ].filter(Boolean).join(', ');
+  const semantic = metadata.SemanticLabel || metadata.FunctionTag || 'furniture object';
+  const size = `Preserve target proportions and footprint: length=${metadata.TargetLengthMeters || 0}m, width=${metadata.TargetWidthMeters || 0}m, height=${metadata.TargetHeightMeters || 0}m.`;
+  return [
+    `Create one isolated stylized ${semantic} replacement asset reference image.`,
+    style ? `Visual direction: ${style}.` : '',
+    plan.object_style_directive || metadata.PromptText || '',
+    size,
+    'Use an opaque plain white or light gray studio background.',
+    'Preserve the original object role, dominant silhouette, bottom support/contact surfaces, and real-world usability.',
+    'Do not include room background, walls, floors, other furniture, people, labels, UI, text, watermarks, multiple objects, transparent background, checkerboard background, or green chroma-key background.'
+  ].filter(Boolean).join('\n');
+}
+
+function buildImage2Prompt(metadata, plan) {
+  const primary = String(plan.image_generation_prompt || '').trim();
+  const negative = String(plan.negative_prompt || '').trim();
+  const prompt = primary || buildFallbackImage2Prompt(metadata, plan);
+  const backgroundPolicy = [
+    'Final background requirement: use an opaque plain white or light gray studio background.',
+    'Do not use transparent alpha, fake checkerboard transparency, green chroma key, colored key screens, room backgrounds, floor planes, walls, or shadows cast onto a visible floor.'
+  ].join(' ');
+  const guardedPrompt = `${prompt}\n\n${backgroundPolicy}`;
+  return negative ? `${guardedPrompt}\n\nAvoid: ${negative}` : guardedPrompt;
+}
+
+async function submitImage2(container, job, metadata, plan) {
+  const apiKey = getFirstSetting(['APIMART_API_KEY', 'IMAGE2_API_KEY']);
+  if (!apiKey) {
+    throw new Error('APIMART_API_KEY or IMAGE2_API_KEY is not set in the Azure Function environment.');
+  }
+  if (!job.image_blob) {
+    throw new Error('Quest upload did not include a readable image file for image2.');
+  }
+
+  const imageBuffer = await container.getBlockBlobClient(job.image_blob).downloadToBuffer();
+  const imageMime = job.image_mime_type || 'image/png';
+  const prompt = buildImage2Prompt(metadata, plan);
+  await uploadText(container, runtimeBlob(job.job_id, 'image2.prompt.txt'), prompt);
+
+  const payload = {
+    model: getSetting('APIMART_IMAGE_MODEL') || getSetting('IMAGE2_MODEL') || DEFAULT_IMAGE2_MODEL,
+    prompt,
+    n: Math.max(1, Math.floor(numberSetting('APIMART_IMAGE_COUNT', 1))),
+    size: getSetting('APIMART_IMAGE_SIZE') || getSetting('IMAGE2_SIZE') || '1:1'
+  };
+  if (booleanSetting('APIMART_INCLUDE_REFERENCE_IMAGE', true)) {
+    payload.image_urls = [`data:${imageMime};base64,${imageBuffer.toString('base64')}`];
+  }
+
+  await uploadJson(container, runtimeBlob(job.job_id, 'image2.request.json'), payload);
+  const endpoint = getSetting('APIMART_IMAGE_GENERATION_ENDPOINT') || getSetting('IMAGE2_GENERATION_ENDPOINT') || DEFAULT_APIMART_IMAGE_ENDPOINT;
+  const response = await httpJson('POST', endpoint, payload, apiKey);
+  await uploadJson(container, runtimeBlob(job.job_id, 'image2.create.response.json'), response);
+
+  const taskId = findFirstKey(response, ['task_id', 'id']);
+  if (!taskId) {
+    throw new Error(`image2 create response did not include task_id/id: ${shortenText(JSON.stringify(response), 400)}`);
+  }
+
+  return updateJob(container, job.job_id, {
+    image2_task_id: String(taskId),
+    image2_task_endpoint_base: getSetting('APIMART_TASK_ENDPOINT_BASE') || getSetting('IMAGE2_TASK_ENDPOINT_BASE') || DEFAULT_APIMART_TASK_ENDPOINT_BASE,
+    image2_model: payload.model,
+    image2_prompt_blob: runtimeBlob(job.job_id, 'image2.prompt.txt'),
+    status_note: `DeepSeek plan completed; image2 task ${taskId} submitted.`,
+    progress01: 0.18
+  });
+}
+
+async function submitFullChainInitial(container, jobId, request) {
+  let job = await readJson(container, runtimeBlob(jobId, 'job.json'));
+  const provider = job.provider || configuredProvider();
+  if (!isFullChainProvider(provider)) {
+    return updateJob(container, jobId, {
+      output_state: STATE_FAILED,
+      failure_reason: `Unsupported SCENESHIFT_BACKEND_PROVIDER '${provider}' for full-chain submit.`,
+      status_note: 'Runtime backend provider configuration failed.',
+      progress01: 0
+    });
+  }
+
+  const missing = [];
+  if (!getSetting('DEEPSEEK_API_KEY')) missing.push('DEEPSEEK_API_KEY');
+  if (!getFirstSetting(['APIMART_API_KEY', 'IMAGE2_API_KEY'])) missing.push('APIMART_API_KEY or IMAGE2_API_KEY');
+  if (!getSetting('ARK_API_KEY')) missing.push('ARK_API_KEY');
+  if (missing.length > 0) {
+    return updateJob(container, jobId, {
+      output_state: STATE_FAILED,
+      failure_reason: `Missing backend environment variable(s): ${missing.join(', ')}.`,
+      status_note: 'Full-chain provider could not start.',
+      progress01: 0
+    });
+  }
+
+  if (!job.image_blob) {
+    return updateJob(container, jobId, {
+      output_state: STATE_FAILED,
+      failure_reason: 'Quest upload did not include a readable image file.',
+      status_note: 'Full-chain provider requires the captured crop image.',
+      progress01: 0
+    });
+  }
+
+  const metadata = (await readJson(container, runtimeBlob(jobId, 'metadata.json'))) || {};
+  job = await updateJob(container, jobId, {
+    status_note: 'Full-chain backend requesting DeepSeek style plan.',
+    progress01: 0.08
+  });
+  const plan = await requestDeepSeekPlan(container, jobId, metadata);
+  job = await updateJob(container, jobId, {
+    deepseek_plan_blob: runtimeBlob(jobId, 'deepseek.plan.json'),
+    status_note: 'DeepSeek style plan ready; submitting image2 job.',
+    progress01: 0.12
+  });
+  return submitImage2(container, job, metadata, plan, request);
+}
+
+async function downloadGeneratedImageToBlob(container, job, imageUrl) {
+  const response = await fetch(imageUrl, { headers: { 'user-agent': 'SceneShiftRuntimeAzureBackend/1.0' } });
+  if (!response.ok) {
+    throw new Error(`image2 output download failed: ${response.status}`);
+  }
+
+  const contentType = response.headers.get('content-type') || 'image/png';
+  const buffer = Buffer.from(await response.arrayBuffer());
+  const extension = /jpe?g/i.test(contentType) ? 'jpg' : /webp/i.test(contentType) ? 'webp' : 'png';
+  const fileName = `stylized-image.${extension}`;
+  const blobName = runtimeBlob(job.job_id, fileName);
+  await uploadBuffer(container, blobName, buffer, contentType);
+  return {
+    blobName,
+    fileName,
+    contentType,
+    hash: sha256(buffer),
+    byteLength: buffer.length
+  };
+}
+
+async function pollImage2Once(container, job) {
+  const apiKey = getFirstSetting(['APIMART_API_KEY', 'IMAGE2_API_KEY']);
+  if (!apiKey) {
+    return updateJob(container, job.job_id, {
+      status_note: 'image2 polling skipped because APIMART_API_KEY/IMAGE2_API_KEY is missing.',
+      failure_reason: 'APIMART_API_KEY or IMAGE2_API_KEY is not set in the Azure Function environment.',
+      output_state: STATE_FAILED,
+      progress01: 0
+    });
+  }
+
+  const taskId = job.image2_task_id;
+  if (!taskId) return job;
+
+  try {
+    const base = job.image2_task_endpoint_base || getSetting('APIMART_TASK_ENDPOINT_BASE') || getSetting('IMAGE2_TASK_ENDPOINT_BASE') || DEFAULT_APIMART_TASK_ENDPOINT_BASE;
+    const pollUrl = `${base.replace(/\/+$/, '')}/${encodeURIComponent(taskId)}`;
+    const response = await httpJson('GET', pollUrl, null, apiKey);
+    await uploadJson(container, runtimeBlob(job.job_id, 'image2.poll.response.json'), response);
+
+    const status = String(findFirstKey(response, ['status', 'state']) || '').toLowerCase();
+    const nextAttempt = Number(job.image2_poll_attempts || 0) + 1;
+    if (isFailureStatus(status)) {
+      return updateJob(container, job.job_id, {
+        output_state: STATE_FAILED,
+        failure_reason: `image2 task failed with status '${status}'.`,
+        status_note: `image2 polling attempt ${nextAttempt}; task failed.`,
+        progress01: Number(job.progress01 || 0.18),
+        image2_poll_attempts: nextAttempt
+      });
+    }
+
+    if (!isSuccessStatus(status)) {
+      return updateJob(container, job.job_id, {
+        status_note: `image2 polling attempt ${nextAttempt}; status=${status || 'unknown'}.`,
+        progress01: Math.min(0.5, 0.18 + nextAttempt * 0.03),
+        image2_poll_attempts: nextAttempt
+      });
+    }
+
+    const imageUrl = findImageUrl(response);
+    if (!imageUrl) throw new Error('image2 task succeeded but no image URL was found.');
+    const prepared = await downloadGeneratedImageToBlob(container, job, imageUrl);
+    return updateJob(container, job.job_id, {
+      stylized_image_url: imageUrl,
+      stylized_image_blob: prepared.blobName,
+      stylized_image_file_name: prepared.fileName,
+      stylized_image_mime_type: prepared.contentType,
+      stylized_image_sha256: prepared.hash,
+      stylized_image_byte_length: prepared.byteLength,
+      status_note: 'image2 stylized reference image cached; Seed3D submission is next.',
+      progress01: 0.55,
+      image2_poll_attempts: nextAttempt
+    });
+  } catch (error) {
+    return updateJob(container, job.job_id, {
+      status_note: `image2 polling deferred after transient error: ${String(error.message || error).slice(0, 500)}`,
+      image2_poll_attempts: Number(job.image2_poll_attempts || 0) + 1
+    });
+  }
+}
+
+function resolveSeed3DImageBlob(job) {
+  return job.stylized_image_blob || job.image_blob || '';
+}
+
 async function submitSeed3D(container, jobId, request) {
   let job = await readJson(container, runtimeBlob(jobId, 'job.json'));
-  const provider = (getSetting('SCENESHIFT_BACKEND_PROVIDER') || 'seed3d').toLowerCase();
-  if (provider !== 'seed3d') {
+  const provider = job.provider || configuredProvider();
+  if (!isSupportedProvider(provider)) {
     return updateJob(container, jobId, {
       output_state: STATE_FAILED,
       failure_reason: `Unsupported SCENESHIFT_BACKEND_PROVIDER '${provider}' for Azure runtime function.`,
@@ -326,7 +718,8 @@ async function submitSeed3D(container, jobId, request) {
     });
   }
 
-  if (!job.image_blob) {
+  const seed3dImageBlob = resolveSeed3DImageBlob(job);
+  if (!seed3dImageBlob) {
     return updateJob(container, jobId, {
       output_state: STATE_FAILED,
       failure_reason: 'Quest upload did not include a readable image file.',
@@ -336,10 +729,10 @@ async function submitSeed3D(container, jobId, request) {
   }
 
   const containerClient = container;
-  const imageBuffer = await containerClient.getBlockBlobClient(job.image_blob).downloadToBuffer();
+  const imageBuffer = await containerClient.getBlockBlobClient(seed3dImageBlob).downloadToBuffer();
   const metadata = (await readJson(container, runtimeBlob(jobId, 'metadata.json'))) || {};
   const prompt = buildSeed3DPrompt(metadata);
-  const imageMime = job.image_mime_type || 'image/png';
+  const imageMime = job.stylized_image_mime_type || job.image_mime_type || 'image/png';
   const payload = {
     model: getSetting('SEED3D_MODEL') || DEFAULT_MODEL,
     content: [
@@ -547,7 +940,9 @@ app.http('submitSceneShiftRuntimeGeneration', {
       jobId = created.jobId;
       let job = created.job;
       if (job.output_state !== STATE_FAILED) {
-        job = await submitSeed3D(container, jobId, request);
+        job = isFullChainProvider(job.provider)
+          ? await submitFullChainInitial(container, jobId, request)
+          : await submitSeed3D(container, jobId, request);
       }
       return jsonResponse(200, resultFromJob(job, request));
     } catch (error) {
@@ -575,8 +970,21 @@ app.http('getSceneShiftRuntimeGeneration', {
     let job = await readJson(container, runtimeBlob(jobId, 'job.json'));
     if (!job) return jsonResponse(404, { error: 'job not found' });
 
-    if (Number(job.output_state) === STATE_RUNTIME_BACKEND_SUBMITTED && job.seed3d_task_id) {
-      job = await pollSeed3DOnce(container, job, request);
+    if (Number(job.output_state) === STATE_RUNTIME_BACKEND_SUBMITTED) {
+      if (isFullChainProvider(job.provider) && job.image2_task_id && !job.stylized_image_blob) {
+        job = await pollImage2Once(container, job, request);
+      }
+
+      if (isFullChainProvider(job.provider) &&
+          job.stylized_image_blob &&
+          !job.seed3d_task_id &&
+          Number(job.output_state) === STATE_RUNTIME_BACKEND_SUBMITTED) {
+        job = await submitSeed3D(container, jobId, request);
+      }
+
+      if (job.seed3d_task_id && Number(job.output_state) === STATE_RUNTIME_BACKEND_SUBMITTED) {
+        job = await pollSeed3DOnce(container, job, request);
+      }
     }
 
     return jsonResponse(200, resultFromJob(job, request));
