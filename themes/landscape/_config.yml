@@ -3,11 +3,15 @@
 # ===============
 # Navigation menu
 menu:
-  Home: /
-  Archives: /archives
-  Tools: /tools/
-# RSS link
-rss: /atom.xml
+  首页: /
+  课程笔记: /course-notes/
+  项目: /projects/
+  关于: /about/
+  联系: /contact/
+  归档: /archives
+  工具: /tools/
+# RSS link. Keep empty until a feed generator is configured.
+rss:
 # Path of title banner image of page top
 banner: "images/banner.svg"
 # Subtitle of page top
@@ -16,7 +20,7 @@ subtitle:
 # Each name must correspond to the icon name of Fork Awesome
 # https://forkaweso.me/Fork-Awesome/icons/
 links:
-#  github: https://github.com/your_github_account
+  github: https://github.com/Mikusc
 #  twitter: https://twitter.com/your_twitter_account
 #  telegram: https://t.me/your_telegram_account
 
@@ -24,7 +28,7 @@ links:
 # Content
 # ===============
 # "Read More" link at the bottom of excerpted articles. `false` to hide the link.
-excerpt_link: Read More
+excerpt_link: 阅读全文
 # Enable fancybox
 fancybox: true
 
@@ -66,7 +70,7 @@ recent_posts_limits: 5
 google_analytics:
 gauges_analytics:
 # Favicon path
-favicon: /favicon.png
+favicon: /favicon.svg
 # Twitter ID
 twitter:
 fb_admins:
