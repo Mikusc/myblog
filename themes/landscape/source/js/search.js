@@ -1,5 +1,21 @@
 var searchFunc = function(path, search_id, content_id) {
     'use strict';
+    function escapeHtml(value) {
+        return String(value || '').replace(/[&<>"']/g, function(char) {
+            return {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[char];
+        });
+    }
+
+    function escapeRegExp(value) {
+        return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
     $.ajax({
         url: path,
         dataType: "json",
@@ -9,67 +25,47 @@ var searchFunc = function(path, search_id, content_id) {
             if (!$input || !$resultContent) return;
             
             $input.addEventListener('input', function(){
-                var str='<ul class=\"search-result-list\">';                
-                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                var str = '<ul class=\"search-result-list\">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/).filter(Boolean);
                 $resultContent.innerHTML = "";
-                if (this.value.trim().length <= 0) {
+                if (keywords.length <= 0) {
                     return;
                 }
                 // perform local searching
                 datas.forEach(function(data) {
-                    var isMatch = true;
-                    var content_index = [];
                     var data_title = data.title ? data.title.trim() : "";
-                    var data_content = data.content ? data.content.trim().replace(/<[^>]+>/g,"") : "";
-                    var data_url = data.url;
-                    var index_title = -1;
-                    var index_content = -1;
+                    var data_content = data.content ? data.content.trim().replace(/<[^>]+>/g, "") : "";
+                    var data_url = data.url || "";
+                    var title_lower = data_title.toLowerCase();
+                    var content_lower = data_content.toLowerCase();
                     var first_occur = -1;
-                    // only match artiles with not empty titles and contents
-                    if(data_title != '' && data_content != '') {
-                        var keywords = $input.value.trim().toLowerCase().split(/[\s\-]+/);
-                        data_title = data_title.toLowerCase();
-                        data_content = data_content.toLowerCase();
-                        var index_title = data_title.indexOf(keywords[0]);
-                        var index_content = data_content.indexOf(keywords[0]);
-                        if( index_title < 0 && index_content < 0 ){
-                            isMatch = false;
-                        } else {
-                            if (index_content < 0) {
-                                index_content = 0;
-                            }
-                            if (i == 0) {
-                                first_occur = index_content;
-                            }
+
+                    if (!data_title || !data_content) return;
+
+                    var isMatch = keywords.every(function(keyword) {
+                        var title_index = title_lower.indexOf(keyword);
+                        var content_index = content_lower.indexOf(keyword);
+                        if (content_index >= 0 && (first_occur < 0 || content_index < first_occur)) {
+                            first_occur = content_index;
                         }
-                    } else {
-                        isMatch = false;
-                    }
+                        return title_index >= 0 || content_index >= 0;
+                    });
+
                     // show search results
                     if (isMatch) {
-                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                        var content = data.content.trim().replace(/<[^>]+>/g,"");
-                        if (first_occur >= 0) {
-                            // cut out 100 characters
-                            var start = first_occur - 20;
-                            var end = first_occur + 80;
-                            if(start < 0){
-                                start = 0;
-                            }
-                            if(start == 0){
-                                end = 100;
-                            }
-                            if(end > content.length){
-                                end = content.length;
-                            }
-                            var match_content = content.substr(start, end); 
-                            // highlight all keywords
-                            keywords.forEach(function(keyword){
-                                var regS = new RegExp(keyword, "gi");
-                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">"+keyword+"</em>");
-                            });
-                            
-                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        str += "<li><a href='" + encodeURI(data_url) + "' class='search-result-title'>" + escapeHtml(data_title) + "</a>";
+                        var start = first_occur > 20 ? first_occur - 20 : 0;
+                        var end = first_occur >= 0 ? first_occur + 80 : 100;
+                        if (end > data_content.length) end = data_content.length;
+
+                        var match_content = escapeHtml(data_content.substring(start, end));
+                        keywords.forEach(function(keyword) {
+                            var regS = new RegExp(escapeRegExp(escapeHtml(keyword)), "gi");
+                            match_content = match_content.replace(regS, "<em class=\"search-keyword\">$&</em>");
+                        });
+
+                        if (match_content) {
+                            str += "<p class=\"search-result\">" + match_content + "...</p>";
                         }
                         str += "</li>";
                     }

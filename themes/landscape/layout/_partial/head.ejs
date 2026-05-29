@@ -20,7 +20,32 @@
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <%- open_graph({twitter_id: theme.twitter, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <%
+    var ogOptions = {
+      twitter_id: theme.twitter,
+      fb_admins: theme.fb_admins,
+      fb_app_id: theme.fb_app_id
+    };
+
+    if (!is_post()){
+      ogOptions.date = false;
+      ogOptions.updated = false;
+      ogOptions.author = false;
+      ogOptions.keywords = false;
+    }
+
+    var ogMeta = open_graph(ogOptions);
+
+    if (!is_post()){
+      ogMeta = ogMeta
+        .split('\n')
+        .filter(function(line){
+          return line.indexOf('property="article:') === -1;
+        })
+        .join('\n');
+    }
+  %>
+  <%- ogMeta %>
   <% if (config.feed) { %>
     <%- feed_tag() %>
   <% } else if (theme.rss) { %>
