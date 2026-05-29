@@ -4,12 +4,12 @@
 
 # Site
 title: Mikusc的小站
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+subtitle: '课程复习、项目实践与技术笔记'
+description: 'Mikusc 的个人博客，记录课程复习、项目实践、SceneShift 与技术笔记。'
+keywords: Mikusc, blog, Hexo, SceneShift, COMP4133AADS
+author: Mikusc
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
