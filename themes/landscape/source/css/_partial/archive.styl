@@ -1,38 +1,80 @@
+.listing-hero
+  position: relative
+  margin: 0 0 38px
+  padding: 38px 42px 42px
+  color: #fff
+  background: color-default
+  border-left: 8px solid var(--trent-turquoise)
+
+.listing-kicker
+  margin: 0
+  color: rgba(255, 255, 255, 0.72)
+  font: 700 12px/1.2 font-sans
+  letter-spacing: 1.2px
+  text-transform: uppercase
+
+.listing-title
+  margin: 14px 0 0
+  color: #fff
+  font: 700 38px/1.12 font-sans
+
+.listing-lede
+  max-width: 640px
+  margin: 20px 0 0
+  color: rgba(255, 255, 255, 0.78)
+  font-size: 16px
+  line-height: 1.75
+
 .archives-wrap
-  margin: block-margin 0
+  margin: 0 0 block-margin
 
 .archives
   clearfix()
+  &:before,
+  &:after
+    display: none
 
 .archive-year-wrap
-  margin-bottom: 1em
+  margin: 0 0 22px
+  padding-bottom: 16px
+  border-bottom: 1px solid color-border
 
 .archive-year
-  @extend $block-caption
+  display: inline-block
+  color: color-default
+  text-decoration: none
+  font: 700 30px/1 font-sans
 
 .archives
-  column-gap: 10px
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: 22px
   @media mq-tablet
-    column-count: 2
-  @media mq-normal
-    column-count: 3
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  @media mq-mobile
+    grid-template-columns: 1fr
 
 .archive-article
-  avoid-column-break()
+  min-width: 0
 
 .archive-article-inner
-  @extend $block
-  padding: 10px
-  margin-bottom: 15px
+  min-height: 154px
+  padding: 24px
+  margin-bottom: 0
+  background: #fff
+  border: 1px solid color-border
+  transition: border-color 0.2s ease
+  &:hover
+    border-color: color-default
+    .archive-article-title
+      text-decoration: underline
 
 .archive-article-title
   text-decoration: none
-  font-weight: bold
   color: color-default
-  transition: color 0.2s
-  line-height: line-height
+  font: 700 19px/1.4 font-sans
   &:hover
-    color: color-link
+    color: color-default
 
 .archive-article-footer
   margin-top: 1em
@@ -40,10 +82,22 @@
 .archive-article-date
   color: color-grey
   text-decoration: none
-  font-size: 0.85em
-  line-height: 1em
-  margin-bottom: 0.5em
+  font: 700 12px/1 font-sans
+  letter-spacing: 0.9px
+  text-transform: uppercase
+  margin-bottom: 18px
   display: block
+
+.archive-article-category
+  margin-top: 18px
+  color: color-grey
+  font-size: 13px
+  line-height: 1.5
+  a
+    color: color-grey
+    text-decoration: none
+    &:hover
+      color: color-default
 
 #page-nav
   clearfix()
@@ -80,3 +134,12 @@
     font-weight: bold
   .space
     color: color-border
+
+@media mq-mobile-tablet
+  .listing-hero
+    padding: 30px 24px 32px
+    margin-bottom: 28px
+
+  .listing-title
+    font-size: 30px
+    line-height: 1.16

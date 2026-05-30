@@ -1,10 +1,11 @@
 <%
   var isPage = post.layout === 'page';
+  var isDetailPost = !index && !isPage;
   var schemaType = isPage ? 'https://schema.org/WebPage' : 'https://schema.org/BlogPosting';
   var itemProp = isPage ? 'mainEntity' : 'blogPost';
 %>
-<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %>" itemprop="<%= itemProp %>" itemscope itemtype="<%= schemaType %>">
-  <% if (!isPage){ %>
+<article id="<%= post.layout %>-<%= post.slug %>" class="h-entry article article-type-<%= post.layout %><%= isDetailPost ? ' article-detail' : '' %><%= index && !isPage ? ' article-index-card' : '' %>" itemprop="<%= itemProp %>" itemscope itemtype="<%= schemaType %>">
+  <% if (!isPage && !isDetailPost){ %>
     <div class="article-meta">
       <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
       <%- partial('post/category') %>
@@ -12,6 +13,12 @@
   <% } %>
   <div class="article-inner">
     <%- partial('post/gallery') %>
+    <% if (isDetailPost){ %>
+      <div class="article-meta">
+        <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+        <%- partial('post/category') %>
+      </div>
+    <% } %>
     <% if (post.link || post.title){ %>
       <header class="article-header">
         <%- partial('post/title', {class_name: 'p-name article-title'}) %>

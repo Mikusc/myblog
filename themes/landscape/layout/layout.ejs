@@ -4,11 +4,13 @@
 <body>
   <div id="container">
     <div id="wrap">
-      <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
       <% var homeView = is_home(); %>
-      <div class="outer <%= homeView ? 'outer-home' : '' %>">
-        <section id="main" class="<%= homeView ? 'home-main' : '' %>"><%- body %></section>
-        <% if (theme.sidebar && theme.sidebar !== 'bottom' && !homeView){ %>
+      <% var listingView = page.archive || page.category || page.tag; %>
+      <% var noSidebarView = homeView || page.layout === 'page' || listingView; %>
+      <%- partial('_partial/header', {homeView: homeView}, {cache: false}) %>
+      <div class="outer <%= homeView ? 'outer-home' : '' %> <%= noSidebarView ? 'outer-full' : '' %>">
+        <section id="main" class="<%= homeView ? 'home-main' : '' %> <%= noSidebarView ? 'main-full' : '' %>"><%- body %></section>
+        <% if (theme.sidebar && theme.sidebar !== 'bottom' && !noSidebarView){ %>
           <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
         <% } %>
       </div>

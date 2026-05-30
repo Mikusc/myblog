@@ -115,6 +115,23 @@ if sidebar and sidebar isnt bottom
     @media mq-normal
       column(main-column)
 
+  #main.main-full
+    @media mq-normal
+      float: none
+      width: 100%
+      max-width: 1040px
+      margin: 0 auto
+
+.outer-full
+  max-width: 1220px
+  padding-left: 28px
+  padding-right: 28px
+
+@media mq-mobile-tablet
+  .outer-full
+    padding-left: 20px
+    padding-right: 20px
+
 if sidebar is left
   @media mq-normal
     #main

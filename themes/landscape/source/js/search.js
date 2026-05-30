@@ -27,6 +27,7 @@ var searchFunc = function(path, search_id, content_id) {
             $input.addEventListener('input', function(){
                 var str = '<ul class=\"search-result-list\">';
                 var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/).filter(Boolean);
+                var resultCount = 0;
                 $resultContent.innerHTML = "";
                 if (keywords.length <= 0) {
                     return;
@@ -53,6 +54,7 @@ var searchFunc = function(path, search_id, content_id) {
 
                     // show search results
                     if (isMatch) {
+                        resultCount += 1;
                         str += "<li><a href='" + encodeURI(data_url) + "' class='search-result-title'>" + escapeHtml(data_title) + "</a>";
                         var start = first_occur > 20 ? first_occur - 20 : 0;
                         var end = first_occur >= 0 ? first_occur + 80 : 100;
@@ -71,7 +73,11 @@ var searchFunc = function(path, search_id, content_id) {
                     }
                 });
                 str += "</ul>";
-                $resultContent.innerHTML = str;
+                if (resultCount > 0) {
+                    $resultContent.innerHTML = "<div class=\"search-result-head\">" + resultCount + " result" + (resultCount > 1 ? "s" : "") + "</div>" + str;
+                } else {
+                    $resultContent.innerHTML = "<p class=\"search-empty\">No matching posts found.</p>";
+                }
             });
         }
     });
