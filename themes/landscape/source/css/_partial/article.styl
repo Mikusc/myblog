@@ -188,7 +188,7 @@
   width: fit-content
   min-height: 26px
   padding: 7px 10px 6px
-  color: #fff
+  color: color-grey
   background: color-default
   letter-spacing: 1px
 
@@ -295,6 +295,36 @@
   color: color-grey
   font-size: 15px
   line-height: 1.72
+
+.content-card-social
+  &.content-card-social-github
+    background: #fff
+  &.content-card-social-repository
+    background: color-default
+    border-color: color-default
+  &.content-card-social-bilibili
+    background: #fb7299
+    border-color: #fb7299
+  &.content-card-social-rednote
+    background: #ff2442
+    border-color: #ff2442
+  &.content-card-social-repository,
+  &.content-card-social-bilibili,
+  &.content-card-social-rednote
+    .content-card-label-platform
+      color: rgba(255, 255, 255, 0.78)
+    .content-card-title
+      color: #fff
+    .content-card-desc
+      color: rgba(255, 255, 255, 0.82)
+    &:hover
+      border-color: color-default
+      .content-card-title
+        color: #fff
+  .content-card-label-platform
+    min-height: 0
+    padding: 0
+    background: transparent
 
 .content-card-meta
   display: flex
