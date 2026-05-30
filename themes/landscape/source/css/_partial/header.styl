@@ -120,6 +120,20 @@
   position: relative
   display: inline-flex
   align-items: center
+  &:after
+    content: ""
+    position: absolute
+    top: 100%
+    left: 50%
+    width: 310px
+    height: 28px
+    transform: translateX(-50%)
+    pointer-events: none
+    z-index: 39
+
+.site-dropdown:hover:after,
+.site-dropdown:focus-within:after
+  pointer-events: auto
 
 .site-dropdown-toggle
   display: inline-flex
