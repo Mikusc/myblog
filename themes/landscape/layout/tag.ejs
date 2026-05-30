@@ -1,1 +1,6 @@
+<section class="listing-hero">
+  <p class="listing-kicker">Tag</p>
+  <h1 class="listing-title"><%= page.tag || page.title || '标签' %></h1>
+  <p class="listing-lede">这个标签下的文章会按发布时间排列，适合快速定位相关记录。</p>
+</section>
 <%- partial('_partial/archive', {expand: false, index: true}) %>

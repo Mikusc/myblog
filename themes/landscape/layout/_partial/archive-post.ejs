@@ -3,6 +3,16 @@
     <header class="archive-article-header">
       <%- partial('post/date', {class_name: 'archive-article-date', date_format: 'MMM D'}) %>
       <%- partial('post/title', {class_name: 'archive-article-title'}) %>
+      <% if (post.categories && post.categories.length){ %>
+        <div class="archive-article-category">
+          <%- list_categories(post.categories, {
+            show_count: false,
+            class: 'archive-category',
+            style: 'none',
+            separator: ' / '
+          }) %>
+        </div>
+      <% } %>
     </header>
   </div>
 </article>

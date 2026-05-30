@@ -1,1 +1,6 @@
+<section class="listing-hero">
+  <p class="listing-kicker">Category</p>
+  <h1 class="listing-title"><%= page.category || page.title || '分类' %></h1>
+  <p class="listing-lede">这个分类下的文章会按发布时间排列，方便从同一主题继续阅读。</p>
+</section>
 <%- partial('_partial/archive', {expand: false, index: true}) %>

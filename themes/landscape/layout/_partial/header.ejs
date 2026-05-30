@@ -1,4 +1,5 @@
 <%
+  var showHomeHero = typeof homeView !== 'undefined' ? homeView : is_home();
   var navI18nKeys = {
     '首页': 'nav.home',
     '课程笔记': 'nav.courseNotes',
@@ -9,8 +10,10 @@
     '工具': 'nav.tools'
   };
 %>
-<header id="header">
-  <div id="banner"></div>
+<header id="header" class="<%= showHomeHero ? 'site-header-home' : 'site-header-compact' %>">
+  <% if (showHomeHero) { %>
+    <div id="banner"></div>
+  <% } %>
   <div id="header-outer" class="outer">
     <div id="header-inner" class="inner">
       <a class="site-wordmark" href="<%- url_for() %>">
@@ -69,23 +72,25 @@
         </div>
       </div>
     </div>
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="<%- url_for() %>" id="logo" data-i18n="site.name"><%= config.title %></a>
-      </h1>
-      <% if (theme.subtitle || config.subtitle){ %>
-        <h2 id="subtitle-wrap">
-          <a href="<%- url_for() %>" id="subtitle"><%= theme.subtitle || config.subtitle %></a>
-        </h2>
-      <% } %>
-      <a class="site-hero-cta" href="<%- url_for('/about/') %>">
-        <span class="site-hero-cta-text" data-i18n="hero.cta">了解更多</span>
-        <span class="site-hero-cta-icon site-drawn-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <path d="M7 17L17 7M9 7h8v8"></path>
-          </svg>
-        </span>
-      </a>
-    </div>
+    <% if (showHomeHero) { %>
+      <div id="header-title" class="inner">
+        <h1 id="logo-wrap">
+          <a href="<%- url_for() %>" id="logo" data-i18n="site.name"><%= config.title %></a>
+        </h1>
+        <% if (theme.subtitle || config.subtitle){ %>
+          <h2 id="subtitle-wrap">
+            <a href="<%- url_for() %>" id="subtitle" data-i18n="site.heroSubtitle"><%= theme.subtitle || config.subtitle %></a>
+          </h2>
+        <% } %>
+        <a class="site-hero-cta" href="<%- url_for('/about/') %>">
+          <span class="site-hero-cta-text" data-i18n="hero.cta">了解更多</span>
+          <span class="site-hero-cta-icon site-drawn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M7 17L17 7M9 7h8v8"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
+    <% } %>
   </div>
 </header>

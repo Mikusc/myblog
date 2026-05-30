@@ -143,6 +143,531 @@
       height: 100%
       margin-top: 0
 
+// Structured hub pages used by Course Notes, Projects, and Tools.
+.content-hub
+  margin: 6px 0 28px
+  color: color-default
+
+.article-entry .content-hub p
+  margin: 0
+
+.article-entry .content-hub a
+  color: color-default
+  text-decoration: none
+  &:hover
+    text-decoration: none
+
+.content-hub-hero
+  position: relative
+  padding: 38px 42px 42px
+  margin: 0 0 24px
+  color: #fff
+  background: color-default
+  overflow: hidden
+  &:before
+    content: ""
+    position: absolute
+    top: 0
+    left: 0
+    width: 8px
+    height: 100%
+    background: var(--trent-turquoise)
+
+.content-hub-kicker,
+.content-section-kicker,
+.content-card-label
+  margin: 0
+  color: color-grey
+  font: 700 12px/1.2 font-sans
+  letter-spacing: 1.2px
+  text-transform: uppercase
+
+.content-hub-kicker
+  color: rgba(255, 255, 255, 0.72)
+
+.content-hub-title
+  max-width: 780px
+  margin: 14px 0 0
+  color: #fff
+  font: 700 38px/1.12 font-sans
+
+.content-hub-lede
+  max-width: 760px
+  margin-top: 22px !important
+  color: rgba(255, 255, 255, 0.78)
+  font-size: 16px
+  line-height: 1.75
+
+.content-stat-grid
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  margin-bottom: 48px
+  background: #fff
+  border: 1px solid color-border
+
+.content-stat
+  padding: 28px 30px
+  border-right: 1px solid color-border
+  &:last-child
+    border-right: 0
+
+.content-stat-number
+  display: block
+  color: color-default
+  font: 700 34px/1 font-sans
+
+.content-stat-label
+  display: block
+  margin-top: 12px
+  color: color-default
+  font: 700 16px/1.35 font-sans
+
+.content-section
+  margin: 0 0 54px
+
+.content-section-compact
+  margin-bottom: 28px
+
+.content-section-head
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  gap: 24px
+  padding-bottom: 18px
+  margin-bottom: 24px
+  border-bottom: 1px solid color-border
+
+.content-section-title
+  margin: 8px 0 0
+  color: color-default
+  font: 700 28px/1.2 font-sans
+
+.content-card-grid
+  display: grid
+  grid-template-columns: repeat(4, minmax(0, 1fr))
+  gap: 22px
+
+.content-card-grid-two
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+
+.content-card
+  display: flex
+  min-height: 218px
+  flex-direction: column
+  justify-content: space-between
+  padding: 26px
+  background: #fff
+  border: 1px solid color-border
+  transition: border-color 0.2s ease, background 0.2s ease
+  &:hover
+    border-color: color-default
+    .content-card-title
+      text-decoration: underline
+
+.content-card-title
+  display: block
+  margin-top: 18px
+  color: color-default
+  font: 700 22px/1.25 font-sans
+
+.content-card-desc
+  display: block
+  margin-top: 16px
+  color: color-grey
+  font-size: 15px
+  line-height: 1.72
+
+.content-card-meta
+  display: flex
+  flex-wrap: wrap
+  gap: 8px
+  margin-top: 24px
+  color: color-grey
+  font: 700 12px/1.2 font-sans
+  letter-spacing: 0.3px
+  span
+    display: inline-flex
+    align-items: center
+    min-height: 26px
+    padding: 6px 9px
+    background: var(--nottingham-blue-5)
+    border: 1px solid color-border
+
+.content-link-list
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  border: 1px solid color-border
+  background: #fff
+
+.content-link-row
+  display: grid
+  grid-template-columns: 92px minmax(0, 1fr)
+  align-items: center
+  gap: 18px
+  min-height: 82px
+  padding: 20px 24px
+  border-right: 1px solid color-border
+  border-bottom: 1px solid color-border
+  &:nth-child(2n)
+    border-right: 0
+  &:nth-last-child(-n+2)
+    border-bottom: 0
+  &:hover strong
+    text-decoration: underline
+  span
+    color: color-grey
+    font: 700 13px/1 font-sans
+    letter-spacing: 0.8px
+    text-transform: uppercase
+  strong
+    color: color-default
+    font: 700 18px/1.35 font-sans
+
+.content-chip-row
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  a
+    display: inline-flex
+    align-items: center
+    min-height: 40px
+    padding: 10px 14px
+    color: color-default
+    background: #fff
+    border: 1px solid color-border
+    font-weight: 700
+    &:hover
+      border-color: color-default
+
+.content-feature-card,
+.content-tool-card,
+.content-note-panel
+  background: #fff
+  border: 1px solid color-border
+
+.content-feature-card
+  display: grid
+  grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.6fr)
+  gap: 34px
+  padding: 34px
+
+.content-feature-title
+  margin: 16px 0 0
+  color: color-default
+  font: 700 30px/1.18 font-sans
+
+.content-action-group
+  display: flex
+  flex-direction: column
+  align-items: stretch
+  justify-content: flex-end
+  gap: 14px
+
+.content-action
+  display: inline-flex
+  align-items: center
+  justify-content: space-between
+  gap: 18px
+  min-height: 56px
+  padding: 10px 10px 10px 20px
+  color: color-default
+  background: #fff
+  border: 2px solid color-default
+  font: 700 16px/1 font-sans
+  transition: background 0.2s ease, color 0.2s ease
+  &:hover
+    background: color-default
+    color: #fff
+    .content-action-icon
+      background: #fff
+      color: color-default
+
+.content-action-primary
+  color: #fff
+  background: color-default
+  &:hover
+    background: #fff
+    color: color-default
+    .content-action-icon
+      background: color-default
+      color: #fff
+
+.content-action-icon
+  width: 34px
+  height: 34px
+  border-radius: 50%
+  color: color-default
+  background: #fff
+  flex: 0 0 34px
+  transition: background 0.2s ease, color 0.2s ease
+
+.content-action:not(.content-action-primary) .content-action-icon
+  color: #fff
+  background: color-default
+
+.content-action:not(.content-action-primary):hover .content-action-icon
+  color: color-default
+  background: #fff
+
+.content-tool-grid
+  display: grid
+  grid-template-columns: minmax(0, 1fr)
+
+.content-tool-card
+  display: grid
+  grid-template-columns: minmax(0, 1fr) 220px
+  align-items: end
+  gap: 34px
+  padding: 34px
+
+.content-tool-status
+  display: inline-flex
+  align-items: center
+  min-height: 30px
+  padding: 7px 10px
+  color: #fff
+  background: color-default
+  font: 700 12px/1 font-sans
+  letter-spacing: 1px
+  text-transform: uppercase
+
+.content-note-panel
+  padding: 26px 30px
+  p
+    color: color-grey
+    font-size: 15px
+    line-height: 1.75
+
+@media mq-mobile-tablet
+  .content-hub
+    margin-bottom: 12px
+
+  .content-hub-hero
+    padding: 30px 24px 32px
+    margin-bottom: 20px
+
+  .content-hub-title
+    font-size: 30px
+    line-height: 1.16
+
+  .content-hub-lede
+    font-size: 15px
+
+  .content-stat-grid,
+  .content-card-grid,
+  .content-card-grid-two,
+  .content-link-list,
+  .content-feature-card,
+  .content-tool-card
+    grid-template-columns: 1fr
+
+  .content-stat
+    padding: 24px
+    border-right: 0
+    border-bottom: 1px solid color-border
+    &:last-child
+      border-bottom: 0
+
+  .content-section
+    margin-bottom: 44px
+
+  .content-section-head
+    display: block
+    margin-bottom: 20px
+
+  .content-section-title
+    font-size: 24px
+
+  .content-card
+    min-height: 190px
+    padding: 24px
+
+  .content-link-row
+    grid-template-columns: 76px minmax(0, 1fr)
+    gap: 14px
+    min-height: 74px
+    padding: 18px 20px
+    border-right: 0
+    &:nth-last-child(-n+2)
+      border-bottom: 1px solid color-border
+    &:last-child
+      border-bottom: 0
+
+  .content-feature-card,
+  .content-tool-card
+    gap: 26px
+    padding: 26px 24px
+
+  .content-feature-title
+    font-size: 25px
+
+  .content-tool-card .content-action
+    width: 100%
+
+.article-detail
+  margin-top: 0
+
+.article-detail .article-meta
+  float: none
+  display: flex
+  align-items: center
+  flex-wrap: wrap
+  gap: 10px 14px
+  margin: 0
+  padding: 34px 42px 0
+  color: color-grey
+
+.article-detail .article-date
+  float: none
+  margin: 0
+  color: color-grey
+  font: 700 13px/1 font-sans
+  letter-spacing: 0.8px
+  text-transform: uppercase
+
+.article-detail .article-category
+  float: none
+  margin: 0
+  color: color-grey
+  &:before
+    display: none
+
+.article-detail .article-category-link
+  margin: 0
+  color: color-default
+  font: 700 13px/1 font-sans
+  letter-spacing: 0
+  text-transform: none
+  text-decoration: none
+
+.article-detail .article-inner
+  background: #fff
+  border: 1px solid color-border
+
+.article-detail .article-header
+  padding: 20px 42px 0
+
+.article-detail .article-title
+  font-size: clamp(32px, 4vw, 48px)
+  line-height: 1.12
+
+.article-detail .article-entry
+  padding: 16px 42px 42px
+  font-size: 16px
+  line-height: 1.82
+  color: color-default
+  h1, h2
+    margin-top: 2em
+    padding-top: 0.65em
+    border-top: 1px solid color-border
+  h2
+    font-size: 1.6em
+  h3
+    margin-top: 1.8em
+    font-size: 1.28em
+  p, li
+    color: color-default
+  ul, ol
+    padding-left: 1.25em
+  table
+    border: 1px solid color-border
+    background: #fff
+  th, td
+    padding: 12px 14px
+    border-bottom: 1px solid color-border
+  th
+    background: var(--nottingham-blue-5)
+  blockquote
+    margin: 28px 0
+    padding: 22px 26px
+    text-align: left
+    font-family: font-sans
+    color: color-grey
+    background: var(--nottingham-blue-5)
+    border-left: 6px solid color-default
+  code
+    color: color-default
+    background: var(--nottingham-blue-5)
+    border: 1px solid color-border
+    padding: 0.12em 0.35em
+  pre
+    padding: 20px
+    background: #0b1c2c
+    border: 0
+    code
+      color: #f4f7fa
+      background: transparent
+      border: 0
+      padding: 0
+  .highlight
+    margin: 28px 0
+    padding: 18px 20px
+    background: #0b1c2c
+    border: 0
+    table
+      display: table
+      width: auto
+      border: 0
+      background: transparent
+    th, td
+      border: 0
+      padding: 0
+      background: transparent
+    pre
+      padding: 0
+      background: transparent
+    .gutter pre
+      padding-right: 18px
+      color: rgba(255, 255, 255, 0.45)
+    .code pre
+      color: #f4f7fa
+    .line
+      height: auto
+      min-height: 1.6em
+
+.article-detail .article-footer
+  margin: 0 42px 42px
+  padding-top: 24px
+  border-top: 1px solid color-border
+
+.article-detail .article-tag-list
+  display: flex
+  flex-wrap: wrap
+  gap: 8px
+  margin: 0
+  padding: 0
+  list-style: none
+
+.article-detail .article-tag-list-item
+  float: none
+  margin: 0
+
+.article-detail .article-tag-list-link
+  display: inline-flex
+  align-items: center
+  min-height: 30px
+  padding: 6px 10px
+  color: color-grey
+  background: var(--nottingham-blue-5)
+  border: 1px solid color-border
+  &:hover
+    color: color-default
+    text-decoration: none
+
+@media mq-mobile-tablet
+  .article-detail .article-meta
+    padding: 28px 24px 0
+
+  .article-detail .article-header
+    padding: 18px 24px 0
+
+  .article-detail .article-entry
+    padding: 14px 24px 32px
+    font-size: 15px
+
+  .article-detail .article-footer
+    margin: 0 24px 32px
+
 .article-more-link
   text-align: right
 
@@ -276,6 +801,57 @@
   font-size: 0.85em
   line-height: line-height
   margin-top: 0.5em
+
+.article-detail #article-nav
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+  gap: 18px
+  margin: 26px 0 0
+  &:before
+    display: none
+
+.article-detail .article-nav-link-wrap
+  float: none !important
+  width: auto
+  min-height: 130px
+  margin: 0
+  padding: 24px
+  color: color-default
+  text-align: left !important
+  text-shadow: none
+  background: #fff
+  border: 1px solid color-border
+  transition: border-color 0.2s ease
+  &:hover
+    border-color: color-default
+    text-decoration: none
+    .article-nav-title
+      text-decoration: underline
+
+.article-detail #article-nav-newer,
+.article-detail #article-nav-older
+  padding-left: 24px
+  padding-right: 24px
+
+.article-detail .article-nav-caption
+  display: block
+  margin: 0 0 18px !important
+  color: color-grey
+  font: 700 12px/1 font-sans
+  letter-spacing: 1.1px
+
+.article-detail .article-nav-title
+  margin: 0
+  color: color-default
+  font: 700 18px/1.45 font-sans
+
+@media mq-mobile-tablet
+  .article-detail #article-nav
+    grid-template-columns: 1fr
+
+  .article-detail .article-nav-link-wrap
+    min-height: 112px
+    padding: 22px
 
 .article-share-box
   position: absolute
