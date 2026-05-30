@@ -126,6 +126,10 @@
 
   // Caption
   $('.article-entry').each(function(i){
+    $(this).find('table').filter(function(){
+      return !$(this).closest('.highlight, .article-table-scroll').length;
+    }).wrap('<div class="article-table-scroll"></div>');
+
     $(this).find('img').each(function(){
       if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
 
