@@ -385,23 +385,31 @@
 .content-action > span:not(.content-action-icon)
   display: inline-flex
   align-items: center
+  flex: 1 1 auto
   min-width: 0
-  color: currentColor
+  color: color-default
+  -webkit-text-fill-color: color-default
   line-height: 1.25
   opacity: 1
   visibility: visible
   white-space: normal
+
+.content-action:hover > span:not(.content-action-icon)
+  color: #fff
+  -webkit-text-fill-color: #fff
 
 .content-action-primary
   color: #fff
   background: color-default
   > span:not(.content-action-icon)
     color: #fff
+    -webkit-text-fill-color: #fff
   &:hover
     background: #fff
     color: color-default
     > span:not(.content-action-icon)
       color: color-default
+      -webkit-text-fill-color: color-default
     .content-action-icon
       background: color-default
       color: #fff
