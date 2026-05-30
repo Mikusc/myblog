@@ -18,22 +18,22 @@ layout: page
     </div>
     <div class="content-card-grid content-card-grid-two">
       <a class="content-card" href="https://github.com/Mikusc" target="_blank" rel="noopener">
-        <span class="content-card-label">GitHub</span>
+        <span class="content-card-label content-card-label-platform content-card-label-default">GitHub</span>
         <strong class="content-card-title">Mikusc</strong>
         <span class="content-card-desc">课程笔记、项目问题和博客反馈的优先联系入口。</span>
       </a>
       <a class="content-card" href="https://github.com/Mikusc/myblog" target="_blank" rel="noopener">
-        <span class="content-card-label">Repository</span>
+        <span class="content-card-label content-card-label-platform content-card-label-default">Repository</span>
         <strong class="content-card-title">Mikusc/myblog</strong>
         <span class="content-card-desc">这个博客项目的 GitHub 仓库，适合提交 issue 或查看站点源码。</span>
       </a>
       <a class="content-card" href="https://space.bilibili.com/13401732" target="_blank" rel="noopener">
-        <span class="content-card-label">Bilibili</span>
+        <span class="content-card-label content-card-label-platform content-card-label-bilibili">Bilibili</span>
         <strong class="content-card-title">B 站</strong>
         <span class="content-card-desc">用于关注公开动态和视频内容。</span>
       </a>
       <a class="content-card" href="https://xhslink.com/m/oAu1JuHb85" target="_blank" rel="noopener">
-        <span class="content-card-label">Xiaohongshu</span>
+        <span class="content-card-label content-card-label-platform content-card-label-rednote">RedNote</span>
         <strong class="content-card-title">小红书</strong>
         <span class="content-card-desc">用于关注日常内容和公开更新。</span>
       </a>

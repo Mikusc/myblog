@@ -63,13 +63,14 @@
         <div class="footer-media-wrapper">
           <% if (theme.links) { %>
             <% var socialLabels = {github: 'GitHub', bilibili: 'B站', xiaohongshu: '小红书'}; %>
+            <% var socialI18nKeys = {github: 'social.github', bilibili: 'social.bilibili', xiaohongshu: 'social.xiaohongshu'}; %>
             <% var socialIconClasses = {github: 'fa-github', bilibili: 'fa-play-circle'}; %>
             <% var socialIconImages = {
               bilibili: 'https://www.nottingham.edu.cn/SiteElements/Images/2023-Revamp/Social/social-bilibili.svg',
               xiaohongshu: 'https://www.nottingham.edu.cn/SiteElements/Images/2023-Revamp/Social/social-rednote.svg'
             }; %>
             <% for (const i in theme.links) { %>
-              <a class="media-icon media-icon-<%= i %>" href="<%- url_for(theme.links[i]) %>" title="<%= socialLabels[i] || i %>" aria-label="<%= socialLabels[i] || i %>"<% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>>
+              <a class="media-icon media-icon-<%= i %>" href="<%- url_for(theme.links[i]) %>" title="<%= socialLabels[i] || i %>" aria-label="<%= socialLabels[i] || i %>"<% if (socialI18nKeys[i]) { %> data-i18n-title="<%= socialI18nKeys[i] %>" data-i18n-aria-label="<%= socialI18nKeys[i] %>"<% } %><% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>>
                 <% if (socialIconImages[i]) { %>
                   <img src="<%= socialIconImages[i] %>" alt="" loading="lazy">
                 <% } else if (socialIconClasses[i]) { %>

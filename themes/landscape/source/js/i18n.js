@@ -11,6 +11,9 @@
       'site.heroSubtitle': '课程复习、项目实践与技术笔记',
       'site.dropdownCurrent': 'Mikusc 的小站',
       'site.arcaeaChannel': '韵律源点 Arcaea 腾讯频道',
+      'social.github': 'GitHub',
+      'social.bilibili': 'B站',
+      'social.xiaohongshu': '小红书',
       'language.toggle': 'English',
       'language.aria': 'Switch site language to English',
       'nav.home': '首页',
@@ -64,6 +67,9 @@
       'site.heroSubtitle': 'Course Review, Projects, and Technical Notes',
       'site.dropdownCurrent': "Mikusc's Site",
       'site.arcaeaChannel': 'Arcaea Tencent Channel',
+      'social.github': 'GitHub',
+      'social.bilibili': 'Bilibili',
+      'social.xiaohongshu': 'RedNote',
       'language.toggle': '中文',
       'language.aria': '切换网站语言为中文',
       'nav.home': 'Home',
@@ -151,15 +157,15 @@
         '<section class="content-hub-hero">',
         '<p class="content-hub-kicker">Contact</p>',
         '<h2 class="content-hub-title">Contact and public links</h2>',
-        '<p class="content-hub-lede">These are the public contact and follow-up channels for this site. For course notes, project practice, or blog issues, GitHub is preferred. For general updates, you can also find me on Bilibili or Xiaohongshu.</p>',
+        '<p class="content-hub-lede">These are the public contact and follow-up channels for this site. For course notes, project practice, or blog issues, GitHub is preferred. For general updates, you can also find me on Bilibili or RedNote.</p>',
         '</section>',
         '<section class="content-section">',
         '<div class="content-section-head"><div><p class="content-section-kicker">Main Links</p><h3 class="content-section-title">Main entry points</h3></div></div>',
         '<div class="content-card-grid content-card-grid-two">',
-        '<a class="content-card" href="https://github.com/Mikusc" target="_blank" rel="noopener"><span class="content-card-label">GitHub</span><strong class="content-card-title">Mikusc</strong><span class="content-card-desc">Preferred contact route for course notes, project issues, and blog feedback.</span></a>',
-        '<a class="content-card" href="https://github.com/Mikusc/myblog" target="_blank" rel="noopener"><span class="content-card-label">Repository</span><strong class="content-card-title">Mikusc/myblog</strong><span class="content-card-desc">GitHub repository for this blog project, suitable for issues or source inspection.</span></a>',
-        '<a class="content-card" href="https://space.bilibili.com/13401732" target="_blank" rel="noopener"><span class="content-card-label">Bilibili</span><strong class="content-card-title">Bilibili</strong><span class="content-card-desc">For public updates and video content.</span></a>',
-        '<a class="content-card" href="https://xhslink.com/m/oAu1JuHb85" target="_blank" rel="noopener"><span class="content-card-label">Xiaohongshu</span><strong class="content-card-title">Xiaohongshu</strong><span class="content-card-desc">For daily content and public updates.</span></a>',
+        '<a class="content-card" href="https://github.com/Mikusc" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-default">GitHub</span><strong class="content-card-title">Mikusc</strong><span class="content-card-desc">Preferred contact route for course notes, project issues, and blog feedback.</span></a>',
+        '<a class="content-card" href="https://github.com/Mikusc/myblog" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-default">Repository</span><strong class="content-card-title">Mikusc/myblog</strong><span class="content-card-desc">GitHub repository for this blog project, suitable for issues or source inspection.</span></a>',
+        '<a class="content-card" href="https://space.bilibili.com/13401732" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-bilibili">Bilibili</span><strong class="content-card-title">Bilibili</strong><span class="content-card-desc">For public updates and video content.</span></a>',
+        '<a class="content-card" href="https://xhslink.com/m/oAu1JuHb85" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-rednote">RedNote</span><strong class="content-card-title">RedNote</strong><span class="content-card-desc">For daily content and public updates.</span></a>',
         '</div>',
         '</section>',
         '<section class="content-section">',
@@ -317,6 +323,16 @@
       var key = element.getAttribute('data-i18n');
       var value = translate(lang, key);
       if (value) element.textContent = value;
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(function(element){
+      var key = element.getAttribute('data-i18n-title');
+      var value = translate(lang, key);
+      if (value) element.setAttribute('title', value);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(function(element){
+      var key = element.getAttribute('data-i18n-aria-label');
+      var value = translate(lang, key);
+      if (value) element.setAttribute('aria-label', value);
     });
   }
 
