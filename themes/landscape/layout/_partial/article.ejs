@@ -26,7 +26,14 @@
         <% } %>
         <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
-            <a href="<%- url_for(post.path) %><%= post.excerpt ? '#more' : '' %>"><%= theme.excerpt_link %></a>
+            <a href="<%- url_for(post.path) %><%= post.excerpt ? '#more' : '' %>">
+              <span class="article-more-text"><%= theme.excerpt_link %></span>
+              <span class="article-more-icon site-drawn-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M7 17L17 7M9 7h8v8"></path>
+                </svg>
+              </span>
+            </a>
           </p>
         <% } %>
       <% } else { %>

@@ -20,24 +20,30 @@ input, button
     padding: 0
 
 :root
-  --bg-1: #f7f1e7
-  --bg-2: #e4f1f2
-  --ink: #1c2b2d
-  --muted: #4f5d5e
+  --nottingham-blue: #10263b
+  --nottingham-blue-80: #405162
+  --nottingham-blue-20: #cfd4d8
+  --nottingham-blue-5: #f3f4f5
+  --portland-stone: #faf6ef
+  --portland-stone-40: #fdfbf9
+  --forest-green: #005f36
+  --trent-turquoise: #37b4b0
+  --bg-1: #eef1f4
+  --bg-2: #eef1f4
+  --ink: #10263b
+  --muted: #405162
   --card: #ffffff
-  --accent: #2d6a6f
-  --accent-2: #e39c44
-  --accent-3: #f5e6c7
-  --ring: rgba(45, 106, 111, 0.2)
-  --shadow: 0 18px 45px rgba(12, 28, 32, 0.12)
+  --accent: #10263b
+  --accent-2: #37b4b0
+  --accent-3: #faf6ef
+  --ring: rgba(16, 38, 59, 0.16)
+  --shadow: 0 14px 30px rgba(16, 38, 59, 0.08)
 
 html, body, #container
   height: 100%
 
 body
-  background: radial-gradient(900px 400px at 10% -10%, #fff6df 0%, transparent 60%),
-    radial-gradient(800px 380px at 110% 0%, #e7f6f6 0%, transparent 65%),
-    linear-gradient(135deg, var(--bg-1), var(--bg-2))
+  background: var(--bg-1)
   font: font-size font-sans
   -webkit-text-size-adjust: 100%
   color: color-default
@@ -45,31 +51,25 @@ body
   position: relative
   overflow-x: hidden
 
-body:before,
-body:after
-  content: ""
-  position: absolute
-  z-index: 0
-  width: 240px
-  height: 240px
-  border-radius: 50%
-  filter: blur(20px)
-  opacity: 0.35
-
-body:before
-  top: 80px
-  left: -60px
-  background: #ffe6bf
-
-body:after
-  bottom: 40px
-  right: -80px
-  background: #d5f0f2
-
 h1, h2, h3, h4, h5, h6,
 #logo, #subtitle
-  font-family: font-serif
-  letter-spacing: 0.4px
+  font-family: font-sans
+  letter-spacing: 0
+
+.site-drawn-arrow
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  svg
+    width: 18px
+    height: 18px
+    display: block
+  path
+    fill: none
+    stroke: currentColor
+    stroke-width: 3
+    stroke-linecap: square
+    stroke-linejoin: miter
 
 .outer
   clearfix()
@@ -132,6 +132,8 @@ if sidebar is left
 if sidebar
   @import "_partial/sidebar"
 
+@import "_partial/home"
+
 /* Math (KaTeX) */
 .katex
   font-size: 1.15em
@@ -139,4 +141,3 @@ if sidebar
 .katex-display
   overflow-x: auto
   overflow-y: hidden
-

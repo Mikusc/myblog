@@ -2,13 +2,112 @@
   <% if (theme.sidebar === 'bottom'){ %>
     <%- partial('_partial/sidebar') %>
   <% } %>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      <% if (theme.copyright){ %>
-        <%- render(theme.copyright, 'pug'); %>
-      <% } %>
-      &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br>
-      <%= __('powered_by') %> <a href="https://hexo.io/" target="_blank">Hexo</a>
+  <div class="footer-shell">
+    <div class="footer-flex-wrapper">
+      <section class="footer-column footer-column-1">
+        <div class="footer-sub-title">联系与站点</div>
+        <div class="footer-sub-list">
+          <div class="footer-sub-item"><%= config.title %></div>
+          <% if (theme.site_switch && theme.site_switch.arcaea_tencent){ %>
+            <div class="footer-sub-item hover-link">
+              <a href="<%- url_for(theme.site_switch.arcaea_tencent.url) %>" target="_blank" rel="noopener"><%= theme.site_switch.arcaea_tencent.label %></a>
+            </div>
+          <% } else if (config.subtitle){ %>
+            <div class="footer-sub-item"><%= config.subtitle %></div>
+          <% } %>
+          <div class="footer-sub-item hover-link">
+            <a href="<%- url_for('/contact/') %>">联系我</a>
+          </div>
+        </div>
+        <a class="footer-map-nav" href="<%- url_for('/about/') %>">
+          <span class="footer-sub-title">关于小站</span>
+          <span class="footer-arrow site-drawn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M7 17L17 7M9 7h8v8"></path>
+            </svg>
+          </span>
+        </a>
+      </section>
+
+      <section class="footer-column footer-column-2">
+        <div class="footer-sub-title">快捷链接</div>
+        <div class="footer-sub-list footer-link-list">
+          <% var menuNames = Object.keys(theme.menu || {}); %>
+          <% var splitIndex = Math.ceil(menuNames.length / 2); %>
+          <div class="footer-link-group">
+            <% menuNames.slice(0, splitIndex).forEach(function(name){ %>
+              <div class="footer-sub-item hover-link"><a href="<%- url_for(theme.menu[name]) %>"><%= name %></a></div>
+            <% }); %>
+          </div>
+          <div class="footer-link-group">
+            <% menuNames.slice(splitIndex).forEach(function(name){ %>
+              <div class="footer-sub-item hover-link"><a href="<%- url_for(theme.menu[name]) %>"><%= name %></a></div>
+            <% }); %>
+          </div>
+        </div>
+      </section>
+
+      <section class="footer-column footer-column-3">
+        <div class="footer-sub-title">社交媒体</div>
+        <div class="footer-media-wrapper">
+          <% if (theme.links) { %>
+            <% var socialLabels = {github: 'GitHub', bilibili: 'B站', xiaohongshu: '小红书'}; %>
+            <% var socialIconClasses = {github: 'fa-github', bilibili: 'fa-play-circle'}; %>
+            <% var socialIconImages = {
+              bilibili: 'https://www.nottingham.edu.cn/SiteElements/Images/2023-Revamp/Social/social-bilibili.svg',
+              xiaohongshu: 'https://www.nottingham.edu.cn/SiteElements/Images/2023-Revamp/Social/social-rednote.svg'
+            }; %>
+            <% for (const i in theme.links) { %>
+              <a class="media-icon media-icon-<%= i %>" href="<%- url_for(theme.links[i]) %>" title="<%= socialLabels[i] || i %>" aria-label="<%= socialLabels[i] || i %>"<% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>>
+                <% if (socialIconImages[i]) { %>
+                  <img src="<%= socialIconImages[i] %>" alt="" loading="lazy">
+                <% } else if (socialIconClasses[i]) { %>
+                  <span class="fa <%= socialIconClasses[i] %>"></span>
+                <% } else { %>
+                  <span class="fa fa-link"></span>
+                <% } %>
+              </a>
+            <% } %>
+          <% } %>
+          <% if (theme.rss){ %>
+            <a class="media-icon" href="<%- url_for(theme.rss) %>" title="<%= __('rss_feed') %>">
+              <span class="fa fa-rss"></span>
+            </a>
+          <% } %>
+        </div>
+      </section>
+
+      <section class="footer-column footer-column-4">
+        <a class="footer-link-wrapper" href="<%- url_for('/course-notes/') %>">
+          <span class="link-text">课程笔记</span>
+          <span class="link-btn-wrapper" aria-hidden="true"><span class="link-arrow site-drawn-arrow"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
+        </a>
+        <a class="footer-link-wrapper" href="<%- url_for('/projects/') %>">
+          <span class="link-text">项目实践</span>
+          <span class="link-btn-wrapper" aria-hidden="true"><span class="link-arrow site-drawn-arrow"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
+        </a>
+        <a class="footer-link-wrapper" href="<%- url_for('/tools/') %>">
+          <span class="link-text">工具</span>
+          <span class="link-btn-wrapper" aria-hidden="true"><span class="link-arrow site-drawn-arrow"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></span>
+        </a>
+      </section>
+    </div>
+
+    <div class="footer-split-line"></div>
+
+    <div id="footer-info" class="footer-copyright-wrapper">
+      <div class="copyright-text">
+        <% if (theme.copyright){ %>
+          <%- render(theme.copyright, 'pug'); %>
+        <% } else { %>
+          &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %>
+        <% } %>
+      </div>
+      <div class="copyright-links">
+        <a class="copyright-text hover-link" href="<%- url_for('/about/') %>">关于</a>
+        <a class="copyright-text hover-link" href="<%- url_for('/contact/') %>">联系</a>
+        <span class="copyright-text"><%= __('powered_by') %> <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a></span>
+      </div>
     </div>
   </div>
 </footer>
