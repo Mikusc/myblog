@@ -1,3 +1,14 @@
+<%
+  var navI18nKeys = {
+    '首页': 'nav.home',
+    '课程笔记': 'nav.courseNotes',
+    '项目': 'nav.projects',
+    '关于': 'nav.about',
+    '联系': 'nav.contact',
+    '归档': 'nav.archives',
+    '工具': 'nav.tools'
+  };
+%>
 <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
@@ -5,8 +16,8 @@
       <a class="site-wordmark" href="<%- url_for() %>">
         <span class="site-mark">M</span>
         <span class="site-name-wrap">
-          <span class="site-name"><%= config.title %></span>
-          <span class="site-tagline">Course Notes · Projects · Tech Notes</span>
+          <span class="site-name" data-i18n="site.name"><%= config.title %></span>
+          <span class="site-tagline" data-i18n="site.tagline">Course Notes · Projects · Tech Notes</span>
         </span>
       </a>
       <div class="site-nav-panel navbar-wrapper">
@@ -25,22 +36,22 @@
               </div>
             <% } %>
             <span class="split-line"></span>
-            <div class="site-language-switch" aria-label="Language switch">
-              <span class="site-language-link">English</span>
+            <button class="site-language-switch js-language-toggle" type="button" aria-label="Language switch">
+              <span class="site-language-link" data-i18n="language.toggle">English</span>
               <span class="fa fa-globe" aria-hidden="true"></span>
-            </div>
+            </button>
             <span class="split-line"></span>
             <div class="site-dropdown">
               <button class="site-dropdown-toggle" type="button" aria-haspopup="true">
-                Mikusc 的小站 <span class="site-down-caret"></span>
+                <span data-i18n="site.dropdownCurrent">Mikusc 的小站</span> <span class="site-down-caret"></span>
               </button>
               <div class="site-dropdown-menu" role="menu">
                 <a class="site-dropdown-link site-dropdown-current" href="<%- url_for('/') %>" role="menuitem">
-                  <span>Mikusc 的小站</span>
+                  <span data-i18n="site.dropdownCurrent">Mikusc 的小站</span>
                 </a>
                 <% var arcaeaSwitch = theme.site_switch && theme.site_switch.arcaea_tencent; %>
                 <a class="site-dropdown-link" href="<%- url_for(arcaeaSwitch && arcaeaSwitch.url ? arcaeaSwitch.url : '#') %>" role="menuitem"<% if (arcaeaSwitch && /^https?:\/\//.test(arcaeaSwitch.url || '')) { %> target="_blank" rel="noopener"<% } %>>
-                  <span><%= arcaeaSwitch && arcaeaSwitch.label ? arcaeaSwitch.label : '韵律源点 Arcaea 腾讯频道' %></span>
+                  <span data-i18n="site.arcaeaChannel"><%= arcaeaSwitch && arcaeaSwitch.label ? arcaeaSwitch.label : '韵律源点 Arcaea 腾讯频道' %></span>
                 </a>
               </div>
             </div>
@@ -52,7 +63,7 @@
         <div id="site-nav-row" class="down-wrapper">
           <nav id="main-nav">
             <% for (var i in theme.menu){ %>
-              <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
+              <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"<% if (navI18nKeys[i]) { %> data-i18n="<%= navI18nKeys[i] %>"<% } %>><%= i %></a>
             <% } %>
           </nav>
         </div>
@@ -60,7 +71,7 @@
     </div>
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="<%- url_for() %>" id="logo"><%= config.title %></a>
+        <a href="<%- url_for() %>" id="logo" data-i18n="site.name"><%= config.title %></a>
       </h1>
       <% if (theme.subtitle || config.subtitle){ %>
         <h2 id="subtitle-wrap">
@@ -68,7 +79,7 @@
         </h2>
       <% } %>
       <a class="site-hero-cta" href="<%- url_for('/about/') %>">
-        <span class="site-hero-cta-text">了解更多</span>
+        <span class="site-hero-cta-text" data-i18n="hero.cta">了解更多</span>
         <span class="site-hero-cta-icon site-drawn-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" focusable="false">
             <path d="M7 17L17 7M9 7h8v8"></path>

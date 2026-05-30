@@ -36,17 +36,23 @@
     {
       title: '课程笔记',
       desc: '按课程、lecture 和 week 整理复习材料，适合考前快速定位知识点。',
-      href: url_for('/course-notes/')
+      href: url_for('/course-notes/'),
+      titleKey: 'home.pathways.course.title',
+      descKey: 'home.pathways.course.desc'
     },
     {
       title: '项目实践',
       desc: '集中展示博客、Web、XR 和 Unity 相关项目，把实践过程留下可回溯记录。',
-      href: url_for('/projects/')
+      href: url_for('/projects/'),
+      titleKey: 'home.pathways.projects.title',
+      descKey: 'home.pathways.projects.desc'
     },
     {
       title: '工具箱',
       desc: '收集学习、开发与写作中常用的工具入口，减少重复查找成本。',
-      href: url_for('/tools/')
+      href: url_for('/tools/'),
+      titleKey: 'home.pathways.tools.title',
+      descKey: 'home.pathways.tools.desc'
     }
   ];
 %>
@@ -56,24 +62,24 @@
     <div class="home-overview-panel">
       <div class="home-overview-copy">
         <p class="home-section-kicker">Mikusc Blog</p>
-        <h2 class="home-overview-title">课程复习、项目实践与技术笔记</h2>
-        <p class="home-overview-text">这里记录课程复习、项目实践、开发过程和工具整理，方便之后按主题回看，也方便从一处进入常用内容。</p>
+        <h2 class="home-overview-title" data-i18n="home.overview.title">课程复习、项目实践与技术笔记</h2>
+        <p class="home-overview-text" data-i18n="home.overview.text">这里记录课程复习、项目实践、开发过程和工具整理，方便之后按主题回看，也方便从一处进入常用内容。</p>
       </div>
       <div class="home-stat-grid">
         <div class="home-stat">
           <span class="home-stat-number"><%= posts.length %></span>
-          <span class="home-stat-label">篇文章</span>
-          <p class="home-stat-desc">当前博客已发布的学习记录与技术笔记。</p>
+          <span class="home-stat-label" data-i18n="home.stats.posts.label">篇文章</span>
+          <p class="home-stat-desc" data-i18n="home.stats.posts.desc">当前博客已发布的学习记录与技术笔记。</p>
         </div>
         <div class="home-stat">
           <span class="home-stat-number"><%= coursePosts.length %></span>
-          <span class="home-stat-label">篇课程笔记</span>
-          <p class="home-stat-desc">围绕 COMP4133AADS 的复习、练习与模拟题。</p>
+          <span class="home-stat-label" data-i18n="home.stats.course.label">篇课程笔记</span>
+          <p class="home-stat-desc" data-i18n="home.stats.course.desc">围绕 COMP4133AADS 的复习、练习与模拟题。</p>
         </div>
         <div class="home-stat">
           <span class="home-stat-number"><%= Object.keys(categories).length %></span>
-          <span class="home-stat-label">个分类</span>
-          <p class="home-stat-desc">通过分类和归档快速跳转到相关主题。</p>
+          <span class="home-stat-label" data-i18n="home.stats.categories.label">个分类</span>
+          <p class="home-stat-desc" data-i18n="home.stats.categories.desc">通过分类和归档快速跳转到相关主题。</p>
         </div>
       </div>
     </div>
@@ -83,11 +89,11 @@
     <div class="home-section-head">
       <div>
         <p class="home-section-kicker">News and Notes</p>
-        <h2 class="home-section-title">最新文章与课程笔记</h2>
-        <p class="home-section-note">最近更新的学习记录和课程复习材料会集中展示在这里，适合快速浏览和继续阅读。</p>
+        <h2 class="home-section-title" data-i18n="home.news.title">最新文章与课程笔记</h2>
+        <p class="home-section-note" data-i18n="home.news.note">最近更新的学习记录和课程复习材料会集中展示在这里，适合快速浏览和继续阅读。</p>
       </div>
       <a class="home-arrow-link" href="<%- url_for('/archives/') %>">
-        <span>全部文章</span>
+        <span data-i18n="home.news.allPosts">全部文章</span>
         <%- arrowIcon('home-arrow-button') %>
       </a>
     </div>
@@ -95,9 +101,9 @@
     <div class="home-news-events">
       <div class="home-news-column">
         <div class="home-column-head">
-          <h3 class="home-column-title">最新文章</h3>
+          <h3 class="home-column-title" data-i18n="home.news.latestPosts">最新文章</h3>
           <a class="home-column-link" href="<%- url_for('/archives/') %>">
-            <span>更多文章</span>
+            <span data-i18n="home.news.morePosts">更多文章</span>
             <%- arrowIcon('home-inline-arrow') %>
           </a>
         </div>
@@ -119,9 +125,9 @@
 
       <div class="home-events-column">
         <div class="home-column-head">
-          <h3 class="home-column-title">课程笔记</h3>
+          <h3 class="home-column-title" data-i18n="nav.courseNotes">课程笔记</h3>
           <a class="home-column-link" href="<%- url_for('/course-notes/') %>">
-            <span>进入目录</span>
+            <span data-i18n="home.news.enterDirectory">进入目录</span>
             <%- arrowIcon('home-inline-arrow') %>
           </a>
         </div>
@@ -129,8 +135,8 @@
           <% courseCards.forEach(function(post){ %>
             <a class="home-event-card" href="<%- url_for(post.path) %>">
               <div class="home-event-datebox">
-                <span class="home-event-day"><%= date(post.date, 'M月D日') %></span>
-                <span class="home-event-year"><%= date(post.date, 'YYYY年') %></span>
+                <span class="home-event-day" data-i18n-date="<%= post.date.toISOString() %>" data-i18n-date-format="monthDay"><%= date(post.date, 'M月D日') %></span>
+                <span class="home-event-year" data-i18n-date="<%= post.date.toISOString() %>" data-i18n-date-format="year"><%= date(post.date, 'YYYY年') %></span>
               </div>
               <div class="home-event-body">
                 <span class="home-event-type"><%= postType(post) %></span>
@@ -147,18 +153,18 @@
     <div class="home-section-head">
       <div>
         <p class="home-section-kicker">Explore</p>
-        <h2 class="home-section-title">内容入口</h2>
+        <h2 class="home-section-title" data-i18n="home.explore.title">内容入口</h2>
       </div>
     </div>
     <div class="home-pathway-grid">
       <% pathways.forEach(function(item){ %>
         <a class="home-pathway-card" href="<%- item.href %>">
           <div>
-            <h3 class="home-pathway-title"><%= item.title %></h3>
-            <p class="home-pathway-desc"><%= item.desc %></p>
+            <h3 class="home-pathway-title" data-i18n="<%= item.titleKey %>"><%= item.title %></h3>
+            <p class="home-pathway-desc" data-i18n="<%= item.descKey %>"><%= item.desc %></p>
           </div>
           <div class="home-pathway-footer">
-            <span>查看内容</span>
+            <span data-i18n="home.explore.viewContent">查看内容</span>
             <%- arrowIcon('home-arrow-button') %>
           </div>
         </a>

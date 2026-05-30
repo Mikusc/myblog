@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shuttle Bus Next Departure</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Manrope:wght@400;600;700&display=swap');
-
     *, *::before, *::after {
       box-sizing: border-box;
     }
 
     :root{
-      --bg-1: #f7f1e7;
-      --bg-2: #e4f1f2;
-      --ink: #1c2b2d;
-      --muted: #4f5d5e;
+      --blue: #10263b;
+      --blue-80: #405162;
+      --blue-20: #cfd4d8;
+      --blue-5: #f3f4f5;
+      --bg: #eef1f4;
+      --ink: #10263b;
+      --muted: #405162;
       --card: #ffffff;
-      --accent: #2d6a6f;
-      --accent-2: #e39c44;
-      --accent-3: #f5e6c7;
-      --ring: rgba(45, 106, 111, 0.2);
-      --shadow: 0 18px 45px rgba(12, 28, 32, 0.12);
+      --accent: #10263b;
+      --accent-2: #37b4b0;
+      --panel: #ffffff;
+      --line: #cfd4d8;
+      --ring: rgba(16, 38, 59, 0.18);
     }
 
     html, body {
@@ -29,90 +30,183 @@
     }
 
     body {
-      font-family: "Manrope", "Segoe UI", sans-serif;
+      font-family: Arial, "Microsoft YaHei", "HarmonyOS Sans SC", "PingFang SC", "Noto Sans CJK SC", sans-serif;
       margin: 0;
-      padding: 24px;
       min-height: 100vh;
-      background: radial-gradient(900px 400px at 10% -10%, #fff6df 0%, transparent 60%),
-        radial-gradient(800px 380px at 110% 0%, #e7f6f6 0%, transparent 65%),
-        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      background: var(--bg);
       color: var(--ink);
       line-height: 1.5;
       position: relative;
     }
-    body::before,
-    body::after{
-      content: "";
-      position: absolute;
-      z-index: 0;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      filter: blur(20px);
-      opacity: 0.35;
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    body::before{
-      top: 80px;
-      left: -60px;
-      background: #ffe6bf;
+
+    .bus-topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      min-height: 104px;
+      padding: 0 42px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 36px;
     }
-    body::after{
-      bottom: 40px;
-      right: -80px;
-      background: #d5f0f2;
+
+    .bus-brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 280px;
+      color: var(--blue);
     }
-    header {
-      text-align: center;
-      margin: 16px auto 28px;
-      max-width: 640px;
-      position: relative;
-      z-index: 1;
-      animation: fadeUp 0.7s ease both;
+
+    .bus-mark {
+      width: 64px;
+      height: 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 14px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1;
     }
-    h1 {
-      margin: 0 0 8px 0;
-      font-size: clamp(1.9rem, 4vw, 2.6rem);
-      font-family: "Fraunces", "Georgia", serif;
-      letter-spacing: 0.5px;
+
+    .bus-brand-title {
+      display: block;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
     }
-    header p{
+
+    .bus-brand-subtitle {
+      display: block;
       margin: 0;
+      margin-top: 7px;
       color: var(--muted);
-      font-size: 1rem;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
     }
-    .container {
-      max-width: 640px;
+
+    .bus-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 30px;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .bus-nav a {
+      padding: 10px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    .bus-nav a:hover {
+      border-bottom-color: var(--blue);
+    }
+
+    .bus-page {
+      padding-top: 104px;
+    }
+
+    .hero {
+      min-height: 310px;
+      padding: 84px 42px 118px;
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
       margin: 0 auto;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 22px 22px 26px;
-      border-radius: 18px;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: var(--shadow);
+    }
+
+    .hero-kicker {
+      margin: 0 0 14px;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 4.3rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    header p {
+      max-width: 620px;
+      margin: 24px 0 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: -62px auto 0;
+      background: var(--card);
+      padding: 42px;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
       position: relative;
       z-index: 1;
-      backdrop-filter: blur(6px);
-      animation: liftIn 0.65s ease both;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
+      gap: 36px;
     }
+
+    .primary-panel,
+    .timetable-block {
+      min-width: 0;
+    }
+
     .field {
-      margin-bottom: 16px;
+      margin-bottom: 22px;
     }
+
     label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       color: var(--muted);
       font-weight: 600;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      font-size: 0.78rem;
     }
+
     select, button, input[type="time"] {
-      padding: 10px 14px;
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
       font-size: 1rem;
-      border-radius: 10px;
-      border: 1px solid #d3d9dc;
+      border-radius: 0;
+      border: 1px solid var(--line);
       background: #fff;
-      font-family: "Manrope", "Segoe UI", sans-serif;
+      font-family: inherit;
       color: var(--ink);
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
+
     select:focus-visible,
     button:focus-visible,
     input[type="time"]:focus-visible{
@@ -120,52 +214,64 @@
       border-color: var(--accent);
       box-shadow: 0 0 0 4px var(--ring);
     }
+
     button{
       cursor: pointer;
-      background: linear-gradient(135deg, #2d6a6f, #3f868b);
+      background: var(--accent);
       color: #fff;
-      border: none;
+      border-color: var(--accent);
       font-weight: 700;
-      letter-spacing: 0.2px;
+      letter-spacing: 0;
     }
+
     button:hover{
-      transform: translateY(-1px);
-    }
-    button:active{
-      transform: translateY(0);
-    }
-    .times {
-      font-size: 1.05rem;
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #fef8ec, #f4fbfb);
-      border: 1px solid rgba(45, 106, 111, 0.12);
-      display: grid;
-      gap: 6px;
-    }
-    .times span {
-      display: block;
-      color: #243637;
-    }
-    .times span strong{
+      background: #fff;
       color: var(--accent);
     }
+
+    .times {
+      font-size: 1rem;
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 0;
+      background: var(--blue);
+      border: 0;
+      display: grid;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .times span {
+      display: block;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .times span strong{
+      color: #fff;
+      font-size: 1.15em;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--muted) !important;
+    }
+
     footer {
       margin-top: 30px;
       font-size: 0.8rem;
       text-align: center;
-      color: #6a7374;
+      color: var(--muted);
     }
   
     /* Timetable (full schedule) */
     .secondary-btn{
       width: 100%;
-      margin-top: 12px;
+      margin-top: 22px;
       padding: 12px 14px;
       font-size: 1rem;
-      border-radius: 12px;
-      border: 1px solid #d8dee0;
+      border-radius: 0;
+      border: 2px solid var(--blue);
       background: #ffffff;
       color: var(--accent);
       font-weight: 700;
@@ -173,65 +279,96 @@
     }
     .tt-controls{
       display: flex;
-      gap: 10px;
+      gap: 14px;
       flex-wrap: wrap;
       align-items: center;
-      margin: 12px 0;
+      margin: 0 0 18px;
     }
+
     .tt-controls label{
+      flex: 1 1 220px;
       margin: 0;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
+
     .time-chip{
       display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #f2f5f6;
-      border: 1px solid #e2e6e7;
+      padding: 6px 9px;
+      border-radius: 0;
+      background: var(--blue-5);
+      border: 1px solid var(--line);
+      color: var(--ink);
       font-size: 0.95rem;
-      animation: chipIn 0.35s ease;
     }
+
     .time-chip.next-time{
-      background: var(--accent-3);
-      border: 1px solid #e1c989;
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
       font-weight: 700;
-      box-shadow: 0 2px 6px rgba(227, 156, 68, 0.18);
+      box-shadow: none;
     }
+
     .next-badge{
       margin-left: 6px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #ffe7a3;
-      color: #6f4f00;
+      padding: 2px 6px;
+      border-radius: 0;
+      background: #fff;
+      color: var(--blue);
       font-size: 0.72rem;
       font-weight: 700;
     }
+
     .tt-input{
-      padding: 10px 14px;
-      font-size: 1rem;
-      border: 1px solid #d3d9dc;
-      border-radius: 10px;
+      width: 100%;
     }
+
     .tt-btn{
       padding: 10px 14px;
       font-size: 0.95rem;
-      border-radius: 10px;
-      border: 1px solid #d3d9dc;
+      border-radius: 0;
+      border: 1px solid var(--blue);
       background: #ffffff;
       color: var(--accent);
       font-weight: 700;
       cursor: pointer;
     }
+
     .tt-btn:hover{
-      background: #f1f6f7;
+      background: var(--blue);
+      color: #fff;
     }
+
     .tt-search-result{
       margin-top: 8px;
       font-size: 0.95rem;
-      color: #3b4b4c;
+      color: var(--muted);
     }
+
+    .tt-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .timetable-title {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .timetable-section {
+      margin: 10px 0;
+    }
+
+    .time-chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
     .section-title{
       font-weight: 700;
       margin: 12px 0 6px 0;
@@ -240,197 +377,336 @@
       letter-spacing: 0.6px;
       font-size: 0.78rem;
     }
+
     .timetable-panel{
-      background: #fbfdfd;
-      border: 1px solid #eef2f3;
-      border-radius: 14px;
-      padding: 14px 14px 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      padding: 0 24px;
       margin-top: 0;
       max-height: 0;
       opacity: 0;
       overflow: hidden;
       pointer-events: none;
-      transform: translateY(-6px);
-      transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease, margin-top 0.25s ease;
+      transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease, padding 0.25s ease;
     }
+
     .timetable-panel.open{
-      margin-top: 12px;
+      margin-top: 16px;
+      padding: 24px;
       max-height: 1200px;
       opacity: 1;
       pointer-events: auto;
-      transform: translateY(0);
     }
+
     #timetableTable{
       margin-top: 6px;
     }
+
     #timetableTable .time-chip{
       font-size: 0.9rem;
     }
-    @keyframes liftIn{
-      from{ opacity: 0; transform: translateY(14px); }
-      to{ opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUp{
-      from{ opacity: 0; transform: translateY(10px); }
-      to{ opacity: 1; transform: translateY(0); }
-    }
-    @keyframes chipIn{
-      from{ opacity: 0; transform: translateY(6px) scale(0.98); }
-      to{ opacity: 1; transform: translateY(0) scale(1); }
-    }
+
     @media (max-width: 600px){
-      header{ margin-top: 64px; } /* Avoid overlapping with top-right controls */
-      body{ padding: 18px; }
-      .container{ padding: 18px; }
-      .tt-controls{ gap: 8px; }
-      .secondary-btn{ padding: 12px; }
+      .bus-topbar {
+        min-height: 72px;
+        padding: 0 22px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 16px;
+      }
+
+      .bus-brand {
+        min-width: 0;
+      }
+
+      .bus-mark {
+        width: 42px;
+        height: 42px;
+        margin-right: 10px;
+        font-size: 23px;
+      }
+
+      .bus-brand-title {
+        font-size: 21px;
+        white-space: nowrap;
+      }
+
+      .bus-brand-subtitle,
+      .bus-nav {
+        display: none;
+      }
+
+      .top-controls {
+        gap: 12px;
+      }
+
+      .icon-btn {
+        width: 24px;
+        height: 24px;
+        border: 0;
+        background: transparent;
+        color: var(--blue);
+      }
+
+      .icon-btn:hover {
+        background: transparent;
+      }
+
+      .bus-page {
+        padding-top: 72px;
+      }
+
+      .hero {
+        min-height: 280px;
+        padding: 58px 22px 92px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      header p {
+        font-size: 16px;
+      }
+
+      .container {
+        grid-template-columns: 1fr;
+        margin: -52px 20px 0;
+        padding: 24px;
+        gap: 26px;
+      }
+
+      .tt-controls {
+        gap: 12px;
+      }
+
+      .secondary-btn {
+        padding: 12px;
+      }
+
       select, button, input[type="time"]{ width: 100%; }
     }
 
     /* Language & Theme Controls */
     .top-controls {
-      position: absolute;
-      top: 20px;
-      right: 20px;
+      position: static;
       display: flex;
       gap: 12px;
-      z-index: 100;
-      animation: fadeUp 0.8s ease backwards;
+      align-items: center;
+      justify-content: flex-end;
     }
+
     .icon-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.08);
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
+      width: 38px;
+      height: 38px;
+      border-radius: 0;
+      border: 1px solid var(--line);
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: var(--ink);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      transition: all 0.25s ease;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
       padding: 0;
     }
+
     .icon-btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      transform: none;
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
     }
+
     .icon-btn svg {
       width: 20px;
       height: 20px;
-      stroke: var(--ink);
+      stroke: currentColor;
+    }
+
+    .lang-icon-text {
+      font-size: 0.9rem;
+      font-weight: 700;
     }
     
     /* Dark Mode Overrides */
     body.dark-mode {
-      --bg-1: #121415; /* Darker background */
-      --bg-2: #090c0d;
-      --ink: #f0f6f7;  /* High brightness text */
-      --muted: #bbc5c7; /* Lighter muted text */
-      --card: #1c2b2d;
-      --accent-3: #2d3b3d;
-      --shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
-      --ring: rgba(120, 200, 207, 0.4);
+      --bg: #081522;
+      --ink: #f4f7fa;
+      --muted: #b8c3ce;
+      --card: #10263b;
+      --panel: #122b43;
+      --line: rgba(255, 255, 255, 0.16);
+      --ring: rgba(55, 180, 176, 0.28);
     }
-    body.dark-mode::before { background: #6b4c20; opacity: 0.1; }
-    body.dark-mode::after { background: #263537; opacity: 0.15; }
-    
-    body.dark-mode .container {
-      background: rgba(28, 36, 38, 0.94); /* More opacity for legibility */
-      border-color: rgba(255,255,255,0.12);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+
+    body.dark-mode .bus-topbar,
+    body.dark-mode .container,
+    body.dark-mode .timetable-panel {
+      background: var(--card);
     }
+
+    body.dark-mode .bus-topbar {
+      border-bottom-color: var(--line);
+    }
+
+    body.dark-mode .bus-brand,
+    body.dark-mode .bus-nav,
+    body.dark-mode .icon-btn,
+    body.dark-mode select,
+    body.dark-mode input {
+      color: var(--ink);
+    }
+
+    body.dark-mode .bus-mark,
+    body.dark-mode .hero,
+    body.dark-mode .times {
+      background: #071829;
+    }
+
     body.dark-mode select, 
     body.dark-mode input {
-      background: #242e30;
-      border-color: #4a5a5c;
-      color: #fff;
+      background: #0d2033;
+      border-color: var(--line);
     }
+
     body.dark-mode .icon-btn {
-      background: rgba(35, 45, 48, 0.7);
-      border-color: rgba(255,255,255,0.15);
-      color: #f1f1f1;
+      background: var(--card);
+      border-color: var(--line);
     }
-    body.dark-mode .icon-btn svg {
-      stroke: #f1f1f1;
-    }
+
     body.dark-mode .icon-btn:hover {
-      background: #354547;
+      background: #fff;
+      color: var(--blue);
+    }
+
+    body.dark-mode button {
+      background: #fff;
+      color: var(--blue);
+      border-color: #fff;
+    }
+
+    body.dark-mode button:hover {
+      background: transparent;
       color: #fff;
     }
+
     body.dark-mode .times {
-      background: #20292b; /* Darker panel background */
-      border-color: rgba(255,255,255,0.08);
+      color: rgba(255, 255, 255, 0.76);
     }
-    body.dark-mode .times span { color: #dce3e5; }
-    body.dark-mode .times span strong { color: #8be0d8; } /* Brighter accent */
+
+    body.dark-mode .times span { color: rgba(255, 255, 255, 0.76); }
+    body.dark-mode .times span strong { color: #fff; }
     
     body.dark-mode .secondary-btn,
     body.dark-mode .tt-btn {
-      background: #242e30;
-      border-color: #4a5a5c;
-      color: #9fe0e2;
-    }
-    body.dark-mode .secondary-btn:hover,
-    body.dark-mode .tt-btn:hover {
-      background: #2f3e40;
-    }
-    
-    body.dark-mode .timetable-panel {
-      background: #1e2526;
-      border-color: #364647;
-    }
-    body.dark-mode .time-chip {
-      background: #2b3537;
-      border-color: #425254;
-      color: #e0e9ec;
-    }
-    body.dark-mode .time-chip.next-time {
-      background: #1c4f52; 
-      border-color: #e8c070;
+      background: transparent;
+      border-color: #fff;
       color: #fff;
     }
-    body.dark-mode .next-badge {
-      background: #e8c070;
-      color: #1a1f20;
+
+    body.dark-mode .secondary-btn:hover,
+    body.dark-mode .tt-btn:hover {
+      background: #fff;
+      color: var(--blue);
     }
-    body.dark-mode .tt-search-result { color: #cedadb; }
+
+    body.dark-mode .time-chip {
+      background: #0d2033;
+      border-color: var(--line);
+      color: var(--ink);
+    }
+
+    body.dark-mode .time-chip.next-time {
+      background: #fff;
+      border-color: #fff;
+      color: var(--blue);
+    }
+
+    body.dark-mode .next-badge {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    @media (max-width: 600px){
+      .top-controls {
+        gap: 10px;
+      }
+
+      .icon-btn {
+        width: 30px;
+        height: 30px;
+        border: 0;
+        background: transparent;
+        color: var(--blue);
+      }
+
+      .icon-btn:hover {
+        background: transparent;
+        color: var(--blue);
+      }
+
+      body.dark-mode .icon-btn,
+      body.dark-mode .icon-btn:hover {
+        background: transparent;
+        color: var(--ink);
+        border-color: transparent;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="top-controls">
-    <button class="icon-btn" id="langBtn" title="Change Language" aria-label="Change Language">
-      <span style="font-size:0.9rem; font-weight:700;">文/A</span>
-    </button>
-    <button class="icon-btn" id="themeBtn" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </button>
+  <div class="bus-topbar">
+    <a class="bus-brand" href="/">
+      <span class="bus-mark">M</span>
+      <span>
+        <span class="bus-brand-title">Mikusc的小站</span>
+        <span class="bus-brand-subtitle">Course Notes · Projects · Tech Notes</span>
+      </span>
+    </a>
+    <nav class="bus-nav" aria-label="Site navigation">
+      <a href="/">首页</a>
+      <a href="/tools/">工具</a>
+      <a href="/contact/">联系</a>
+    </nav>
+    <div class="top-controls">
+      <button class="icon-btn" id="langBtn" title="Change Language" aria-label="Change Language">
+        <span class="lang-icon-text">文/A</span>
+      </button>
+      <button class="icon-btn" id="themeBtn" title="Toggle Dark Mode" aria-label="Toggle Dark Mode">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
   </div>
-  <header>
-    <h1 data-i18n="title">Shuttle Bus Next Departure</h1>
-    <p data-i18n="subtitle">Get the next shuttle bus times from HOLA or UNNC based on your location and the current time.</p>
-  </header>
+  <main class="bus-page">
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="hero-kicker" data-i18n="heroKicker">UNNC 校园班车</p>
+        <h1 data-i18n="title">Shuttle Bus Next Departure</h1>
+        <p data-i18n="subtitle">Get the next shuttle bus times from HOLA or UNNC based on your location and the current time.</p>
+      </div>
+    </header>
   <div class="container">
-    <div class="field">
-      <label for="locationSelect" data-i18n="labelLocation">Departure Location:</label>
-      <select id="locationSelect">
-        <option value="auto" data-i18n="optionAuto">Auto detect</option>
-        <option value="HOLA" data-i18n="optionHola">HOLA (West Gate)</option>
-        <option value="UNNC" data-i18n="optionUnnc">UNNC (Building 23)</option>
-      </select>
-    </div>
-    <div class="field">
-      <button id="refreshBtn" data-i18n="btnRefresh">Refresh Times</button>
-    </div>
-    <div class="times" id="timesDisplay">
-      <!-- times will appear here -->
-    </div>
-    <!-- status messages (e.g. geolocation results) -->
-    <div class="status" id="statusMessage" style="margin-top:10px;font-size:0.9rem;color:#555;"></div>
+    <section class="primary-panel">
+      <div class="field">
+        <label for="locationSelect" data-i18n="labelLocation">Departure Location:</label>
+        <select id="locationSelect">
+          <option value="auto" data-i18n="optionAuto">Auto detect</option>
+          <option value="HOLA" data-i18n="optionHola">HOLA (West Gate)</option>
+          <option value="UNNC" data-i18n="optionUnnc">UNNC (Building 23)</option>
+        </select>
+      </div>
+      <div class="field">
+        <button id="refreshBtn" data-i18n="btnRefresh">Refresh Times</button>
+      </div>
+      <div class="times" id="timesDisplay">
+        <!-- times will appear here -->
+      </div>
+      <!-- status messages (e.g. geolocation results) -->
+      <div class="status" id="statusMessage"></div>
+    </section>
 
+    <section class="timetable-block">
     <button id="toggleTimetable" class="secondary-btn" type="button" data-i18n="btnTimetableShow">查看总时刻表</button>
 
     <div id="timetablePanel" class="timetable-panel">
@@ -438,8 +714,8 @@
         <label>
           <span data-i18n="ttLabelLoc">站点：</span>
           <select id="ttLocation">
-            <option value="HOLA" data-i18n="ttOptionHola">HOLA → 校园</option>
-            <option value="UNNC" data-i18n="ttOptionUnnc">校园 → HOLA</option>
+            <option value="HOLA" data-i18n="ttOptionHola">HOLA 至 校园</option>
+            <option value="UNNC" data-i18n="ttOptionUnnc">校园 至 HOLA</option>
           </select>
         </label>
 
@@ -463,15 +739,17 @@
       <div id="ttSearchResult" class="tt-search-result"></div>
 
       <div id="timetableTable"></div>
-      <div style="font-size:0.8rem;color:#666;margin-top:10px;" data-i18n="ttNote">
+      <div class="tt-note" data-i18n="ttNote">
         * 时间按你设备本地时区显示
       </div>
     </div>
+    </section>
 
   </div>
   <footer>
-    <p data-i18n="footer">Schedule information sourced from the on‑campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
+    <p data-i18n="footer">Schedule information sourced from the on-campus shuttle timetable as of October 2025. Times are shown in your local time zone.</p>
   </footer>
+  </main>
   <script>
     // Coordinates for the two boarding locations. These are approximate and only used
     // to determine which stop is closer when auto detecting.
@@ -483,7 +761,7 @@
     };
 
     // Schedules. Times are strings in HH:MM format. The weekday HOLA schedule
-    // distinguishes between morning peak and non‑peak.
+    // distinguishes between morning peak and non-peak.
     const schedules = {
       HOLA: {
         morningPeak: [
@@ -526,6 +804,7 @@
 
     const translations = {
       zh: {
+        heroKicker: "UNNC 校园班车",
         title: "下一班校车",
         subtitle: "获取下一班往返 HOLA 和 UNNC 的校车时间。",
         labelLocation: "出发站点：",
@@ -547,8 +826,8 @@
         ttLabelLoc: "站点：",
         ttLabelDay: "日期类型：",
         ttLabelSearch: "搜索时间：",
-        ttOptionHola: "HOLA → 校园",
-        ttOptionUnnc: "校园 → HOLA",
+        ttOptionHola: "HOLA 至 校园",
+        ttOptionUnnc: "校园 至 HOLA",
         ttOptionAuto: "自动（按今天）",
         ttOptionWeekday: "周一至周五",
         ttOptionWeekend: "周末",
@@ -570,6 +849,7 @@
         sectionWeekday: "周一至周五"
       },
       en: {
+        heroKicker: "Campus Shuttle",
         title: "Bus Next Departure",
         subtitle: "Get next shuttle bus times from HOLA or UNNC.",
         labelLocation: "Departure Location:",
@@ -591,8 +871,8 @@
         ttLabelLoc: "Stop:",
         ttLabelDay: "Day Type:",
         ttLabelSearch: "Search:",
-        ttOptionHola: "HOLA -> UNNC",
-        ttOptionUnnc: "UNNC -> HOLA",
+        ttOptionHola: "HOLA to UNNC",
+        ttOptionUnnc: "UNNC to HOLA",
         ttOptionAuto: "Auto (Today)",
         ttOptionWeekday: "Weekday",
         ttOptionWeekend: "Weekend",
@@ -620,6 +900,7 @@
     function setLanguage(lang) {
       if (!translations[lang]) return;
       currentLang = lang;
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
       
       const t = translations[lang];
       
@@ -922,11 +1203,11 @@
       const nextTime = getNextDepartures(times, now)[0]?.time || null;
 
       document.getElementById("timetableTable").innerHTML = `
-        <div style="font-weight:700;margin:0 0 8px 0;">${t.ttTitle}: ${data.title}</div>
+        <div class="timetable-title">${t.ttTitle}: ${data.title}</div>
         ${data.sections.map(sec => `
-          <div style="margin:10px 0;">
+          <div class="timetable-section">
             <div class="section-title">${sec.name}</div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <div class="time-chip-wrap">
               ${sec.times.map(timeStr => {
                 const isNext = nextTime && timeStr === nextTime;
                 return `<span class="time-chip ${isNext ? 'next-time' : ''}">${timeStr}${isNext ? `<span class="next-badge">${t.nextBusLabel}</span>` : ''}</span>`;
