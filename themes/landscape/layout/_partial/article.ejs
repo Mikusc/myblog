@@ -27,7 +27,7 @@
         <% if (theme.excerpt_link){ %>
           <p class="article-more-link">
             <a href="<%- url_for(post.path) %><%= post.excerpt ? '#more' : '' %>">
-              <span class="article-more-text"><%= theme.excerpt_link %></span>
+              <span class="article-more-text" data-i18n="article.readMore"><%= theme.excerpt_link %></span>
               <span class="article-more-icon site-drawn-arrow" aria-hidden="true">
                 <svg viewBox="0 0 24 24" focusable="false">
                   <path d="M7 17L17 7M9 7h8v8"></path>
@@ -42,7 +42,7 @@
     </div>
     <% if (!isPage){ %>
       <footer class="article-footer">
-        <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><span class="fa fa-share"><%= __('share') %></span></a>
+        <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>" class="article-share-link"><span class="fa fa-share" data-i18n="article.share"><%= __('share') %></span></a>
         <% if (post.comments && theme.disqus_shortname){ %>
           <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><span class="fa fa-comment"><%= __('comment') %></span></a>
         <% } %>
