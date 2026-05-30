@@ -10,10 +10,10 @@ menu:
   联系: /contact/
   归档: /archives
   工具: /tools/
-# RSS link. Keep empty until a feed generator is configured.
-rss:
+# RSS link.
+rss: /rss.xml
 # Path of title banner image of page top
-banner: "images/banner-image2-dark.png"
+banner: "images/banner-image2-dark.webp"
 # Subtitle of page top
 subtitle:
 # Header links with icon, specified links will appear at the top right corner of the page

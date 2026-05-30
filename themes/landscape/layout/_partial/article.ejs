@@ -24,6 +24,10 @@
         <%- partial('post/title', {class_name: 'p-name article-title'}) %>
       </header>
     <% } %>
+    <% if (isDetailPost){ %>
+      <%- partial('post/course-nav', {post: post}) %>
+      <%- partial('post/toc', {post: post}) %>
+    <% } %>
     <div class="e-content article-entry" itemprop="articleBody">
       <% if (index){ %>
         <% if (post.excerpt){ %>

@@ -1,0 +1,32 @@
+<%
+  var headings = [];
+  var content = post.content || '';
+  var headingRe = /<h([23]) id="([^"]+)">([\s\S]*?)<\/h\1>/g;
+  var match;
+
+  while ((match = headingRe.exec(content))) {
+    var title = strip_html(match[3]).replace(/\s+/g, ' ').trim();
+    if (!title) continue;
+    headings.push({
+      level: Number(match[1]),
+      id: match[2],
+      title: title
+    });
+  }
+%>
+
+<% if (headings.length >= 3){ %>
+  <details class="article-toc" data-article-toc>
+    <summary>
+      <span data-i18n="article.toc">文章目录</span>
+      <em><%= headings.length %> sections</em>
+    </summary>
+    <ol>
+      <% headings.forEach(function(heading){ %>
+        <li class="article-toc-level-<%= heading.level %>">
+          <a href="#<%- encodeURIComponent(heading.id) %>"><%= heading.title %></a>
+        </li>
+      <% }) %>
+    </ol>
+  </details>
+<% } %>
