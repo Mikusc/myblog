@@ -1,91 +1,321 @@
 #header
-  height: banner-height
+  height: banner-height + 136px
   position: relative
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08)
-  &:before, &:after
-    content: ""
-    position: absolute
-    left: 0
-    right: 0
-    height: 40px
-  &:before
-    top: 0
-    background: linear-gradient(rgba(255, 255, 255, 0.75), transparent)
-  &:after
-    bottom: 0
-    background: linear-gradient(transparent, rgba(255, 255, 255, 0.6))
+  background: #fff
+  border-bottom: 1px solid color-border
+  z-index: 200
 
 #header-outer
   height: 100%
   position: relative
+  max-width: none
+  padding: 0 42px
 
 #header-inner
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  overflow: visible
+  z-index: 220
+  float: none
+  width: 100%
+  height: 136px
+  margin: 0
+  padding: 0 42px
+  color: color-default
+  background: #fff
+  border-bottom: 1px solid color-border
+  display: grid
+  grid-template-columns: auto minmax(0, 1fr)
+  column-gap: 44px
+  align-items: center
+
+#site-topbar
+  height: 62px
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  gap: 22px
+  border-bottom: 1px solid color-border
+  color: color-grey
+  font-size: 14px
+
+.site-wordmark
+  display: inline-flex
+  align-items: center
+  color: color-default
+  text-decoration: none
+  font: 700 24px font-sans
+  line-height: 1
+  min-width: 280px
+
+.site-mark
+  width: 64px
+  height: 64px
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  margin-right: 14px
+  border-radius: 0
+  background: color-default
+  color: #fff
+  font: 700 32px font-sans
+
+.site-name-wrap
+  display: flex
+  flex-direction: column
+  gap: 6px
+
+.site-name
+  display: block
+  white-space: nowrap
+
+.site-tagline
+  display: block
+  color: color-grey
+  font: 700 11px font-sans
+  letter-spacing: 0.4px
+  text-transform: uppercase
+
+.site-utility
+  display: flex
+  gap: 18px
+  align-items: center
+  text-transform: none
+  letter-spacing: 0
+  font-weight: 700
+
+.site-social-links
+  display: flex
+  align-items: center
+  gap: 22px
+
+.site-utility-link
+  color: color-default
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+
+.site-language-switch
+  color: color-default
+  display: inline-flex
+  align-items: center
+  gap: 7px
+  text-transform: none
+  letter-spacing: 0
+
+.site-language-link
+  color: color-default
+
+.site-dropdown
   position: relative
-  overflow: hidden
+  display: inline-flex
+  align-items: center
+
+.site-dropdown-toggle
+  display: inline-flex
+  align-items: center
+  gap: 11px
+  border: 0
+  background: transparent
+  color: color-default
+  cursor: pointer
+  font: 700 14px font-sans
+  line-height: 1
+  text-transform: none
+  letter-spacing: 0
+  padding: 0
+  &:hover
+    text-decoration: underline
+
+.site-dropdown-menu
+  position: absolute
+  top: 39px
+  left: 50%
+  width: 310px
+  background: #fff
+  border: 0
+  padding: 18px 0
+  z-index: 40
+  opacity: 0
+  visibility: hidden
+  transform: translate(-50%, -6px)
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease
+
+.site-dropdown:hover .site-dropdown-menu,
+.site-dropdown:focus-within .site-dropdown-menu
+  opacity: 1
+  visibility: visible
+  transform: translate(-50%, 0)
+
+.site-dropdown-link
+  display: block
+  padding: 6px 24px
+  color: color-default
+  text-decoration: none
+  text-transform: none
+  letter-spacing: 0
+  font-size: 17px
+  line-height: 1.8
+  white-space: nowrap
+  &:hover
+    color: color-default
+    text-decoration: none
+
+.site-dropdown-current
+  color: #7d8994
+  &:hover
+    color: #7d8994
+
+.site-down-caret
+  width: 0
+  height: 0
+  display: inline-block
+  border-left: 4px solid transparent
+  border-right: 4px solid transparent
+  border-top: 5px solid color-default
+  transform: translateY(1px) rotate(0deg)
+  transform-origin: center
+  transition: transform 0.18s ease
+
+.site-dropdown:hover .site-down-caret,
+.site-dropdown:focus-within .site-down-caret
+  transform: translateY(1px) rotate(180deg)
+
+.split-line
+  display: inline-block
+  width: 1px
+  height: 14px
+  background: #000
+  opacity: 0.7
+
+#site-nav-row
+  min-height: 58px
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  position: relative
+
+.site-nav-panel
+  min-width: 0
+
+.site-mobile-actions
+  display: none
 
 #banner
   position: absolute
-  top: 0
+  top: 136px
   left: 0
   width: 100%
-  height: 100%
-  background: linear-gradient(135deg, #fef8ec, #f4fbfb), url(banner-url) center
+  bottom: 0
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.64) 0%, rgba(0, 0, 0, 0.34) 48%, rgba(0, 0, 0, 0.1) 100%), url(banner-url) center 54%
   background-size: cover
-  background-blend-mode: soft-light
-  z-index: -1
+  z-index: 0
+
+#banner:after
+  content: ""
+  position: absolute
+  inset: 0
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.42) 100%)
 
 #header-title
-  text-align: center
-  height: logo-size
+  text-align: left
+  height: auto
   position: absolute
-  top: 50%
-  left: 0
-  margin-top: logo-size * -0.5
+  top: 136px
+  bottom: 0
+  left: 42px
+  right: 42px
+  margin: 0
+  float: none
+  width: auto
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: flex-start
+  z-index: 2
+  max-width: 1080px
 
 $logo-text
   text-decoration: none
-  color: color-default
-  font-weight: 600
+  color: #fff
+  font-weight: 400
   text-shadow: none
 
 #logo
   @extend $logo-text
-  font-size: logo-size
-  line-height: logo-size
-  letter-spacing: 1px
+  font-family: font-sans
+  font-size: 64px
+  line-height: 1.08
+  letter-spacing: 0
+
+#logo-wrap:after
+  display: none
 
 #subtitle
   @extend $logo-text
-  font-size: subtitle-size
-  line-height: subtitle-size
-  letter-spacing: 1px
+  font-family: font-sans
+  font-size: 28px
+  line-height: 1.25
+  letter-spacing: 0
+  color: #fff
 
 #subtitle-wrap
-  margin-top: subtitle-size
+  margin-top: 24px
+
+.site-hero-cta
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  margin-top: 44px
+  padding: 17px 23px 17px 30px
+  border-radius: 999px
+  background: #fff
+  color: #000
+  text-decoration: none
+  font: 400 20px font-sans
+  line-height: 1
+  transition: opacity 0.25s ease
+  &:hover
+    opacity: 0.72
+
+.site-hero-cta-icon
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 20px
+  height: 20px
 
 #main-nav
-  float: left
+  float: none
   margin-left: 0
-  margin-top: 12px
+  margin-top: 0
+  display: flex
+  align-items: stretch
+  justify-content: flex-end
+  min-width: 0
+  gap: 8px
 
 $nav-link
-  float: left
+  float: none
   color: color-default
   opacity: 1
   text-decoration: none
   text-shadow: none
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease
   display: block
-  padding: 10px 16px
-  margin: 10px 6px 0 0
-  border-radius: 999px
-  border: 1px solid rgba(0, 0, 0, 0.08)
-  background: rgba(255, 255, 255, 0.7)
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06)
+  padding: 12px 0
+  margin: 0
+  border-radius: 0
+  border: 0
+  border-bottom: 2px solid transparent
+  background: transparent
+  box-shadow: none
   &:hover
-    transform: translateY(-1px)
-    background: #fff
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1)
+    background: transparent
+    color: color-default
+    border-bottom-color: color-default
 
 .nav-icon
   @extend $nav-link
@@ -94,12 +324,19 @@ $nav-link
   justify-content: center
   text-align: center
   font-size: font-size
-  width: 40px
-  height: 40px
+  width: 38px
+  height: 38px
   padding: 0
-  border-radius: 50%
+  margin-left: 8px
+  border-radius: 0
+  border: 1px solid color-border
   position: relative
+  background: #fff
   cursor: pointer
+  &:hover
+    background: color-default
+    color: #fff
+    border-color: color-default
   .fa
     display: block
     line-height: 1
@@ -107,37 +344,59 @@ $nav-link
 
 .main-nav-link
   @extend $nav-link
-  font-weight: 300
-  letter-spacing: 1px
-  @media mq-mobile
+  font-weight: 700
+  letter-spacing: 0
+  margin-left: 28px
+  @media mq-mobile-tablet
     display: none
 
 #main-nav-toggle
   display: none
-  @media mq-mobile
+  @media mq-mobile-tablet
     display: block
   .fa
-    margin-top: 12px
+    margin-top: 0
 
 #sub-nav
-  float: right
+  float: none
   margin-right: 0
-  margin-top: 12px
+  margin-top: 0
+  margin-left: 16px
+  display: flex
+  align-items: center
+  @media mq-mobile-tablet
+    display: none
 
 #search-form-wrap
   position: absolute
-  top: 15px
-  width: 150px
+  top: 13px
+  width: 260px
   height: 30px
-  right: -150px
+  right: -260px
   opacity: 0
   transition: 0.2s ease-out
   &.on
     opacity: 1
     right: 0
-  @media mq-mobile
+  @media mq-normal
+    position: relative
+    top: auto
+    right: auto
+    width: 160px
+    height: 40px
+    opacity: 1
+    overflow: visible
+    transition: width 0.3s ease
+    &.on,
+    &:focus-within
+      width: 310px
+  @media mq-mobile-tablet
     width: 100%
-    right: -100%
+    right: auto
+    left: 0
+    display: none
+    &.on
+      display: block
 
 .search-form
   position: absolute
@@ -146,9 +405,18 @@ $nav-link
   right: 0
   background: rgba(255, 255, 255, 0.95)
   padding: 5px 15px
-  border-radius: 999px
-  border: 1px solid rgba(0, 0, 0, 0.1)
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12)
+  border-radius: 0
+  border: 1px solid color-border
+  box-shadow: none
+  @media mq-normal
+    position: relative
+    height: 40px
+    display: flex
+    align-items: center
+    background: #f6f6f6
+    border: 0
+    border-radius: 999px
+    padding: 0 17px 0 40px
 
 .search-form-input
   border: none
@@ -157,6 +425,11 @@ $nav-link
   width: 100%
   font: 13px font-sans
   outline: none
+  @media mq-normal
+    height: 100%
+    font: 14px font-sans
+    &::placeholder
+      color: rgba(16, 38, 59, 0.35)
   &::-webkit-search-results-decoration
   &::-webkit-search-cancel-button
     -webkit-appearance: none
@@ -173,6 +446,12 @@ $nav-link
   cursor: pointer
   &:hover, &:focus
     color: #777
+  @media mq-normal
+    left: 15px
+    right: auto
+    color: color-default
+    &:hover, &:focus
+      color: color-default
 
 /* Local Search Results */
 #local-search-result
@@ -181,8 +460,8 @@ $nav-link
   right: 0
   width: 100%
   background: #fff
-  border-radius: 4px
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2)
+  border-radius: 0
+  box-shadow: none
   z-index: 50
   max-height: 300px
   overflow-y: auto

@@ -1,6 +1,63 @@
 <header id="header">
   <div id="banner"></div>
   <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a class="site-wordmark" href="<%- url_for() %>">
+        <span class="site-mark">M</span>
+        <span class="site-name-wrap">
+          <span class="site-name"><%= config.title %></span>
+          <span class="site-tagline">Course Notes · Projects · Tech Notes</span>
+        </span>
+      </a>
+      <div class="site-nav-panel navbar-wrapper">
+        <div class="site-mobile-actions">
+          <a class="site-mobile-search nav-search-btn" title="<%= __('search') %>"><span class="fa fa-search"></span></a>
+          <a id="main-nav-toggle" class="site-mobile-menu" title="Menu"><span class="fa fa-bars"></span></a>
+        </div>
+        <div id="site-topbar" class="up-wrapper">
+          <div class="site-utility">
+            <% if (theme.links) { %>
+              <div class="site-social-links">
+                <% var siteLinkLabels = {github: 'GitHub', bilibili: 'B站', xiaohongshu: '小红书'}; %>
+                <% for (const i in theme.links) {%>
+                  <a class="site-utility-link" href="<%- url_for(theme.links[i]) %>"<% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>><%= siteLinkLabels[i] || (i.charAt(0).toUpperCase() + i.slice(1)) %></a>
+                <% } %>
+              </div>
+            <% } %>
+            <span class="split-line"></span>
+            <div class="site-language-switch" aria-label="Language switch">
+              <span class="site-language-link">English</span>
+              <span class="fa fa-globe" aria-hidden="true"></span>
+            </div>
+            <span class="split-line"></span>
+            <div class="site-dropdown">
+              <button class="site-dropdown-toggle" type="button" aria-haspopup="true">
+                Mikusc 的小站 <span class="site-down-caret"></span>
+              </button>
+              <div class="site-dropdown-menu" role="menu">
+                <a class="site-dropdown-link site-dropdown-current" href="<%- url_for('/') %>" role="menuitem">
+                  <span>Mikusc 的小站</span>
+                </a>
+                <% var arcaeaSwitch = theme.site_switch && theme.site_switch.arcaea_tencent; %>
+                <a class="site-dropdown-link" href="<%- url_for(arcaeaSwitch && arcaeaSwitch.url ? arcaeaSwitch.url : '#') %>" role="menuitem"<% if (arcaeaSwitch && /^https?:\/\//.test(arcaeaSwitch.url || '')) { %> target="_blank" rel="noopener"<% } %>>
+                  <span><%= arcaeaSwitch && arcaeaSwitch.label ? arcaeaSwitch.label : '韵律源点 Arcaea 腾讯频道' %></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div id="search-form-wrap">
+            <%- search_form({button: '&#xF002;', text: __('search')}) %>
+          </div>
+        </div>
+        <div id="site-nav-row" class="down-wrapper">
+          <nav id="main-nav">
+            <% for (var i in theme.menu){ %>
+              <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
+            <% } %>
+          </nav>
+        </div>
+      </div>
+    </div>
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
         <a href="<%- url_for() %>" id="logo"><%= config.title %></a>
@@ -10,28 +67,14 @@
           <a href="<%- url_for() %>" id="subtitle"><%= theme.subtitle || config.subtitle %></a>
         </h2>
       <% } %>
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        <% for (var i in theme.menu){ %>
-          <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"><%= i %></a>
-        <% } %>
-      </nav>
-      <nav id="sub-nav">
-        <% if (theme.links) { %>
-          <% for (const i in theme.links) {%>
-            <a class="nav-icon" href="<%- url_for(theme.links[i]) %>"><span class="fa fa-<%= i %>"></span></a>
-          <% } %>
-        <% } %>
-        <% if (theme.rss){ %>
-          <a class="nav-icon" href="<%- url_for(theme.rss) %>" title="<%= __('rss_feed') %>"><span class="fa fa-rss"></span></a>
-        <% } %>
-        <a class="nav-icon nav-search-btn" title="<%= __('search') %>"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <%- search_form({button: '&#xF002;', text: __('search')}) %>
-      </div>
+      <a class="site-hero-cta" href="<%- url_for('/about/') %>">
+        <span class="site-hero-cta-text">了解更多</span>
+        <span class="site-hero-cta-icon site-drawn-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path d="M7 17L17 7M9 7h8v8"></path>
+          </svg>
+        </span>
+      </a>
     </div>
   </div>
 </header>

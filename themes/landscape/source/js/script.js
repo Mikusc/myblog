@@ -1,6 +1,7 @@
 (function($){
   // Search
   var $searchWrap = $('#search-form-wrap'),
+    $container = $('#container'),
     isSearchAnim = false,
     searchAnimDuration = 200;
 
@@ -15,9 +16,40 @@
     }, searchAnimDuration);
   };
 
+  var mobileNavScrollTop = 0;
+
+  var getPageScrollTop = function(){
+    return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  };
+
+  var setPageScrollTop = function(scrollTop){
+    document.documentElement.scrollTop = scrollTop;
+    document.body.scrollTop = scrollTop;
+    if (window.scrollTo) window.scrollTo(0, scrollTop);
+  };
+
+  var restoreMobileNavScroll = function(scrollTop){
+    setPageScrollTop(scrollTop);
+    setTimeout(function(){
+      setPageScrollTop(scrollTop);
+    }, 0);
+  };
+
+  var openMobileNav = function(){
+    mobileNavScrollTop = getPageScrollTop();
+    $container.addClass('mobile-nav-on');
+    restoreMobileNavScroll(mobileNavScrollTop);
+  };
+
+  var closeMobileNav = function(){
+    $container.removeClass('mobile-nav-on');
+    restoreMobileNavScroll(mobileNavScrollTop);
+  };
+
   $('.nav-search-btn').on('click', function(){
     if (isSearchAnim) return;
 
+    if ($container.hasClass('mobile-nav-on')) closeMobileNav();
     startSearchAnim();
     $searchWrap.addClass('on');
     stopSearchAnim(function(){
@@ -114,8 +146,7 @@
   }
 
   // Mobile nav
-  var $container = $('#container'),
-    isMobileNavAnim = false,
+  var isMobileNavAnim = false,
     mobileNavAnimDuration = 200;
 
   var startMobileNavAnim = function(){
@@ -128,17 +159,24 @@
     }, mobileNavAnimDuration);
   }
 
-  $('#main-nav-toggle').on('click', function(){
+  $('#main-nav-toggle').on('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
     if (isMobileNavAnim) return;
 
+    $searchWrap.removeClass('on');
     startMobileNavAnim();
-    $container.toggleClass('mobile-nav-on');
+    if ($container.hasClass('mobile-nav-on')) {
+      closeMobileNav();
+    } else {
+      openMobileNav();
+    }
     stopMobileNavAnim();
   });
 
   $('#wrap').on('click', function(){
     if (isMobileNavAnim || !$container.hasClass('mobile-nav-on')) return;
 
-    $container.removeClass('mobile-nav-on');
+    closeMobileNav();
   });
 })(jQuery);

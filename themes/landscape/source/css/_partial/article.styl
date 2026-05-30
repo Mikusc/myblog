@@ -30,6 +30,7 @@
 
 .article-title
   text-decoration: none
+  font-family: font-sans
   font-size: 2em
   font-weight: 700
   color: color-default
@@ -53,6 +54,7 @@
     line-height: line-height
     margin: line-height 0
   h1, h2, h3, h4, h5, h6
+    font-family: font-sans
     font-weight: bold
   h1, h2, h3, h4, h5, h6
     line-height: line-height-title
@@ -141,20 +143,54 @@
       height: 100%
       margin-top: 0
 
+.article-more-link
+  text-align: right
+
 .article-more-link a
-  display: inline-block
+  display: inline-flex
+  align-items: center
+  gap: 12px
   line-height: 1em
-  padding: 8px 16px
-  border-radius: 999px
-  background: linear-gradient(135deg, #2d6a6f, #3f868b)
+  padding: 8px 9px 8px 15px
+  border-radius: 0
+  border: 2px solid color-default
+  background: color-default
   color: #fff
   text-shadow: none
   text-decoration: none
-  &:hover
-    background: linear-gradient(135deg, #25585c, #34777c)
-    color: #fff
+  font-weight: 700
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease
+  &:hover, &:focus-visible
+    background: #fff
+    color: color-default
     text-decoration: none
     text-shadow: none
+    outline: none
+    .article-more-icon
+      background: color-default
+      color: #fff
+
+.article-more-icon
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  width: 30px
+  height: 30px
+  border-radius: 50%
+  background: #fff
+  color: color-default
+  flex: 0 0 30px
+  transition: background 0.2s ease, color 0.2s ease
+  svg
+    width: 18px
+    height: 18px
+    display: block
+  path
+    fill: none
+    stroke: currentColor
+    stroke-width: 3
+    stroke-linecap: square
+    stroke-linejoin: miter
 
 .article-footer
   clearfix()
@@ -245,8 +281,8 @@
   position: absolute
   display: none
   background: #fff
-  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2)
-  border-radius: 3px
+  box-shadow: none
+  border-radius: 0
   margin-left: -145px
   overflow: hidden
   z-index: 1
@@ -262,7 +298,7 @@
   color: color-default
   outline: none
   border: 1px solid color-border
-  border-radius: 3px 3px 0 0
+  border-radius: 0
   height: 36px
   line-height: 36px
 

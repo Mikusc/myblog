@@ -1,1 +1,168 @@
-<%- partial('_partial/archive', {expand: true, index: true}) %>
+<%
+  var posts = site.posts && site.posts.toArray ? site.posts.toArray() : [];
+  posts.sort(function(a, b){
+    return b.date.valueOf() - a.date.valueOf();
+  });
+  var coursePosts = posts.filter(function(post){
+    return /COMP4133AADS|Lecture|Week|期末|练习/.test(post.title || '');
+  });
+  var latestPosts = posts.slice(0, 3);
+  var courseCards = coursePosts.slice(0, 3);
+  var categories = {};
+
+  posts.forEach(function(post){
+    if (!post.categories) return;
+    var cats = post.categories.toArray ? post.categories.toArray() : post.categories.data || [];
+    cats.forEach(function(cat){
+      if (cat && cat.name) categories[cat.name] = true;
+    });
+  });
+
+  function cleanExcerpt(post, length){
+    var raw = post.excerpt || post.content || '';
+    return truncate(strip_html(raw).replace(/\s+/g, ' ').trim(), {length: length || 120});
+  }
+
+  function postType(post){
+    if (/COMP4133AADS|Lecture|Week|期末|练习/.test(post.title || '')) return 'Course Note';
+    return 'Blog Post';
+  }
+
+  function arrowIcon(className){
+    return '<span class="' + className + ' site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>';
+  }
+
+  var pathways = [
+    {
+      title: '课程笔记',
+      desc: '按课程、lecture 和 week 整理复习材料，适合考前快速定位知识点。',
+      href: url_for('/course-notes/')
+    },
+    {
+      title: '项目实践',
+      desc: '集中展示博客、Web、XR 和 Unity 相关项目，把实践过程留下可回溯记录。',
+      href: url_for('/projects/')
+    },
+    {
+      title: '工具箱',
+      desc: '收集学习、开发与写作中常用的工具入口，减少重复查找成本。',
+      href: url_for('/tools/')
+    }
+  ];
+%>
+
+<div class="home-page">
+  <section class="home-section home-overview">
+    <div class="home-overview-panel">
+      <div class="home-overview-copy">
+        <p class="home-section-kicker">Mikusc Blog</p>
+        <h2 class="home-overview-title">课程复习、项目实践与技术笔记</h2>
+        <p class="home-overview-text">这里记录课程复习、项目实践、开发过程和工具整理，方便之后按主题回看，也方便从一处进入常用内容。</p>
+      </div>
+      <div class="home-stat-grid">
+        <div class="home-stat">
+          <span class="home-stat-number"><%= posts.length %></span>
+          <span class="home-stat-label">篇文章</span>
+          <p class="home-stat-desc">当前博客已发布的学习记录与技术笔记。</p>
+        </div>
+        <div class="home-stat">
+          <span class="home-stat-number"><%= coursePosts.length %></span>
+          <span class="home-stat-label">篇课程笔记</span>
+          <p class="home-stat-desc">围绕 COMP4133AADS 的复习、练习与模拟题。</p>
+        </div>
+        <div class="home-stat">
+          <span class="home-stat-number"><%= Object.keys(categories).length %></span>
+          <span class="home-stat-label">个分类</span>
+          <p class="home-stat-desc">通过分类和归档快速跳转到相关主题。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-news">
+    <div class="home-section-head">
+      <div>
+        <p class="home-section-kicker">News and Notes</p>
+        <h2 class="home-section-title">最新文章与课程笔记</h2>
+        <p class="home-section-note">最近更新的学习记录和课程复习材料会集中展示在这里，适合快速浏览和继续阅读。</p>
+      </div>
+      <a class="home-arrow-link" href="<%- url_for('/archives/') %>">
+        <span>全部文章</span>
+        <%- arrowIcon('home-arrow-button') %>
+      </a>
+    </div>
+
+    <div class="home-news-events">
+      <div class="home-news-column">
+        <div class="home-column-head">
+          <h3 class="home-column-title">最新文章</h3>
+          <a class="home-column-link" href="<%- url_for('/archives/') %>">
+            <span>更多文章</span>
+            <%- arrowIcon('home-inline-arrow') %>
+          </a>
+        </div>
+        <div class="home-news-grid">
+          <% latestPosts.forEach(function(post){ %>
+            <a class="home-news-card" href="<%- url_for(post.path) %>">
+              <div class="home-news-media">
+                <span class="home-news-date"><%= date(post.date, 'YYYY-MM-DD') %></span>
+                <%- arrowIcon('home-news-arrow') %>
+              </div>
+              <div class="home-news-body">
+                <h4 class="home-news-title"><%= post.title || __('untitled') %></h4>
+                <p class="home-news-excerpt"><%= cleanExcerpt(post, 105) %></p>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="home-events-column">
+        <div class="home-column-head">
+          <h3 class="home-column-title">课程笔记</h3>
+          <a class="home-column-link" href="<%- url_for('/course-notes/') %>">
+            <span>进入目录</span>
+            <%- arrowIcon('home-inline-arrow') %>
+          </a>
+        </div>
+        <div class="home-event-list">
+          <% courseCards.forEach(function(post){ %>
+            <a class="home-event-card" href="<%- url_for(post.path) %>">
+              <div class="home-event-datebox">
+                <span class="home-event-day"><%= date(post.date, 'M月D日') %></span>
+                <span class="home-event-year"><%= date(post.date, 'YYYY年') %></span>
+              </div>
+              <div class="home-event-body">
+                <span class="home-event-type"><%= postType(post) %></span>
+                <h4 class="home-event-title"><%= post.title || __('untitled') %></h4>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-section home-pathways">
+    <div class="home-section-head">
+      <div>
+        <p class="home-section-kicker">Explore</p>
+        <h2 class="home-section-title">内容入口</h2>
+      </div>
+    </div>
+    <div class="home-pathway-grid">
+      <% pathways.forEach(function(item){ %>
+        <a class="home-pathway-card" href="<%- item.href %>">
+          <div>
+            <h3 class="home-pathway-title"><%= item.title %></h3>
+            <p class="home-pathway-desc"><%= item.desc %></p>
+          </div>
+          <div class="home-pathway-footer">
+            <span>查看内容</span>
+            <%- arrowIcon('home-arrow-button') %>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </section>
+</div>

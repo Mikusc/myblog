@@ -13,7 +13,7 @@ menu:
 # RSS link. Keep empty until a feed generator is configured.
 rss:
 # Path of title banner image of page top
-banner: "images/banner.svg"
+banner: "images/banner-image2-dark.png"
 # Subtitle of page top
 subtitle:
 # Header links with icon, specified links will appear at the top right corner of the page
@@ -21,8 +21,16 @@ subtitle:
 # https://forkaweso.me/Fork-Awesome/icons/
 links:
   github: https://github.com/Mikusc
+  bilibili: https://space.bilibili.com/13401732
+  xiaohongshu: https://xhslink.com/m/oAu1JuHb85
 #  twitter: https://twitter.com/your_twitter_account
 #  telegram: https://t.me/your_telegram_account
+
+# Site switch dropdown next to language selector. These are separate from social links.
+site_switch:
+  arcaea_tencent:
+    label: 韵律源点 Arcaea 腾讯频道
+    url: https://pd.qq.com/s/frdj4o2cl?b=9
 
 # ===============
 # Content

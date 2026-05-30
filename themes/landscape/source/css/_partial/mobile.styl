@@ -1,27 +1,47 @@
-@media mq-mobile
+@media mq-mobile-tablet
   #mobile-nav
-    position: absolute
-    top: 0
-    left: -1 * mobile-nav-width
-    width: mobile-nav-width
-    height: 100%
-    background: color-mobile-nav-background
-    border-right: 1px solid #fff
-    transition: 0.2s ease-out
+    position: fixed
+    top: 72px
+    left: 0
+    right: 0
+    width: 100%
+    height: unquote("calc(100vh - 72px)")
+    padding: 26px 22px
+    background: #fff
+    border-top: 1px solid color-border
+    border-right: 0
+    opacity: 0
+    visibility: hidden
+    pointer-events: none
+    transform: translateY(-12px)
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease
+    z-index: 120
+    overflow-y: auto
 
 .mobile-nav-on
-  #mobile-nav
+  overflow: visible
+
+  #wrap
     left: 0
 
-@media mq-mobile
+  #mobile-nav
+    left: 0
+    opacity: 1
+    visibility: visible
+    pointer-events: auto
+    transform: translateY(0)
+
+@media mq-mobile-tablet
   .mobile-nav-link
     display: block
-    color: #dce3e5
+    color: color-default
     text-decoration: none
-    padding: 15px 20px
-    font-weight: bold
+    padding: 18px 0
+    border-bottom: 1px solid color-border
+    font: 700 20px font-sans
+    line-height: 1.25
     &:hover
-      color: #fff
+      color: color-link
 
 // Force single-column layout on mobile/tablet
 @media mq-mobile-tablet
@@ -53,6 +73,181 @@
   .article-entry
     padding: 0 !important
     
-  // Adjust header/banner height if necessary for mobile
   #header
-    height: 220px
+    height: 430px
+    border-bottom: 0
+
+  #header-outer
+    padding: 0 22px
+
+  #header-inner
+    height: 72px
+    display: flex
+    align-items: center
+    justify-content: space-between
+    column-gap: 18px
+    padding: 0 22px
+    z-index: 230
+
+  .site-utility
+    display: none
+
+  .site-wordmark
+    min-width: 0
+    font-size: 21px
+    max-width: calc(100% - 92px)
+
+  .site-mark
+    width: 42px
+    height: 42px
+    margin-right: 10px
+    font-size: 23px
+
+  .site-name-wrap
+    gap: 0
+
+  .site-name
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .site-tagline
+    display: none
+
+  .site-nav-panel
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    flex: 0 0 auto
+
+  .site-mobile-actions
+    display: flex
+    align-items: center
+    gap: 16px
+
+  .site-mobile-search,
+  #main-nav-toggle
+    width: 24px
+    height: 24px
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    color: color-default
+    border: 0
+    background: transparent
+    text-decoration: none
+    cursor: pointer
+    padding: 0
+
+  .site-mobile-search
+    font-size: 18px
+
+  #main-nav-toggle
+    position: relative
+    .fa
+      position: relative
+      display: block
+      width: 18px
+      height: 1.5px
+      margin: 0
+      background: color-default
+      font-size: 0
+      line-height: 0
+      &:before,
+      &:after
+        content: ""
+        position: absolute
+        left: 0
+        width: 18px
+        height: 1.5px
+        background: color-default
+      &:before
+        top: -6px
+      &:after
+        top: 6px
+
+  .mobile-nav-on #main-nav-toggle
+    .fa
+      background: transparent
+      &:before
+        top: 0
+        transform: rotate(45deg)
+      &:after
+        top: 0
+        transform: rotate(-45deg)
+
+  #site-topbar
+    height: auto
+    border-bottom: 0
+    gap: 0
+
+  #site-nav-row
+    display: none
+
+  #search-form-wrap
+    position: fixed
+    top: 72px
+    left: 0
+    right: 0
+    width: 100%
+    height: auto
+    padding: 12px 22px
+    background: #fff
+    border-top: 1px solid color-border
+    border-bottom: 1px solid color-border
+    opacity: 1
+    z-index: 125
+
+  .search-form
+    position: relative
+    height: 46px
+    background: #f6f6f6
+    border: 0
+    border-radius: 999px
+    padding: 0 16px 0 42px
+    display: flex
+    align-items: center
+
+  .search-form-input
+    height: 100%
+    font-size: 15px
+
+  .search-form-submit
+    left: 16px
+    right: auto
+    color: color-default
+
+  #banner
+    top: 72px
+    background-position: center bottom
+
+  #banner:after
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.54) 100%)
+
+  #header-title
+    top: 72px
+    left: 22px
+    right: 22px
+
+  #logo
+    font-size: 42px
+    line-height: 1.12
+
+  #logo-wrap:after
+    display: none
+
+  #subtitle
+    font-size: 17px
+    line-height: 1.35
+
+  #subtitle-wrap
+    margin-top: 16px
+
+  .site-hero-cta
+    margin-top: 28px
+    padding: 13px 18px 13px 22px
+    font-size: 16px
+
+  .site-hero-cta-icon
+    width: 17px
+    height: 17px
+    font-size: 16px
