@@ -272,6 +272,9 @@
 .content-card-grid-three
   grid-template-columns: repeat(3, minmax(0, 1fr))
 
+.content-feature-followup
+  margin-top: 22px
+
 .content-card
   display: flex
   min-height: 218px
@@ -512,6 +515,179 @@
     font-size: 15px
     line-height: 1.75
 
+.course-flow
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  background: #fff
+  border: 1px solid color-border
+
+.course-flow-item
+  display: grid
+  grid-template-columns: 52px minmax(0, 1fr)
+  gap: 18px
+  min-height: 138px
+  padding: 26px
+  color: color-default
+  text-decoration: none
+  border-right: 1px solid color-border
+  &:last-child
+    border-right: 0
+  &:hover
+    text-decoration: none
+    strong
+      text-decoration: underline
+  span
+    color: color-grey
+    font: 700 13px/1 font-sans
+    letter-spacing: 1px
+  strong
+    display: block
+    color: color-default
+    font: 700 20px/1.25 font-sans
+  em
+    display: block
+    margin-top: 12px
+    color: color-grey
+    font-style: normal
+    font-size: 14px
+    line-height: 1.55
+
+.course-series-nav,
+.article-toc
+  margin: 24px 42px 0
+  background: #fff
+  border: 1px solid color-border
+
+.course-series-nav
+  display: grid
+  gap: 0
+
+.course-series-head
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 24px
+  padding: 20px 24px
+  border-bottom: 1px solid color-border
+  strong
+    display: block
+    margin-top: 7px
+    color: color-default
+    font: 700 20px/1.25 font-sans
+
+.course-series-kicker
+  display: block
+  color: color-grey
+  font: 700 12px/1 font-sans
+  letter-spacing: 1.1px
+  text-transform: uppercase
+
+.course-series-directory
+  flex: 0 0 auto
+  color: color-default
+  font: 700 14px/1 font-sans
+  text-decoration: underline
+  text-underline-offset: 4px
+
+.course-series-links
+  display: grid
+  grid-template-columns: repeat(2, minmax(0, 1fr))
+
+.course-series-link
+  display: block
+  min-height: 112px
+  padding: 22px 24px
+  color: color-default
+  text-decoration: none
+  border-right: 1px solid color-border
+  &:last-child
+    border-right: 0
+  &:hover strong
+    text-decoration: underline
+  span
+    display: block
+    color: color-grey
+    font: 700 12px/1 font-sans
+    letter-spacing: 1px
+    text-transform: uppercase
+  strong
+    display: block
+    margin-top: 16px
+    color: color-default
+    font: 700 18px/1.35 font-sans
+
+.course-series-link-disabled
+  color: color-grey
+  background: var(--nottingham-blue-5)
+  strong
+    color: color-grey
+
+.article-toc
+  overflow: hidden
+  summary
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 18px
+    min-height: 58px
+    padding: 17px 24px
+    cursor: pointer
+    color: color-default
+    font: 700 16px/1.2 font-sans
+    list-style: none
+    &::-webkit-details-marker
+      display: none
+    &:after
+      content: ""
+      width: 0
+      height: 0
+      border-left: 5px solid transparent
+      border-right: 5px solid transparent
+      border-top: 6px solid color-default
+      transform: rotate(0deg)
+      transition: transform 0.18s ease
+    em
+      margin-left: auto
+      color: color-grey
+      font-style: normal
+      font-size: 12px
+      letter-spacing: 0.7px
+      text-transform: uppercase
+  &[open] summary
+    border-bottom: 1px solid color-border
+    &:after
+      transform: rotate(180deg)
+  ol
+    display: grid
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+    gap: 0
+    margin: 0
+    padding: 0
+    list-style: none
+  li
+    margin: 0
+    border-right: 1px solid color-border
+    border-bottom: 1px solid color-border
+    &:nth-child(2n)
+      border-right: 0
+    &:nth-last-child(-n+2)
+      border-bottom: 0
+  a
+    display: block
+    min-height: 50px
+    padding: 14px 18px
+    color: color-default
+    text-decoration: none
+    font: 700 14px/1.45 font-sans
+    &:hover
+      background: var(--nottingham-blue-5)
+      text-decoration: underline
+
+.article-toc-level-3 a
+  padding-left: 34px
+  color: color-grey
+  font-weight: 600
+
 @media mq-mobile-tablet
   .content-hub
     margin-bottom: 12px
@@ -532,6 +708,7 @@
   .content-card-grid-three,
   .content-card-grid-two,
   .content-link-list,
+  .course-flow,
   .content-feature-card,
   .content-tool-card
     grid-template-columns: 1fr
@@ -578,6 +755,15 @@
 
   .content-tool-card .content-action
     width: 100%
+
+  .course-flow-item
+    grid-template-columns: 42px minmax(0, 1fr)
+    min-height: 120px
+    padding: 22px
+    border-right: 0
+    border-bottom: 1px solid color-border
+    &:last-child
+      border-bottom: 0
 
 .article-detail
   margin-top: 0
@@ -635,11 +821,13 @@
     margin-top: 2em
     padding-top: 0.65em
     border-top: 1px solid color-border
+    scroll-margin-top: 132px
   h2
     font-size: 1.6em
   h3
     margin-top: 1.8em
     font-size: 1.28em
+    scroll-margin-top: 132px
   p, li
     color: color-default
   ul, ol
@@ -730,6 +918,41 @@
     text-decoration: none
 
 @media mq-mobile-tablet
+  .course-series-nav,
+  .article-toc
+    margin: 22px 24px 0
+
+  .course-series-head
+    display: block
+    padding: 20px
+
+  .course-series-directory
+    display: inline-flex
+    margin-top: 16px
+
+  .course-series-links
+    grid-template-columns: 1fr
+
+  .course-series-link
+    min-height: 96px
+    border-right: 0
+    border-bottom: 1px solid color-border
+    &:last-child
+      border-bottom: 0
+
+  .article-toc summary
+    padding: 16px 20px
+
+  .article-toc ol
+    grid-template-columns: 1fr
+
+  .article-toc li
+    border-right: 0
+    &:nth-last-child(-n+2)
+      border-bottom: 1px solid color-border
+    &:last-child
+      border-bottom: 0
+
   .article-detail .article-meta
     padding: 28px 24px 0
 

@@ -1,0 +1,120 @@
+<%
+  var courseItems = [
+    {
+      slug: 'comp4133aads-final-exam-master-review',
+      label: 'Overview',
+      title: '期末复习总纲',
+      path: '/2026/01/08/comp4133aads-final-exam-master-review/'
+    },
+    {
+      slug: 'comp4133aads-lecture1-exercises',
+      label: 'Lecture 1',
+      title: '算法复杂度',
+      path: '/2026/01/08/comp4133aads-lecture1-exercises/'
+    },
+    {
+      slug: 'comp4133aads-lecture2-exercises',
+      label: 'Lecture 2',
+      title: 'Maps & Hash Tables',
+      path: '/2026/01/08/comp4133aads-lecture2-exercises/'
+    },
+    {
+      slug: 'comp4133aads-lecture3-exercises',
+      label: 'Lecture 3',
+      title: 'Binary Search Trees',
+      path: '/2026/01/08/comp4133aads-lecture3-exercises/'
+    },
+    {
+      slug: 'comp4133aads-lecture4-exercises',
+      label: 'Lecture 4',
+      title: 'AVL Trees',
+      path: '/2026/01/08/comp4133aads-lecture4-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week6-graph-algorithms-1-exercises',
+      label: 'Week 6',
+      title: 'Graph Algorithms 1',
+      path: '/2026/01/08/comp4133aads-week6-graph-algorithms-1-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week7-graph-algorithms-2-exercises',
+      label: 'Week 7',
+      title: 'Graph Algorithms 2',
+      path: '/2026/01/08/comp4133aads-week7-graph-algorithms-2-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week8-dp1-exercises',
+      label: 'Week 8',
+      title: 'Dynamic Programming 1',
+      path: '/2026/01/08/comp4133aads-week8-dp1-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week9-dp2-exercises',
+      label: 'Week 9',
+      title: 'Dynamic Programming 2',
+      path: '/2026/01/08/comp4133aads-week9-dp2-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week10-pattern-matching-exercises',
+      label: 'Week 10',
+      title: 'Pattern-Matching Algorithms',
+      path: '/2026/01/08/comp4133aads-week10-pattern-matching-exercises/'
+    },
+    {
+      slug: 'comp4133aads-week11-trie-exercises',
+      label: 'Week 11',
+      title: 'Trie',
+      path: '/2026/01/08/comp4133aads-week11-trie-exercises/'
+    },
+    {
+      slug: 'comp4133aads-final-mock-exam-4q',
+      label: 'Mock Exam',
+      title: '期末模拟卷',
+      path: '/2026/01/08/comp4133aads-final-mock-exam-4q/'
+    }
+  ];
+
+  var currentIndex = -1;
+  courseItems.forEach(function(item, index){
+    if (post.slug === item.slug || post.path === item.path.replace(/^\//, '')) currentIndex = index;
+  });
+
+  var prevItem = currentIndex > 0 ? courseItems[currentIndex - 1] : null;
+  var nextItem = currentIndex >= 0 && currentIndex < courseItems.length - 1 ? courseItems[currentIndex + 1] : null;
+%>
+
+<% if (currentIndex >= 0){ %>
+  <nav class="course-series-nav" aria-label="COMP4133AADS course navigation">
+    <div class="course-series-head">
+      <div>
+        <span class="course-series-kicker" data-i18n="course.series">COMP4133AADS 系列</span>
+        <strong><%= courseItems[currentIndex].label %></strong>
+      </div>
+      <a class="course-series-directory" href="<%- url_for('/course-notes/comp4133aads/') %>" data-i18n="course.directory">返回课程目录</a>
+    </div>
+    <div class="course-series-links">
+      <% if (prevItem){ %>
+        <a class="course-series-link" href="<%- url_for(prevItem.path) %>">
+          <span data-i18n="course.previous">上一篇</span>
+          <strong><%= prevItem.title %></strong>
+        </a>
+      <% } else { %>
+        <span class="course-series-link course-series-link-disabled">
+          <span data-i18n="course.previous">上一篇</span>
+          <strong data-i18n="course.first">已经是第一篇</strong>
+        </span>
+      <% } %>
+      <% if (nextItem){ %>
+        <a class="course-series-link" href="<%- url_for(nextItem.path) %>">
+          <span data-i18n="course.next">下一篇</span>
+          <strong><%= nextItem.title %></strong>
+        </a>
+      <% } else { %>
+        <span class="course-series-link course-series-link-disabled">
+          <span data-i18n="course.next">下一篇</span>
+          <strong data-i18n="course.last">已经是最后一篇</strong>
+        </span>
+      <% } %>
+    </div>
+  </nav>
+<% } %>

@@ -74,6 +74,19 @@ tag_map:
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
 
+# Feed and sitemap
+feed:
+  type: rss2
+  path: rss.xml
+  limit: 20
+  content: true
+  content_limit: 500
+  order_by: -date
+  icon: /favicon.svg
+
+sitemap:
+  path: sitemap.xml
+
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
@@ -119,7 +132,10 @@ markdown:
     linkify: true
     typographer: true
   plugins:
-    - markdown-it-katex
+    - name: '@renbaoshuo/markdown-it-katex'
+      options:
+        throwOnError: false
+        errorColor: '#cc0000'
 
 
 # Search

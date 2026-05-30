@@ -7,85 +7,54 @@ layout: page
 <div class="content-hub content-hub-course">
   <section class="content-hub-hero">
     <p class="content-hub-kicker">Course Notes</p>
-    <h2 class="content-hub-title">COMP4133AADS 复习目录</h2>
-    <p class="content-hub-lede">这里集中整理当前博客中的课程复习文章。现阶段主要围绕算法与数据结构，把总览、lecture 练习和 weekly topics 放在同一个可快速定位的入口。</p>
+    <h2 class="content-hub-title">课程笔记入口</h2>
+    <p class="content-hub-lede">这里不再只是文章列表，而是按课程和复习路径组织的学习入口。当前已整理完成的是 COMP4133AADS 算法与数据结构复习系列。</p>
   </section>
 
   <div class="content-stat-grid" aria-label="课程笔记概览">
     <div class="content-stat">
-      <span class="content-stat-number">2</span>
-      <span class="content-stat-label">总览资料</span>
+      <span class="content-stat-number">1</span>
+      <span class="content-stat-label">课程系列</span>
     </div>
     <div class="content-stat">
-      <span class="content-stat-number">4</span>
-      <span class="content-stat-label">Lecture 练习</span>
+      <span class="content-stat-number">12</span>
+      <span class="content-stat-label">复习文章</span>
     </div>
     <div class="content-stat">
-      <span class="content-stat-number">6</span>
-      <span class="content-stat-label">Weekly Topics</span>
+      <span class="content-stat-number">3</span>
+      <span class="content-stat-label">学习阶段</span>
     </div>
   </div>
 
   <section class="content-section">
     <div class="content-section-head">
-      <p class="content-section-kicker">Overview</p>
-      <h3 class="content-section-title">先建立考试地图</h3>
+      <p class="content-section-kicker">Current Series</p>
+      <h3 class="content-section-title">当前课程系列</h3>
     </div>
-    <div class="content-card-grid content-card-grid-two">
-      <a class="content-card" href="/2026/01/08/comp4133aads-final-exam-master-review/">
-        <span class="content-card-label">Final Review</span>
-        <strong class="content-card-title">期末复习总纲</strong>
-        <span class="content-card-desc">全模块考点、练习题导向学习路线，以及复习顺序。</span>
-      </a>
-      <a class="content-card" href="/2026/01/08/comp4133aads-final-mock-exam-4q/">
-        <span class="content-card-label">Mock Exam</span>
-        <strong class="content-card-title">期末模拟卷</strong>
-        <span class="content-card-desc">最可能的 4 道大题，包含题型模板、仿真题和标准答案。</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="content-section-head">
-      <p class="content-section-kicker">Lecture Exercises</p>
-      <h3 class="content-section-title">基础数据结构与复杂度</h3>
-    </div>
-    <div class="content-card-grid">
-      <a class="content-card" href="/2026/01/08/comp4133aads-lecture1-exercises/">
-        <span class="content-card-label">Lecture 1</span>
-        <strong class="content-card-title">算法复杂度</strong>
-        <span class="content-card-desc">Big-O、增长率和复杂度分析练习。</span>
-      </a>
-      <a class="content-card" href="/2026/01/08/comp4133aads-lecture2-exercises/">
-        <span class="content-card-label">Lecture 2</span>
-        <strong class="content-card-title">Maps &amp; Hash Tables</strong>
-        <span class="content-card-desc">哈希表、映射结构和冲突处理。</span>
-      </a>
-      <a class="content-card" href="/2026/01/08/comp4133aads-lecture3-exercises/">
-        <span class="content-card-label">Lecture 3</span>
-        <strong class="content-card-title">Binary Search Trees</strong>
-        <span class="content-card-desc">BST 操作、遍历和性质判断。</span>
-      </a>
-      <a class="content-card" href="/2026/01/08/comp4133aads-lecture4-exercises/">
-        <span class="content-card-label">Lecture 4</span>
-        <strong class="content-card-title">AVL Trees</strong>
-        <span class="content-card-desc">平衡因子、旋转和插入删除推演。</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="content-section">
-    <div class="content-section-head">
-      <p class="content-section-kicker">Weekly Topics</p>
-      <h3 class="content-section-title">图算法、动态规划与字符串</h3>
-    </div>
-    <div class="content-link-list">
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week6-graph-algorithms-1-exercises/"><span>Week 6</span><strong>Graph Algorithms 1</strong></a>
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week7-graph-algorithms-2-exercises/"><span>Week 7</span><strong>Graph Algorithms 2</strong></a>
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week8-dp1-exercises/"><span>Week 8</span><strong>Dynamic Programming 1</strong></a>
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week9-dp2-exercises/"><span>Week 9</span><strong>Dynamic Programming 2</strong></a>
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week10-pattern-matching-exercises/"><span>Week 10</span><strong>Pattern-Matching Algorithms</strong></a>
-      <a class="content-link-row" href="/2026/01/08/comp4133aads-week11-trie-exercises/"><span>Week 11</span><strong>Trie</strong></a>
+    <div class="content-feature-card">
+      <div>
+        <p class="content-card-label">COMP4133AADS · Algorithms and Data Structures</p>
+        <h3 class="content-feature-title">算法与数据结构复习目录</h3>
+        <p class="content-card-desc">把期末总纲、lecture 练习、weekly topics 和模拟卷整理成一条可连续阅读的复习路径。进入系列页后，每篇文章顶部也会提供上一篇、下一篇和返回目录入口。</p>
+        <div class="content-card-meta">
+          <span>Big-O</span>
+          <span>Maps &amp; Trees</span>
+          <span>Graph</span>
+          <span>DP</span>
+          <span>Pattern Matching</span>
+          <span>Trie</span>
+        </div>
+      </div>
+      <div class="content-action-group">
+        <a class="content-action content-action-primary" href="/course-notes/comp4133aads/">
+          <span>进入课程目录</span>
+          <span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+        </a>
+        <a class="content-action" href="/2026/01/08/comp4133aads-final-exam-master-review/">
+          <span>从复习总纲开始</span>
+          <span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -98,6 +67,7 @@ layout: page
       <a href="/categories/COMP4133AADS/">COMP4133AADS</a>
       <a href="/categories/COMP4133AADS/期末复习/">期末复习</a>
       <a href="/categories/COMP4133AADS/练习复习/">练习复习</a>
+      <a href="/archives/">全部归档</a>
     </div>
   </section>
 </div>

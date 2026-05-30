@@ -28,8 +28,8 @@ layout: page
 
   <section class="content-section">
     <div class="content-section-head">
-      <p class="content-section-kicker">Featured Prototype</p>
-      <h3 class="content-section-title">SceneShift Discussion Room</h3>
+      <p class="content-section-kicker">Featured Projects</p>
+      <h3 class="content-section-title">重点项目</h3>
     </div>
     <div class="content-feature-card">
       <div>
@@ -57,12 +57,26 @@ layout: page
         </a>
       </div>
     </div>
+    <div class="content-card-grid content-card-grid-two content-feature-followup">
+      <article class="content-card">
+        <span class="content-card-label">Private · Unity · Home Assistant</span>
+        <strong class="content-card-title">MR-HomeAssistant</strong>
+        <span class="content-card-desc">Unity MR smart home 原型项目，用于探索 mixed reality 空间界面与 Home Assistant 设备控制的结合。当前仓库为私有仓库，因此这里只展示项目入口信息。</span>
+        <span class="content-card-meta"><span>MR interface</span><span>Smart home</span><span>Unity 6</span></span>
+      </article>
+      <a class="content-card" href="/tools/">
+        <span class="content-card-label">Tools · Campus Utility</span>
+        <strong class="content-card-title">工具与独立页面</strong>
+        <span class="content-card-desc">站点内工具会集中放在 Tools 页面，目前包含宁诺相关 Bus 工具入口，后续可以继续扩展学习、开发和校园相关工具。</span>
+        <span class="content-card-meta"><span>Bus</span><span>Utilities</span><span>Standalone pages</span></span>
+      </a>
+    </div>
   </section>
 
   <section class="content-section">
     <div class="content-section-head">
-      <p class="content-section-kicker">GitHub Projects</p>
-      <h3 class="content-section-title">GitHub 上的主要项目</h3>
+      <p class="content-section-kicker">GitHub Repositories</p>
+      <h3 class="content-section-title">GitHub 上的主要仓库</h3>
     </div>
     <div class="content-card-grid">
       <a class="content-card" href="https://github.com/Mikusc/SceneShift-Quest-Room-Stylization" target="_blank" rel="noopener">
@@ -104,12 +118,6 @@ layout: page
         <span class="content-card-desc">COMP4126 Research Methods Coursework 3 的公开 SurVis 文献集合，用来展示 XR rhythm game 方向的文献整理和引用结构。</span>
         <span class="content-card-meta"><span>Literature review</span><span>XR rhythm</span></span>
       </a>
-      <article class="content-card">
-        <span class="content-card-label">Private · Unity · Home Assistant</span>
-        <strong class="content-card-title">MR-HomeAssistant</strong>
-        <span class="content-card-desc">Unity MR smart home 原型项目，用于探索 mixed reality 空间界面与 Home Assistant 设备控制的结合。当前仓库为私有仓库，因此这里只展示项目入口信息。</span>
-        <span class="content-card-meta"><span>MR interface</span><span>Smart home</span><span>Unity 6</span></span>
-      </article>
       <a class="content-card" href="https://github.com/Mikusc/onebot-code-listener" target="_blank" rel="noopener">
         <span class="content-card-label">HTML · Node.js · OneBot</span>
         <strong class="content-card-title">onebot-code-listener</strong>
@@ -121,7 +129,7 @@ layout: page
 
   <section class="content-section">
     <div class="content-section-head">
-      <p class="content-section-kicker">Site Entries</p>
+      <p class="content-section-kicker">Tools &amp; Utilities</p>
       <h3 class="content-section-title">站点内可继续进入的内容</h3>
     </div>
     <div class="content-card-grid content-card-grid-two">
