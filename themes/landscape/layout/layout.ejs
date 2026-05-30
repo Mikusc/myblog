@@ -6,9 +6,10 @@
     <div id="wrap">
       <% var homeView = is_home(); %>
       <% var listingView = page.archive || page.category || page.tag; %>
+      <% var articleDetailView = page.layout === 'post'; %>
       <% var noSidebarView = homeView || page.layout === 'page' || listingView; %>
       <%- partial('_partial/header', {homeView: homeView}, {cache: false}) %>
-      <div class="outer <%= homeView ? 'outer-home' : '' %> <%= noSidebarView ? 'outer-full' : '' %>">
+      <div class="outer <%= homeView ? 'outer-home' : '' %> <%= noSidebarView ? 'outer-full' : '' %> <%= articleDetailView ? 'outer-article-detail' : '' %>">
         <section id="main" class="<%= homeView ? 'home-main' : '' %> <%= noSidebarView ? 'main-full' : '' %>"><%- body %></section>
         <% if (theme.sidebar && theme.sidebar !== 'bottom' && !noSidebarView){ %>
           <%- partial('_partial/sidebar', null, {cache: !config.relative_link}) %>
