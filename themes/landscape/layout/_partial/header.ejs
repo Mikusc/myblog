@@ -33,8 +33,9 @@
             <% if (theme.links) { %>
               <div class="site-social-links">
                 <% var siteLinkLabels = {github: 'GitHub', bilibili: 'B站', xiaohongshu: '小红书'}; %>
+                <% var siteLinkI18nKeys = {github: 'social.github', bilibili: 'social.bilibili', xiaohongshu: 'social.xiaohongshu'}; %>
                 <% for (const i in theme.links) {%>
-                  <a class="site-utility-link" href="<%- url_for(theme.links[i]) %>"<% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>><%= siteLinkLabels[i] || (i.charAt(0).toUpperCase() + i.slice(1)) %></a>
+                  <a class="site-utility-link" href="<%- url_for(theme.links[i]) %>"<% if (siteLinkI18nKeys[i]) { %> data-i18n="<%= siteLinkI18nKeys[i] %>"<% } %><% if (/^https?:\/\//.test(theme.links[i])) { %> target="_blank" rel="noopener"<% } %>><%= siteLinkLabels[i] || (i.charAt(0).toUpperCase() + i.slice(1)) %></a>
                 <% } %>
               </div>
             <% } %>
