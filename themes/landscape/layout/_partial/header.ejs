@@ -9,6 +9,20 @@
     '归档': 'nav.archives',
     '工具': 'nav.tools'
   };
+  var currentPath = (page.path || '').replace(/index\.html$/, '').replace(/^\/+/, '');
+  var normalizeMenuPath = function(path){
+    return String(path || '').replace(/^\/+/, '').replace(/index\.html$/, '').replace(/\/$/, '');
+  };
+  var isMenuActive = function(label, path){
+    if (is_home() && label === '首页') return true;
+    var target = normalizeMenuPath(path);
+    if (!target) return false;
+    if (currentPath.indexOf(target + '/') === 0 || currentPath === target) return true;
+    if (label === '课程笔记' && currentPath.indexOf('2026/01/08/comp4133aads') === 0) return true;
+    if (label === '项目' && currentPath.indexOf('scene-shift/') === 0) return true;
+    if (label === '工具' && currentPath.indexOf('bus/') === 0) return true;
+    return false;
+  };
 %>
 <header id="header" class="<%= showHomeHero ? 'site-header-home' : 'site-header-compact' %>">
   <% if (showHomeHero) { %>
@@ -67,7 +81,8 @@
         <div id="site-nav-row" class="down-wrapper">
           <nav id="main-nav">
             <% for (var i in theme.menu){ %>
-              <a class="main-nav-link" href="<%- url_for(theme.menu[i]) %>"<% if (navI18nKeys[i]) { %> data-i18n="<%= navI18nKeys[i] %>"<% } %>><%= i %></a>
+              <% var active = isMenuActive(i, theme.menu[i]); %>
+              <a class="main-nav-link<%= active ? ' is-active' : '' %>" href="<%- url_for(theme.menu[i]) %>"<% if (active) { %> aria-current="page"<% } %><% if (navI18nKeys[i]) { %> data-i18n="<%= navI18nKeys[i] %>"<% } %>><%= i %></a>
             <% } %>
           </nav>
         </div>

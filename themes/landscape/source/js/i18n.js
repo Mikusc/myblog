@@ -441,6 +441,17 @@
     document.title = prefix ? prefix + ' | ' + siteName : siteName;
   }
 
+  function notifyLanguageApplied(lang) {
+    var event;
+    if (typeof window.CustomEvent === 'function') {
+      event = new CustomEvent('mikusc:language-applied', { detail: { lang: lang } });
+    } else {
+      event = document.createEvent('CustomEvent');
+      event.initCustomEvent('mikusc:language-applied', false, false, { lang: lang });
+    }
+    document.dispatchEvent(event);
+  }
+
   function applyLanguage(lang, shouldStore) {
     var safeLang = lang === 'en' ? 'en' : 'zh';
     document.documentElement.setAttribute('lang', safeLang === 'en' ? 'en' : 'zh-CN');
@@ -457,6 +468,7 @@
     document.querySelectorAll('.js-language-toggle').forEach(function(button){
       button.setAttribute('aria-label', translate(safeLang, 'language.aria'));
     });
+    notifyLanguageApplied(safeLang);
   }
 
   function bindLanguageToggles() {

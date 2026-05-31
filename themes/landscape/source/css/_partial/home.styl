@@ -50,8 +50,12 @@
   text-decoration: none
   font: 700 15px font-sans
   white-space: nowrap
+  transition: opacity var(--motion-base) var(--motion-ease)
   &:hover
+    opacity: 0.78
     text-decoration: underline
+    .home-arrow-button svg
+      transform: translate(2px, -2px)
 
 .home-arrow-button
   width: 36px
@@ -157,8 +161,13 @@
   text-decoration: none
   background: #fff
   min-height: 100%
-  &:hover .home-news-title
-    text-decoration: underline
+  transition: background var(--motion-base) var(--motion-ease)
+  &:hover
+    background: var(--nottingham-blue-5)
+    .home-news-title
+      text-decoration: underline
+    .home-news-arrow svg
+      transform: translate(2px, -2px)
 
 .home-news-media
   min-height: 168px
@@ -209,8 +218,11 @@
   color: color-default
   text-decoration: none
   background: #fff
-  &:hover .home-event-title
-    text-decoration: underline
+  transition: background var(--motion-base) var(--motion-ease)
+  &:hover
+    background: var(--nottingham-blue-5)
+    .home-event-title
+      text-decoration: underline
 
 .home-event-datebox
   padding: 28px 24px
@@ -258,8 +270,13 @@
   padding: 32px
   text-decoration: none
   border-top: 6px solid color-default
-  &:hover .home-pathway-title
-    text-decoration: underline
+  transition: background var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease)
+  &:hover
+    background: var(--nottingham-blue-5)
+    .home-pathway-title
+      text-decoration: underline
+    .home-arrow-button svg
+      transform: translate(2px, -2px)
 
 .home-pathway-title
   margin: 0
