@@ -39,6 +39,67 @@
     return setTimeout(callback, 16);
   };
 
+  var themeStorageKey = 'mikusc.site.theme';
+  var systemThemeQuery = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+  var getStoredTheme = function(){
+    try {
+      var stored = window.localStorage && window.localStorage.getItem(themeStorageKey);
+      return stored === 'dark' || stored === 'light' ? stored : null;
+    } catch (e) {
+      return null;
+    }
+  };
+  var getSystemTheme = function(){
+    return systemThemeQuery && systemThemeQuery.matches ? 'dark' : 'light';
+  };
+  var getCurrentTheme = function(){
+    return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  };
+  var updateThemeControls = function(theme){
+    var isDark = theme === 'dark';
+    var isEnglish = document.documentElement.getAttribute('lang') === 'en';
+    var label = isDark
+      ? (isEnglish ? 'Switch to light mode' : '切换到浅色模式')
+      : (isEnglish ? 'Switch to dark mode' : '切换到深色模式');
+    $('.js-theme-toggle').each(function(){
+      this.setAttribute('aria-label', label);
+      this.setAttribute('title', label);
+      this.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    });
+  };
+  var applySiteTheme = function(theme, shouldStore){
+    var safeTheme = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', safeTheme);
+    document.documentElement.style.colorScheme = safeTheme;
+    var themeColor = document.querySelector('meta[data-site-theme-color]');
+    if (themeColor) themeColor.setAttribute('content', safeTheme === 'dark' ? '#07111c' : '#ffffff');
+    if (shouldStore) {
+      try {
+        if (window.localStorage) window.localStorage.setItem(themeStorageKey, safeTheme);
+      } catch (e) {}
+    }
+    updateThemeControls(safeTheme);
+  };
+
+  applySiteTheme(document.documentElement.getAttribute('data-theme') || getStoredTheme() || getSystemTheme(), false);
+
+  $('.js-theme-toggle').on('click', function(){
+    applySiteTheme(getCurrentTheme() === 'dark' ? 'light' : 'dark', true);
+  });
+  document.addEventListener('mikusc:language-applied', function(){
+    updateThemeControls(getCurrentTheme());
+  });
+  if (systemThemeQuery) {
+    var syncSystemTheme = function(){
+      if (!getStoredTheme()) applySiteTheme(getSystemTheme(), false);
+    };
+    if (systemThemeQuery.addEventListener) {
+      systemThemeQuery.addEventListener('change', syncSystemTheme);
+    } else if (systemThemeQuery.addListener) {
+      systemThemeQuery.addListener(syncSystemTheme);
+    }
+  }
+
   var headerScrollQueued = false;
   var updateHeaderScrollState = function(){
     $('#header-inner').toggleClass('is-scrolled', getPageScrollTop() > 8);
