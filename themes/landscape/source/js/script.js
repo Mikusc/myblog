@@ -35,6 +35,27 @@
     }, 0);
   };
 
+  var raf = window.requestAnimationFrame || function(callback){
+    return setTimeout(callback, 16);
+  };
+
+  var headerScrollQueued = false;
+  var updateHeaderScrollState = function(){
+    $('#header-inner').toggleClass('is-scrolled', getPageScrollTop() > 8);
+  };
+  var queueHeaderScrollState = function(){
+    if (headerScrollQueued) return;
+    headerScrollQueued = true;
+    raf(function(){
+      headerScrollQueued = false;
+      updateHeaderScrollState();
+    });
+  };
+
+  updateHeaderScrollState();
+  window.addEventListener('scroll', queueHeaderScrollState, { passive: true });
+  window.addEventListener('resize', queueHeaderScrollState);
+
   var openMobileNav = function(){
     mobileNavScrollTop = getPageScrollTop();
     $container.addClass('mobile-nav-on');
@@ -148,6 +169,141 @@
   if ($.fancybox){
     $('.fancybox').fancybox();
   }
+
+  // Article TOC active section
+  $('[data-article-toc]').each(function(){
+    var toc = this;
+    var links = Array.prototype.slice.call(toc.querySelectorAll('a[href^="#"]'));
+    var items = links.map(function(link){
+      var id = '';
+      try {
+        id = decodeURIComponent(link.hash.slice(1));
+      } catch (e) {
+        id = link.hash.slice(1);
+      }
+      var heading = id ? document.getElementById(id) : null;
+      return heading ? { id: id, link: link, heading: heading } : null;
+    }).filter(Boolean);
+
+    if (!items.length) return;
+
+    var activeId = '';
+    var setActive = function(id){
+      if (!id || id === activeId) return;
+      activeId = id;
+      items.forEach(function(item){
+        if (item.id === id) {
+          item.link.classList.add('is-active');
+          item.link.setAttribute('aria-current', 'true');
+        } else {
+          item.link.classList.remove('is-active');
+          item.link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    var updateActiveToc = function(){
+      var offset = 150;
+      var current = items[0];
+      items.forEach(function(item){
+        if (item.heading.getBoundingClientRect().top <= offset) current = item;
+      });
+      setActive(current.id);
+    };
+
+    var tocQueued = false;
+    var queueActiveToc = function(){
+      if (tocQueued) return;
+      tocQueued = true;
+      raf(function(){
+        tocQueued = false;
+        updateActiveToc();
+      });
+    };
+
+    links.forEach(function(link){
+      link.addEventListener('click', function(){
+        var id = '';
+        try {
+          id = decodeURIComponent(link.hash.slice(1));
+        } catch (e) {
+          id = link.hash.slice(1);
+        }
+        setActive(id);
+      });
+    });
+
+    updateActiveToc();
+    window.addEventListener('scroll', queueActiveToc, { passive: true });
+    window.addEventListener('resize', queueActiveToc);
+  });
+
+  // Lightweight reveal for entry pages. Keep article body, code and tables stable.
+  var motionRevealObserver = null;
+  var initMotionReveal = function(){
+    var selectors = [
+      '.home-section',
+      '.home-overview-panel',
+      '.home-news-card',
+      '.home-event-card',
+      '.home-pathway-card',
+      '.content-hub .content-stat',
+      '.content-hub .content-card',
+      '.content-hub .content-feature-card',
+      '.content-hub .content-tool-card',
+      '.content-hub .content-link-row',
+      '.content-hub .course-flow-item',
+      '.content-hub .content-note-panel'
+    ];
+    var nodes = Array.prototype.slice.call(document.querySelectorAll(selectors.join(',')));
+    if (motionRevealObserver) {
+      motionRevealObserver.disconnect();
+      motionRevealObserver = null;
+    }
+    if (!nodes.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    nodes.forEach(function(node, index){
+      if (!node.classList.contains('motion-reveal')) {
+        node.classList.add('motion-reveal');
+      }
+      if (!node.classList.contains('is-visible')) {
+        node.style.transitionDelay = (Math.min(index % 6, 3) * 40) + 'ms';
+      }
+    });
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      nodes.forEach(function(node){
+        node.classList.add('is-visible');
+        node.style.transitionDelay = '';
+      });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting && entry.intersectionRatio <= 0) return;
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+        setTimeout(function(){
+          entry.target.style.transitionDelay = '';
+        }, 520);
+      });
+    }, {
+      rootMargin: '0px 0px -8% 0px',
+      threshold: 0.12
+    });
+    motionRevealObserver = observer;
+
+    nodes.forEach(function(node){
+      if (node.classList.contains('is-visible')) return;
+      observer.observe(node);
+    });
+  };
+
+  initMotionReveal();
+  window.addEventListener('load', initMotionReveal);
+  document.addEventListener('mikusc:language-applied', initMotionReveal);
 
   // Mobile nav
   var isMobileNavAnim = false,

@@ -38,6 +38,29 @@ input, button
   --accent-3: #faf6ef
   --ring: rgba(16, 38, 59, 0.16)
   --shadow: 0 14px 30px rgba(16, 38, 59, 0.08)
+  --motion-fast: 160ms
+  --motion-base: 240ms
+  --motion-slow: 420ms
+  --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1)
+
+@keyframes site-reveal-up
+  from
+    opacity: 0
+    transform: translateY(12px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+.motion-reveal
+  opacity: 0
+  transform: translateY(12px)
+  transition: opacity var(--motion-slow) var(--motion-ease), transform var(--motion-slow) var(--motion-ease)
+  will-change: opacity, transform
+
+.motion-reveal.is-visible
+  opacity: 1
+  transform: translateY(0)
+  will-change: auto
 
 html, body, #container
   height: 100%
@@ -64,6 +87,7 @@ h1, h2, h3, h4, h5, h6,
     width: 18px
     height: 18px
     display: block
+    transition: transform var(--motion-base) var(--motion-ease)
   path
     fill: none
     stroke: currentColor
@@ -109,6 +133,20 @@ h1, h2, h3, h4, h5, h6,
   background: transparent
   .mobile-nav-on &
     left: mobile-nav-width
+
+@media (prefers-reduced-motion: reduce)
+  *,
+  *::before,
+  *::after
+    animation-duration: 0.01ms !important
+    animation-iteration-count: 1 !important
+    scroll-behavior: auto !important
+    transition-duration: 0.01ms !important
+
+  .motion-reveal
+    opacity: 1 !important
+    transform: none !important
+    will-change: auto !important
 
 if sidebar and sidebar isnt bottom
   #main

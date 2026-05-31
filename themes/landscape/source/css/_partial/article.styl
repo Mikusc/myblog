@@ -189,6 +189,8 @@
   color: #fff
   background: color-default
   overflow: hidden
+  > *
+    animation: site-reveal-up var(--motion-slow) var(--motion-ease) both
 
 .content-hub-kicker,
 .content-section-kicker,
@@ -300,9 +302,10 @@
   padding: 26px
   background: #fff
   border: 1px solid color-border
-  transition: border-color 0.2s ease, background 0.2s ease
+  transition: border-color var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease)
   &:hover
     border-color: color-default
+    background: var(--nottingham-blue-5)
     .content-card-title
       text-decoration: underline
 
@@ -384,6 +387,9 @@
     border-right: 0
   &:nth-last-child(-n+2)
     border-bottom: 0
+  transition: background var(--motion-base) var(--motion-ease)
+  &:hover
+    background: var(--nottingham-blue-5)
   &:hover strong
     text-decoration: underline
   span
@@ -408,8 +414,10 @@
     background: #fff
     border: 1px solid color-border
     font-weight: 700
+    transition: border-color var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease)
     &:hover
       border-color: color-default
+      background: var(--nottingham-blue-5)
 
 .content-feature-card,
 .content-tool-card,
@@ -446,13 +454,15 @@
   background: #fff
   border: 2px solid color-default
   font: 700 16px/1 font-sans
-  transition: background 0.2s ease, color 0.2s ease
+  transition: background var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease)
   &:hover
     background: color-default
     color: #fff
     .content-action-icon
       background: #fff
       color: color-default
+      svg
+        transform: translate(2px, -2px)
 
 .content-action > span:not(.content-action-icon)
   display: inline-flex
@@ -493,7 +503,7 @@
   color: color-default
   background: #fff
   flex: 0 0 34px
-  transition: background 0.2s ease, color 0.2s ease
+  transition: background var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease)
 
 .content-action:not(.content-action-primary) .content-action-icon
   color: #fff
@@ -549,9 +559,11 @@
   color: color-default
   text-decoration: none
   border-right: 1px solid color-border
+  transition: background var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease)
   &:last-child
     border-right: 0
   &:hover
+    background: var(--nottingham-blue-5)
     text-decoration: none
     strong
       text-decoration: underline
@@ -607,6 +619,9 @@
   font: 700 14px/1 font-sans
   text-decoration: underline
   text-underline-offset: 4px
+  transition: color var(--motion-base) var(--motion-ease), opacity var(--motion-base) var(--motion-ease)
+  &:hover
+    opacity: 0.72
 
 .course-series-links
   display: grid
@@ -619,10 +634,13 @@
   color: color-default
   text-decoration: none
   border-right: 1px solid color-border
+  transition: background var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease)
   &:last-child
     border-right: 0
-  &:hover strong
-    text-decoration: underline
+  &:hover
+    background: var(--nottingham-blue-5)
+    strong
+      text-decoration: underline
   span
     display: block
     color: color-grey
@@ -698,9 +716,12 @@
     color: color-default
     text-decoration: none
     font: 700 14px/1.45 font-sans
-    &:hover
+    transition: background var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease)
+    &:hover,
+    &.is-active
       background: var(--nottingham-blue-5)
-      text-decoration: underline
+      box-shadow: inset 4px 0 0 color-default
+      text-decoration: none
 
 .article-toc-level-3 a
   padding-left: 34px
@@ -1003,7 +1024,7 @@
   text-shadow: none
   text-decoration: none
   font-weight: 700
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease
+  transition: background var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease)
   &:hover, &:focus-visible
     background: #fff
     color: color-default
@@ -1013,6 +1034,8 @@
     .article-more-icon
       background: color-default
       color: #fff
+      svg
+        transform: translate(2px, -2px)
 
 .article-more-icon
   display: inline-flex
@@ -1024,7 +1047,7 @@
   background: #fff
   color: color-default
   flex: 0 0 30px
-  transition: background 0.2s ease, color 0.2s ease
+  transition: background var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease)
   svg
     width: 18px
     height: 18px
@@ -1140,9 +1163,10 @@
   text-shadow: none
   background: #fff
   border: 1px solid color-border
-  transition: border-color 0.2s ease
+  transition: border-color var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease)
   &:hover
     border-color: color-default
+    background: var(--nottingham-blue-5)
     text-decoration: none
     .article-nav-title
       text-decoration: underline

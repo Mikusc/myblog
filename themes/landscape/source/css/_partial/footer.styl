@@ -45,7 +45,7 @@
   margin-top: 32px
   &:hover
     .footer-arrow
-      transform: rotate(45deg)
+      transform: translate(2px, -2px)
 
 .footer-arrow
   display: inline-flex
@@ -53,7 +53,7 @@
   justify-content: center
   width: 26px
   height: 26px
-  transition: transform 0.25s ease
+  transition: transform var(--motion-base) var(--motion-ease)
   svg
     width: 18px
     height: 18px
@@ -115,9 +115,11 @@
   background: #fff
   color: #000
   border-radius: 4px
-  transition: opacity 0.25s ease
+  transition: opacity var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease)
   &:hover
     opacity: 0.78
+    .link-arrow svg
+      transform: translate(2px, -2px)
 
 #footer .footer-link-wrapper
   color: #000
