@@ -20,6 +20,23 @@
   %>
   <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" data-site-theme-color>
+  <script>
+    (function(){
+      try {
+        var key = 'mikusc.site.theme';
+        var stored = window.localStorage && window.localStorage.getItem(key);
+        var theme = stored === 'dark' || stored === 'light'
+          ? stored
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        var themeColor = document.querySelector('meta[data-site-theme-color]');
+        if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#07111c' : '#ffffff');
+      } catch (e) {}
+    })();
+  </script>
   <%
     var ogOptions = {
       twitter_id: theme.twitter,

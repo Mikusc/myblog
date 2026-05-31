@@ -33,6 +33,11 @@ input, button
   --ink: #10263b
   --muted: #405162
   --card: #ffffff
+  --surface-1: #ffffff
+  --surface-2: #f6f6f6
+  --surface-3: #f8fafc
+  --border: #cfd4d8
+  --hover-bg: #f3f4f5
   --accent: #10263b
   --accent-2: #37b4b0
   --accent-3: #faf6ef
@@ -42,6 +47,30 @@ input, button
   --motion-base: 240ms
   --motion-slow: 420ms
   --motion-ease: cubic-bezier(0.22, 0.61, 0.36, 1)
+
+html[data-theme="dark"]
+  color-scheme: dark
+  --nottingham-blue: #10263b
+  --nottingham-blue-80: #b7c4d0
+  --nottingham-blue-20: rgba(183, 196, 208, 0.26)
+  --nottingham-blue-5: #142b43
+  --portland-stone: #142235
+  --portland-stone-40: #0c1827
+  --bg-1: #07111c
+  --bg-2: #0b1826
+  --ink: #eef5fb
+  --muted: #b8c6d3
+  --card: #0d1f33
+  --surface-1: #0d1f33
+  --surface-2: #10263b
+  --surface-3: #152f48
+  --border: rgba(191, 207, 222, 0.24)
+  --hover-bg: #142b43
+  --accent: #f3f8fc
+  --accent-2: #52c7c3
+  --accent-3: #10263b
+  --ring: rgba(124, 204, 255, 0.24)
+  --shadow: 0 18px 44px rgba(0, 0, 0, 0.34)
 
 @keyframes site-reveal-up
   from
@@ -69,7 +98,7 @@ body
   background: var(--bg-1)
   font: font-size font-sans
   -webkit-text-size-adjust: 100%
-  color: color-default
+  color: var(--ink)
   line-height: line-height
   position: relative
   overflow-x: hidden
@@ -188,6 +217,7 @@ if sidebar
   @import "_partial/sidebar"
 
 @import "_partial/home"
+@import "_partial/dark-mode"
 
 /* Math (KaTeX) */
 .katex

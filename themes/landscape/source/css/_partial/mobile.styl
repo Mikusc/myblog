@@ -51,6 +51,7 @@
 
   .mobile-utility-link,
   .mobile-language-switch,
+  .mobile-theme-switch,
   .mobile-site-switch summary
     color: color-default
     text-decoration: none
@@ -58,7 +59,8 @@
     &:hover
       opacity: 0.72
 
-  .mobile-language-switch
+  .mobile-language-switch,
+  .mobile-theme-switch
     border: 0
     background: transparent
     padding: 0
@@ -67,6 +69,9 @@
     display: inline-flex
     align-items: center
     gap: 8px
+    &:focus-visible
+      outline: 2px solid var(--accent-2)
+      outline-offset: 4px
 
   .mobile-split-line
     display: inline-block

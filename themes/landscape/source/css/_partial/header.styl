@@ -125,6 +125,47 @@
 .site-language-link
   color: color-default
 
+.site-theme-switch
+  border: 0
+  background: transparent
+  padding: 0
+  cursor: pointer
+  font: 700 14px font-sans
+  color: color-default
+  display: inline-flex
+  align-items: center
+  gap: 7px
+  text-transform: none
+  letter-spacing: 0
+  transition: opacity var(--motion-base) var(--motion-ease), color var(--motion-base) var(--motion-ease)
+  &:hover
+    opacity: 0.72
+  &:focus-visible
+    outline: 2px solid var(--accent-2)
+    outline-offset: 4px
+
+.site-theme-glyph
+  position: relative
+  width: 16px
+  height: 16px
+  flex: 0 0 16px
+  border: 2px solid currentColor
+  border-radius: 50%
+  transition: background var(--motion-base) var(--motion-ease), border-color var(--motion-base) var(--motion-ease), box-shadow var(--motion-base) var(--motion-ease)
+  &:after
+    content: ""
+    position: absolute
+    top: -3px
+    right: -3px
+    width: 8px
+    height: 8px
+    border-radius: 50%
+    background: #fff
+    border: 1px solid currentColor
+    transform: scale(0)
+    transform-origin: center
+    transition: transform var(--motion-base) var(--motion-ease), background var(--motion-base) var(--motion-ease)
+
 .site-dropdown
   position: relative
   display: inline-flex
