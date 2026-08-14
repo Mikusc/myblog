@@ -141,14 +141,25 @@
 
   $('.search-form-input').on('blur', function(){
     setTimeout(function(){
-      // Check if we just clicked on a search result
+      var activeElement = document.activeElement;
+      // Keep the panel open while keyboard focus is still inside the search form,
+      // and also cover touch browsers where :hover is unreliable.
+      if (activeElement && $(activeElement).closest('#search-form-wrap').length) {
+        return;
+      }
       if ($('#local-search-result:hover').length > 0) {
-          return;
+        return;
       }
       startSearchAnim();
       $searchWrap.removeClass('on');
       stopSearchAnim();
     }, 100);
+  });
+
+  $(document).on('click', function(e){
+    if (!$searchWrap.hasClass('on')) return;
+    if ($(e.target).closest('#search-form-wrap, .nav-search-btn').length) return;
+    $searchWrap.removeClass('on');
   });
 
   // Share
@@ -158,10 +169,10 @@
     e.stopPropagation();
 
     var $this = $(this),
-      url = $this.attr('data-url'),
+      url = $this.attr('data-url') || '',
       encodedUrl = encodeURIComponent(url),
-      id = 'article-share-box-' + $this.attr('data-id'),
-      title = $this.attr('data-title'),
+      id = 'article-share-box-' + String($this.attr('data-id') || '').replace(/[^A-Za-z0-9_-]/g, '_'),
+      title = $this.attr('data-title') || '',
       offset = $this.offset();
 
     if ($('#' + id).length){
@@ -172,19 +183,21 @@
         return;
       }
     } else {
-      var html = [
-        '<div id="' + id + '" class="article-share-box">',
-          '<input class="article-share-input" value="' + url + '">',
-          '<div class="article-share-links">',
-            '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"><span class="fa fa-twitter"></span></a>',
-            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"><span class="fa fa-facebook"></span></a>',
-            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"><span class="fa fa-pinterest"></span></a>',
-            '<a href="https://www.linkedin.com/shareArticle?mini=true&url=' + encodedUrl + '" class="article-share-linkedin" target="_blank" title="LinkedIn"><span class="fa fa-linkedin"></span></a>',
-          '</div>',
-        '</div>'
-      ].join('');
+      var box = $('<div>', { id: id, 'class': 'article-share-box' });
+      $('<input>', { type: 'text', 'class': 'article-share-input', value: url }).appendTo(box);
 
-      var box = $(html);
+      var shareLinks = $('<div>', { 'class': 'article-share-links' });
+      [
+        { href: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodedUrl, className: 'article-share-twitter', title: 'Twitter', icon: 'fa-twitter' },
+        { href: 'https://www.facebook.com/sharer.php?u=' + encodedUrl, className: 'article-share-facebook', title: 'Facebook', icon: 'fa-facebook' },
+        { href: 'http://pinterest.com/pin/create/button/?url=' + encodedUrl, className: 'article-share-pinterest', title: 'Pinterest', icon: 'fa-pinterest' },
+        { href: 'https://www.linkedin.com/shareArticle?mini=true&url=' + encodedUrl, className: 'article-share-linkedin', title: 'LinkedIn', icon: 'fa-linkedin' }
+      ].forEach(function(item){
+        $('<a>', { href: item.href, 'class': item.className, target: '_blank', rel: 'noopener', title: item.title })
+          .append($('<span>', { 'class': 'fa ' + item.icon }))
+          .appendTo(shareLinks);
+      });
+      box.append(shareLinks);
 
       $('body').append(box);
     }
@@ -215,11 +228,11 @@
     $(this).find('img').each(function(){
       if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
 
-      var alt = this.alt;
+      var alt = this.alt || '';
 
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      if (alt) $('<span>', { 'class': 'caption', text: alt }).insertAfter(this);
 
-      $(this).wrap('<a href="' + this.src + '" data-fancybox=\"gallery\" data-caption="' + alt + '"></a>')
+      $(this).wrap($('<a>', { href: this.src, 'data-fancybox': 'gallery', 'data-caption': alt }))
     });
 
     $(this).find('.fancybox').each(function(){

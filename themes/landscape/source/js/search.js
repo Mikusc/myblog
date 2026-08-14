@@ -16,23 +16,48 @@ var searchFunc = function(path, search_id, content_id) {
         return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 
+    function currentLanguage() {
+        return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'zh';
+    }
+
+    function translate(key) {
+        var fallback = {
+            zh: {
+                'search.results': '{count} 条结果',
+                'search.noResults': '没有找到匹配的文章。',
+                'search.error': '搜索索引加载失败。'
+            },
+            en: {
+                'search.results': '{count} results',
+                'search.noResults': 'No matching posts found.',
+                'search.error': 'Failed to load search index.'
+            }
+        };
+        var lang = currentLanguage();
+        if (window.MikuscI18n && typeof window.MikuscI18n.translate === 'function') {
+            return window.MikuscI18n.translate(lang, key) || fallback[lang][key] || '';
+        }
+        return fallback[lang][key] || '';
+    }
+
     $.ajax({
         url: path,
         dataType: "json",
-        success: function( datas ) {
+        success: function(datas) {
             var $input = document.getElementById(search_id);
             var $resultContent = document.getElementById(content_id);
             if (!$input || !$resultContent) return;
-            
-            $input.addEventListener('input', function(){
-                var str = '<ul class=\"search-result-list\">';
-                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/).filter(Boolean);
+
+            var debounceTimer = null;
+            var lastKeywords = [];
+
+            function renderResults(keywords) {
+                var str = '<ul class="search-result-list">';
                 var resultCount = 0;
                 $resultContent.innerHTML = "";
-                if (keywords.length <= 0) {
-                    return;
-                }
-                // perform local searching
+
+                if (!keywords.length) return;
+
                 datas.forEach(function(data) {
                     var data_title = data.title ? data.title.trim() : "";
                     var data_content = data.content ? data.content.trim().replace(/<[^>]+>/g, "") : "";
@@ -52,10 +77,9 @@ var searchFunc = function(path, search_id, content_id) {
                         return title_index >= 0 || content_index >= 0;
                     });
 
-                    // show search results
                     if (isMatch) {
                         resultCount += 1;
-                        str += "<li><a href='" + encodeURI(data_url) + "' class='search-result-title'>" + escapeHtml(data_title) + "</a>";
+                        str += '<li><a href="' + escapeHtml(encodeURI(data_url)) + '" class="search-result-title">' + escapeHtml(data_title) + '</a>';
                         var start = first_occur > 20 ? first_occur - 20 : 0;
                         var end = first_occur >= 0 ? first_occur + 80 : 100;
                         if (end > data_content.length) end = data_content.length;
@@ -63,22 +87,48 @@ var searchFunc = function(path, search_id, content_id) {
                         var match_content = escapeHtml(data_content.substring(start, end));
                         keywords.forEach(function(keyword) {
                             var regS = new RegExp(escapeRegExp(escapeHtml(keyword)), "gi");
-                            match_content = match_content.replace(regS, "<em class=\"search-keyword\">$&</em>");
+                            match_content = match_content.replace(regS, '<em class="search-keyword">$&</em>');
                         });
 
                         if (match_content) {
-                            str += "<p class=\"search-result\">" + match_content + "...</p>";
+                            str += '<p class="search-result">' + match_content + '...</p>';
                         }
-                        str += "</li>";
+                        str += '</li>';
                     }
                 });
-                str += "</ul>";
+                str += '</ul>';
+
                 if (resultCount > 0) {
-                    $resultContent.innerHTML = "<div class=\"search-result-head\">" + resultCount + " result" + (resultCount > 1 ? "s" : "") + "</div>" + str;
+                    var countLabel = translate('search.results').replace('{count}', String(resultCount));
+                    $resultContent.innerHTML = '<div class="search-result-head">' + escapeHtml(countLabel) + '</div>' + str;
                 } else {
-                    $resultContent.innerHTML = "<p class=\"search-empty\">No matching posts found.</p>";
+                    $resultContent.innerHTML = '<p class="search-empty">' + escapeHtml(translate('search.noResults')) + '</p>';
                 }
+            }
+
+            $input.addEventListener('input', function() {
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/).filter(Boolean);
+                lastKeywords = keywords.slice();
+                clearTimeout(debounceTimer);
+                if (!keywords.length) {
+                    renderResults([]);
+                    return;
+                }
+                debounceTimer = setTimeout(function() {
+                    renderResults(keywords);
+                }, 180);
             });
+
+            // Keep visible results in sync when the site language is toggled.
+            document.addEventListener('mikusc:language-applied', function() {
+                if (lastKeywords.length > 0) renderResults(lastKeywords);
+            });
+        },
+        error: function() {
+            var $resultContent = document.getElementById(content_id);
+            if ($resultContent) {
+                $resultContent.innerHTML = '<p class="search-empty">' + escapeHtml(translate('search.error')) + '</p>';
+            }
         }
     });
 }
@@ -90,13 +140,10 @@ $(document).ready(function(){
     $('#search-form-wrap').append($resultContainer);
 
     var path = "/search.json";
-    // We assume the input has this class. Check header.ejs
-    // class="search-form-input"
-    // We need to give ids to the input and result container for the vanilla JS helper above, 
-    // or rewrite the helper to use jQuery/selectors. 
-    // Existing helper uses getElementById. Let's add an ID to the input dynamically.
+    // The theme search form already uses .search-form-input; assign the id
+    // expected by the vanilla JS helper above.
     $('.search-form-input').attr('id', 'local-search-input');
-    
+
     // Prevent default form submit
     $('.search-form').on('submit', function(e){
         e.preventDefault();

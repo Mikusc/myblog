@@ -63,6 +63,9 @@
       'widget.tags': '标签',
       'widget.tagCloud': '标签云',
       'widget.recentPosts': '最新文章',
+      'search.results': '{count} 条结果',
+      'search.noResults': '没有找到匹配的文章。',
+      'search.error': '搜索索引加载失败。',
       'footer.contactAndSites': '联系与站点',
       'footer.contactMe': '联系我',
       'footer.aboutSite': '关于小站',
@@ -127,6 +130,9 @@
       'widget.tags': 'Tags',
       'widget.tagCloud': 'Tag Cloud',
       'widget.recentPosts': 'Recent Posts',
+      'search.results': '{count} results',
+      'search.noResults': 'No matching posts found.',
+      'search.error': 'Failed to load search index.',
       'footer.contactAndSites': 'Contact and Sites',
       'footer.contactMe': 'Contact me',
       'footer.aboutSite': 'About this site',
@@ -135,193 +141,143 @@
     }
   };
 
+  // Page translations are text-only maps keyed by CSS selectors. The Chinese
+  // markup in source/*/index.md remains the single source of truth, so changing
+  // page structure/content no longer requires maintaining duplicate HTML here.
   var pageTranslations = {
     '/about/': {
-      title: 'About',
-      html: [
-        '<div class="content-hub content-hub-about">',
-        '<section class="content-hub-hero">',
-        '<p class="content-hub-kicker">About</p>',
-        '<h2 class="content-hub-title">About this personal blog</h2>',
-        '<p class="content-hub-lede">This is Mikusc&rsquo;s personal blog. I mainly use this site to organize course review materials, project practice notes, and technical writing. The current content focuses on algorithm course review, Hexo site maintenance, and mixed-reality project records related to SceneShift Discussion Room.</p>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Focus</p><h3 class="content-section-title">Current focus areas</h3></div></div>',
-        '<div class="content-card-grid">',
-        '<article class="content-card"><span class="content-card-label">XR / MR</span><strong class="content-card-title">Spatial interaction prototypes</strong><span class="content-card-desc">Project practice and interaction experiments around Unity, Meta Quest, and mixed reality.</span></article>',
-        '<article class="content-card"><span class="content-card-label">AI Systems</span><strong class="content-card-title">AI-assisted spatial computing</strong><span class="content-card-desc">Exploring how AI, spatial computing, room understanding, and generative workflows can fit together.</span></article>',
-        '<article class="content-card"><span class="content-card-label">Course Notes</span><strong class="content-card-title">Course review and algorithm exercises</strong><span class="content-card-desc">Review materials organized by course, lecture, and week for quick revisiting.</span></article>',
-        '<article class="content-card"><span class="content-card-label">Engineering</span><strong class="content-card-title">Tools, deployment, and engineering notes</strong><span class="content-card-desc">Notes on blog maintenance, backend deployment, useful tools, and project debugging.</span></article>',
-        '</div>',
-        '</section>',
-        '<section class="content-section content-section-compact">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">This Site</p><h3 class="content-section-title">Site entry points</h3></div></div>',
-        '<div class="content-link-list">',
-        '<a class="content-link-row" href="/course-notes/"><span>Notes</span><strong>Course Notes</strong></a>',
-        '<a class="content-link-row" href="/projects/"><span>Work</span><strong>Projects</strong></a>',
-        '<a class="content-link-row" href="/tools/"><span>Tools</span><strong>Tools</strong></a>',
-        '<a class="content-link-row" href="/archives/"><span>Archive</span><strong>Archives</strong></a>',
-        '</div>',
-        '</section>',
-        '</div>'
-      ].join('')
+      title: "About",
+      texts: {
+        ".article-entry .content-hub.content-hub-about > :nth-child(1) > :nth-child(2)": "About this personal blog",
+        ".article-entry .content-hub.content-hub-about > :nth-child(1) > :nth-child(3)": "This is Mikusc’s personal blog. I mainly use this site to organize course review materials, project practice notes, and technical writing. The current content focuses on algorithm course review, Hexo site maintenance, and mixed-reality project records related to SceneShift Discussion Room.",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Current focus areas",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Spatial interaction prototypes",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Project practice and interaction experiments around Unity, Meta Quest, and mixed reality.",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Exploring how AI, spatial computing, room understanding, and generative workflows can fit together.",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(2)": "Course review and algorithm exercises",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "Review materials organized by course, lecture, and week for quick revisiting.",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(2)": "Tools, deployment, and engineering notes",
+        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "Notes on blog maintenance, backend deployment, useful tools, and project debugging.",
+        ".article-entry .content-hub.content-hub-about > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Site entry points"
+      }
     },
     '/contact/': {
-      title: 'Contact',
-      html: [
-        '<div class="content-hub content-hub-contact">',
-        '<section class="content-hub-hero">',
-        '<p class="content-hub-kicker">Contact</p>',
-        '<h2 class="content-hub-title">Contact and public links</h2>',
-        '<p class="content-hub-lede">These are the public contact and follow-up channels for this site. For course notes, project practice, or blog issues, GitHub is preferred. For general updates, you can also find me on Bilibili or RedNote.</p>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Main Links</p><h3 class="content-section-title">Main entry points</h3></div></div>',
-        '<div class="content-card-grid content-card-grid-two">',
-        '<a class="content-card content-card-social content-card-social-github" href="https://github.com/Mikusc" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-default">GitHub</span><strong class="content-card-title">Mikusc</strong><span class="content-card-desc">Preferred contact route for course notes, project issues, and blog feedback.</span></a>',
-        '<a class="content-card content-card-social content-card-social-repository" href="https://github.com/Mikusc/myblog" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-default">Repository</span><strong class="content-card-title">Mikusc/myblog</strong><span class="content-card-desc">GitHub repository for this blog project, suitable for issues or source inspection.</span></a>',
-        '<a class="content-card content-card-social content-card-social-bilibili" href="https://space.bilibili.com/13401732" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-bilibili">Bilibili</span><strong class="content-card-title">作业姬QwQ</strong><span class="content-card-desc">For public updates and video content.</span></a>',
-        '<a class="content-card content-card-social content-card-social-rednote" href="https://xhslink.com/m/oAu1JuHb85" target="_blank" rel="noopener"><span class="content-card-label content-card-label-platform content-card-label-rednote">RedNote</span><strong class="content-card-title">mikusc</strong><span class="content-card-desc">For daily content and public updates.</span></a>',
-        '</div>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-feature-card">',
-        '<div><p class="content-card-label">Arcaea Tencent Channel</p><h3 class="content-feature-title">Arcaea Tencent Channel</h3><p class="content-card-desc">Arcaea-related content is kept in a separate channel for update news, pack information, and channel-organized posts.</p></div>',
-        '<div class="content-action-group"><a class="content-action content-action-primary" href="https://pd.qq.com/s/frdj4o2cl?b=9" target="_blank" rel="noopener"><span>Open channel</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a></div>',
-        '</div>',
-        '</section>',
-        '<section class="content-section content-section-compact">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Feedback</p><h3 class="content-section-title">Suitable topics</h3></div></div>',
-        '<div class="content-note-panel"><p>You can send corrections or additions for course notes, questions about SceneShift Discussion Room, XR / MR / Unity / AI-assisted spatial computing project discussion, or bugs and improvement suggestions for this blog.</p><p>For feedback on a specific post, open an issue in the GitHub repository and include the post link, the relevant section, and the suggested change.</p></div>',
-        '</section>',
-        '</div>'
-      ].join('')
+      title: "Contact",
+      texts: {
+        ".article-entry .content-hub.content-hub-contact > :nth-child(1) > :nth-child(2)": "Contact and public links",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(1) > :nth-child(3)": "These are the public contact and follow-up channels for this site. For course notes, project practice, or blog issues, GitHub is preferred. For general updates, you can also find me on Bilibili or RedNote.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Main entry points",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Preferred contact route for course notes, project issues, and blog feedback.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "GitHub repository for this blog project, suitable for issues or source inspection.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "For public updates and video content.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "For daily content and public updates.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(1) > :nth-child(2)": "Arcaea Tencent Channel",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(1) > :nth-child(3)": "Arcaea-related content is kept in a separate channel for update news, pack information, and channel-organized posts.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1)": "Open channel",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Suitable topics",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(2) > :nth-child(1)": "You can send corrections or additions for course notes, questions about SceneShift Discussion Room, XR / MR / Unity / AI-assisted spatial computing project discussion, or bugs and improvement suggestions for this blog.",
+        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(2) > :nth-child(2)": "For feedback on a specific post, open an issue in the GitHub repository and include the post link, the relevant section, and the suggested change."
+      }
     },
     '/projects/': {
-      title: 'Projects',
-      html: [
-        '<div class="content-hub content-hub-projects">',
-        '<section class="content-hub-hero">',
-        '<p class="content-hub-kicker">Projects</p>',
-        '<h2 class="content-hub-title">Project Practice and Prototype Entries</h2>',
-        '<p class="content-hub-lede">This page collects the main projects, prototypes, and tool entry points currently available through GitHub and this site. It is designed as a set of routes you can continue into, not just a text index.</p>',
-        '</section>',
-        '<div class="content-stat-grid" aria-label="Project overview">',
-        '<div class="content-stat"><span class="content-stat-number">2</span><span class="content-stat-label">MR / Unity prototypes</span></div>',
-        '<div class="content-stat"><span class="content-stat-number">4</span><span class="content-stat-label">pinned GitHub repos</span></div>',
-        '<div class="content-stat"><span class="content-stat-number">7</span><span class="content-stat-label">project entries</span></div>',
-        '</div>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Featured Projects</p><h3 class="content-section-title">Featured projects</h3></div></div>',
-        '<div class="content-feature-card">',
-        '<div><p class="content-card-label">Mixed Reality · Unity · Meta Quest</p><h3 class="content-feature-title">Spatial style preview driven by real room structure</h3><p class="content-card-desc">SceneShift Discussion Room is a mixed-reality coursework prototype. It reads real room structure on Meta Quest and previews themed room decoration and spatial style changes.</p><div class="content-card-meta"><span>Room understanding</span><span>Runtime generation</span><span>XR interaction</span></div></div>',
-        '<div class="content-action-group">',
-        '<a class="content-action content-action-primary" href="/scene-shift/"><span>Project introduction</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a>',
-        '<a class="content-action" href="https://github.com/Mikusc/SceneShift-Quest-Room-Stylization" target="_blank" rel="noopener"><span>GitHub repository</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a>',
-        '<a class="content-action" href="/scene-shift/privacy/"><span>Privacy policy</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a>',
-        '</div>',
-        '</div>',
-        '<div class="content-card-grid content-card-grid-two content-feature-followup">',
-        '<article class="content-card"><span class="content-card-label">Private · Unity · Home Assistant</span><strong class="content-card-title">MR-HomeAssistant</strong><span class="content-card-desc">A Unity MR smart home prototype exploring mixed-reality spatial interfaces for Home Assistant device control. The repository is private, so this card records the project entry without a public link.</span><span class="content-card-meta"><span>MR interface</span><span>Smart home</span><span>Unity 6</span></span></article>',
-        '<a class="content-card" href="/tools/"><span class="content-card-label">Tools · Campus Utility</span><strong class="content-card-title">Tools and standalone pages</strong><span class="content-card-desc">Site tools are collected under the Tools page. The current entry is the UNNC-style Bus tool, with room for study, development, and campus utilities later.</span><span class="content-card-meta"><span>Bus</span><span>Utilities</span><span>Standalone pages</span></span></a>',
-        '</div>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">GitHub Repositories</p><h3 class="content-section-title">Main GitHub repositories</h3></div></div>',
-        '<div class="content-card-grid">',
-        '<a class="content-card" href="https://github.com/Mikusc/SceneShift-Quest-Room-Stylization" target="_blank" rel="noopener"><span class="content-card-label">C# · Unity · Meta Quest</span><strong class="content-card-title">SceneShift Quest Room Stylization</strong><span class="content-card-desc">A scene-aware mixed-reality room stylization prototype for Meta Quest, built around MRUK room structure, semantic objects, themed materials, and a runtime control panel.</span><span class="content-card-meta"><span>MRUK</span><span>OpenXR</span><span>Runtime generation</span></span></a>',
-        '<a class="content-card" href="https://github.com/Mikusc/myblog" target="_blank" rel="noopener"><span class="content-card-label">JavaScript · Hexo</span><strong class="content-card-title">myblog</strong><span class="content-card-desc">The source repository for this personal website, covering course notes, project pages, tool entries, and the current Nottingham-inspired visual system.</span><span class="content-card-meta"><span>Hexo</span><span>Static site</span><span>Design system</span></span></a>',
-        '<a class="content-card" href="https://github.com/Mikusc/meta-uiset-composer" target="_blank" rel="noopener"><span class="content-card-label">Python · Codex Skill</span><strong class="content-card-title">meta-uiset-composer</strong><span class="content-card-desc">A Codex skill for composing Meta XR Interaction SDK UISet panels in Unity, with emphasis on official prefabs, layout rules, and Quest-ready UI validation.</span><span class="content-card-meta"><span>Meta UISet</span><span>Unity MCP</span><span>Quest UI</span></span></a>',
-        '<a class="content-card" href="https://github.com/Mikusc/Arcaea-skill" target="_blank" rel="noopener"><span class="content-card-label">Python · Automation</span><strong class="content-card-title">Arcaea-skill</strong><span class="content-card-desc">An automation skill repository for organizing Arcaea content, update notes, and Tencent Channel publishing workflows.</span><span class="content-card-meta"><span>Arcaea</span><span>Tencent Channel</span><span>Publishing</span></span></a>',
-        '</div>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Selected Repositories</p><h3 class="content-section-title">Recent project repositories</h3></div></div>',
-        '<div class="content-card-grid content-card-grid-three">',
-        '<a class="content-card" href="https://github.com/Mikusc/COMP4126_CW3_XR_Rhythm_SurVis" target="_blank" rel="noopener"><span class="content-card-label">JavaScript · SurVis</span><strong class="content-card-title">COMP4126 XR Rhythm SurVis</strong><span class="content-card-desc">A public SurVis literature collection for COMP4126 Research Methods Coursework 3, showing the literature structure behind the XR rhythm game direction.</span><span class="content-card-meta"><span>Literature review</span><span>XR rhythm</span></span></a>',
-        '<a class="content-card" href="https://github.com/Mikusc/onebot-code-listener" target="_blank" rel="noopener"><span class="content-card-label">HTML · Node.js · OneBot</span><strong class="content-card-title">onebot-code-listener</strong><span class="content-card-desc">A NapCat / OneBot v11 group-message code extraction validation tool, with code extraction, de-duplication, queueing, logging, and a local dashboard.</span><span class="content-card-meta"><span>NapCat</span><span>OneBot v11</span><span>Dashboard</span></span></a>',
-        '</div>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Tools &amp; Utilities</p><h3 class="content-section-title">Public content routes</h3></div></div>',
-        '<div class="content-card-grid content-card-grid-two">',
-        '<a class="content-card" href="/course-notes/"><span class="content-card-label">Course Notes</span><strong class="content-card-title">Course Notes</strong><span class="content-card-desc">Course review posts already organized on the blog, mainly around COMP4133AADS algorithms and data structures.</span><span class="content-card-meta"><span>Algorithms</span><span>Exam review</span></span></a>',
-        '<a class="content-card" href="/tools/"><span class="content-card-label">Tools</span><strong class="content-card-title">Toolbox</strong><span class="content-card-desc">Small tools and standalone pages. The current entry is the UNNC-style Bus tool.</span><span class="content-card-meta"><span>Bus</span><span>Standalone pages</span></span></a>',
-        '</div>',
-        '</section>',
-        '</div>'
-      ].join('')
+      title: "Projects",
+      texts: {
+        ".article-entry .content-hub.content-hub-projects > :nth-child(1) > :nth-child(2)": "Project Practice and Prototype Entries",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(1) > :nth-child(3)": "This page collects the main projects, prototypes, and tool entry points currently available through GitHub and this site. It is designed as a set of routes you can continue into, not just a text index.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(1) > :nth-child(2)": "MR / Unity prototypes",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(2) > :nth-child(2)": "pinned GitHub repos",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(3) > :nth-child(2)": "project entries",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Featured projects",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Spatial style preview driven by real room structure",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "SceneShift Discussion Room is a mixed-reality coursework prototype. It reads real room structure on Meta Quest and previews themed room decoration and spatial style changes.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1)": "Project introduction",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(1)": "GitHub repository",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(1)": "Privacy policy",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(1) > :nth-child(3)": "A Unity MR smart home prototype exploring mixed-reality spatial interfaces for Home Assistant device control. The repository is private, so this card records the project entry without a public link.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(2) > :nth-child(2)": "Tools and standalone pages",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(2) > :nth-child(3)": "Site tools are collected under the Tools page. The current entry is the UNNC-style Bus tool, with room for study, development, and campus utilities later.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Main GitHub repositories",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "A scene-aware mixed-reality room stylization prototype for Meta Quest, built around MRUK room structure, semantic objects, themed materials, and a runtime control panel.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "The source repository for this personal website, covering course notes, project pages, tool entries, and the current Nottingham-inspired visual system.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "A Codex skill for composing Meta XR Interaction SDK UISet panels in Unity, with emphasis on official prefabs, layout rules, and Quest-ready UI validation.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "An automation skill repository for organizing Arcaea content, update notes, and Tencent Channel publishing workflows.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(1) > :nth-child(2)": "Recent project repositories",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "A public SurVis literature collection for COMP4126 Research Methods Coursework 3, showing the literature structure behind the XR rhythm game direction.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "A NapCat / OneBot v11 group-message code extraction validation tool, with code extraction, de-duplication, queueing, logging, and a local dashboard.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(1) > :nth-child(2)": "Public content routes",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Course Notes",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Course review posts already organized on the blog, mainly around COMP4133AADS algorithms and data structures.",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(2) > :nth-child(2)": "Toolbox",
+        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Small tools and standalone pages. The current entry is the UNNC-style Bus tool."
+      }
     },
     '/tools/': {
-      title: 'Tools',
-      html: [
-        '<div class="content-hub content-hub-tools">',
-        '<section class="content-hub-hero">',
-        '<p class="content-hub-kicker">Tools</p>',
-        '<h2 class="content-hub-title">Study, Development, and Daily Utilities</h2>',
-        '<p class="content-hub-lede">This page keeps standalone tools in one place. The goal is to make common utilities easy to enter directly instead of mixing them into the normal post list.</p>',
-        '</section>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Available</p><h3 class="content-section-title">Current tools</h3></div></div>',
-        '<div class="content-tool-grid">',
-        '<article class="content-tool-card">',
-        '<div><span class="content-tool-status">Available</span><h3 class="content-feature-title">Bus</h3><p class="content-card-desc">UNNC-related bus lookup entry with next departure information and full timetable views, optimized for quick mobile checks.</p><div class="content-card-meta"><span>UNNC shuttle</span><span>Timetable</span><span>Mobile friendly</span></div></div>',
-        '<a class="content-action content-action-primary" href="/bus/"><span>Open tool</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a>',
-        '</article>',
-        '</div>',
-        '</section>',
-        '<section class="content-section content-section-compact">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Next</p><h3 class="content-section-title">Good candidates for later</h3></div></div>',
-        '<div class="content-note-panel"><p>Future entries could include a course review index tool, project resource navigation, common link collections, or small query pages related to blog maintenance.</p></div>',
-        '</section>',
-        '</div>'
-      ].join('')
+      title: "Tools",
+      texts: {
+        ".article-entry .content-hub.content-hub-tools > :nth-child(1) > :nth-child(2)": "Study, Development, and Daily Utilities",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(1) > :nth-child(3)": "This page keeps standalone tools in one place. The goal is to make common utilities easy to enter directly instead of mixing them into the normal post list.",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Current tools",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1) > :nth-child(3)": "UNNC-related bus lookup entry with next departure information and full timetable views, optimized for quick mobile checks.",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(2) > :nth-child(1)": "Open tool",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Good candidates for later",
+        ".article-entry .content-hub.content-hub-tools > :nth-child(3) > :nth-child(2) > :nth-child(1)": "Future entries could include a course review index tool, project resource navigation, common link collections, or small query pages related to blog maintenance."
+      }
     },
     '/course-notes/': {
-      title: 'Course Notes',
-      html: [
-        '<div class="content-hub content-hub-course">',
-        '<section class="content-hub-hero">',
-        '<p class="content-hub-kicker">Course Notes</p>',
-        '<h2 class="content-hub-title">Course Notes Hub</h2>',
-        '<p class="content-hub-lede">This page is organized by course and review path instead of acting as a plain post list. The current completed series is COMP4133AADS algorithms and data structures.</p>',
-        '</section>',
-        '<div class="content-stat-grid" aria-label="Course notes overview">',
-        '<div class="content-stat"><span class="content-stat-number">1</span><span class="content-stat-label">course series</span></div>',
-        '<div class="content-stat"><span class="content-stat-number">12</span><span class="content-stat-label">review posts</span></div>',
-        '<div class="content-stat"><span class="content-stat-number">3</span><span class="content-stat-label">study stages</span></div>',
-        '</div>',
-        '<section class="content-section">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Current Series</p><h3 class="content-section-title">Current course series</h3></div></div>',
-        '<div class="content-feature-card">',
-        '<div><p class="content-card-label">COMP4133AADS · Algorithms and Data Structures</p><h3 class="content-feature-title">Algorithms and Data Structures Review Directory</h3><p class="content-card-desc">A continuous review path covering the final review map, lecture exercises, weekly topics, and mock paper. Individual posts now include previous/next navigation and a return link to the course directory.</p><div class="content-card-meta"><span>Big-O</span><span>Maps &amp; Trees</span><span>Graph</span><span>DP</span><span>Pattern Matching</span><span>Trie</span></div></div>',
-        '<div class="content-action-group"><a class="content-action content-action-primary" href="/course-notes/comp4133aads/"><span>Open course directory</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a><a class="content-action" href="/2026/01/08/comp4133aads-final-exam-master-review/"><span>Start with master review</span><span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a></div>',
-        '</div>',
-        '</section>',
-        '<section class="content-section content-section-compact">',
-        '<div class="content-section-head"><div><p class="content-section-kicker">Categories</p><h3 class="content-section-title">Browse by category</h3></div></div>',
-        '<div class="content-chip-row"><a href="/categories/COMP4133AADS/">COMP4133AADS</a><a href="/categories/COMP4133AADS/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">Final Review</a><a href="/categories/COMP4133AADS/%E7%BB%83%E4%B9%A0%E5%A4%8D%E4%B9%A0/">Exercise Review</a><a href="/archives/">All archives</a></div>',
-        '</section>',
-        '</div>'
-      ].join('')
+      title: "Course Notes",
+      texts: {
+        ".article-entry .content-hub.content-hub-course > :nth-child(1) > :nth-child(2)": "Course Notes Hub",
+        ".article-entry .content-hub.content-hub-course > :nth-child(1) > :nth-child(3)": "This page is organized by course and review path instead of acting as a plain post list. The current completed series is COMP4133AADS algorithms and data structures.",
+        ".article-entry .content-hub.content-hub-course > :nth-child(2) > :nth-child(1) > :nth-child(2)": "course series",
+        ".article-entry .content-hub.content-hub-course > :nth-child(2) > :nth-child(2) > :nth-child(2)": "review posts",
+        ".article-entry .content-hub.content-hub-course > :nth-child(2) > :nth-child(3) > :nth-child(2)": "study stages",
+        ".article-entry .content-hub.content-hub-course > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Current course series",
+        ".article-entry .content-hub.content-hub-course > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Algorithms and Data Structures Review Directory",
+        ".article-entry .content-hub.content-hub-course > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "A continuous review path covering the final review map, lecture exercises, weekly topics, and mock paper. Individual posts now include previous/next navigation and a return link to the course directory.",
+        ".article-entry .content-hub.content-hub-course > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1)": "Open course directory",
+        ".article-entry .content-hub.content-hub-course > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(1)": "Start with master review",
+        ".article-entry .content-hub.content-hub-course > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Browse by category",
+        ".article-entry .content-hub.content-hub-course > :nth-child(4) > :nth-child(2) > :nth-child(2)": "Final Review",
+        ".article-entry .content-hub.content-hub-course > :nth-child(4) > :nth-child(2) > :nth-child(3)": "Exercise Review",
+        ".article-entry .content-hub.content-hub-course > :nth-child(4) > :nth-child(2) > :nth-child(4)": "All archives"
+      }
     },
     '/course-notes/comp4133aads/': {
-      title: 'COMP4133AADS Review Directory',
-      html: [
-        '<div class="content-hub content-hub-course content-hub-course-series">',
-        '<section class="content-hub-hero"><p class="content-hub-kicker">COMP4133AADS</p><h2 class="content-hub-title">Algorithms and Data Structures Review Route</h2><p class="content-hub-lede">A focused exam review path: build the map first, fill in lecture exercises, then work through weekly topics and check output ability with the mock paper.</p></section>',
-        '<div class="content-stat-grid" aria-label="COMP4133AADS review overview"><div class="content-stat"><span class="content-stat-number">2</span><span class="content-stat-label">overview and mock</span></div><div class="content-stat"><span class="content-stat-number">4</span><span class="content-stat-label">lecture exercises</span></div><div class="content-stat"><span class="content-stat-number">6</span><span class="content-stat-label">weekly topics</span></div></div>',
-        '<section class="content-section"><div class="content-section-head"><div><p class="content-section-kicker">Study Flow</p><h3 class="content-section-title">Suggested reading order</h3></div></div><div class="course-flow"><a class="course-flow-item" href="#overview"><span>01</span><strong>Build the exam map</strong><em>Start with the master guide and mock expectations</em></a><a class="course-flow-item" href="#lecture-exercises"><span>02</span><strong>Fill core exercises</strong><em>Complexity, Map, BST, AVL</em></a><a class="course-flow-item" href="#weekly-topics"><span>03</span><strong>Work through major modules</strong><em>Graph, DP, Pattern, Trie</em></a></div></section>',
-        '<section id="overview" class="content-section"><div class="content-section-head"><div><p class="content-section-kicker">Overview</p><h3 class="content-section-title">Build the exam map first</h3></div></div><div class="content-card-grid content-card-grid-two"><a class="content-card" href="/2026/01/08/comp4133aads-final-exam-master-review/"><span class="content-card-label">Final Review</span><strong class="content-card-title">Final review master guide</strong><span class="content-card-desc">All module checkpoints, a practice-oriented study route, and suggested review order.</span></a><a class="content-card" href="/2026/01/08/comp4133aads-final-mock-exam-4q/"><span class="content-card-label">Mock Exam</span><strong class="content-card-title">Final mock paper</strong><span class="content-card-desc">The four most likely major questions, with templates, simulated questions, and reference answers.</span></a></div></section>',
-        '<section id="lecture-exercises" class="content-section"><div class="content-section-head"><div><p class="content-section-kicker">Lecture Exercises</p><h3 class="content-section-title">Complexity and core data structures</h3></div></div><div class="content-card-grid"><a class="content-card" href="/2026/01/08/comp4133aads-lecture1-exercises/"><span class="content-card-label">Lecture 1</span><strong class="content-card-title">Algorithm Complexity</strong><span class="content-card-desc">Big-O, growth rates, and complexity analysis exercises.</span></a><a class="content-card" href="/2026/01/08/comp4133aads-lecture2-exercises/"><span class="content-card-label">Lecture 2</span><strong class="content-card-title">Maps &amp; Hash Tables</strong><span class="content-card-desc">Hash tables, map structures, and collision handling.</span></a><a class="content-card" href="/2026/01/08/comp4133aads-lecture3-exercises/"><span class="content-card-label">Lecture 3</span><strong class="content-card-title">Binary Search Trees</strong><span class="content-card-desc">BST operations, traversals, and property checks.</span></a><a class="content-card" href="/2026/01/08/comp4133aads-lecture4-exercises/"><span class="content-card-label">Lecture 4</span><strong class="content-card-title">AVL Trees</strong><span class="content-card-desc">Balance factors, rotations, insertion, and deletion traces.</span></a></div></section>',
-        '<section id="weekly-topics" class="content-section"><div class="content-section-head"><div><p class="content-section-kicker">Weekly Topics</p><h3 class="content-section-title">Graphs, dynamic programming, and strings</h3></div></div><div class="content-link-list"><a class="content-link-row" href="/2026/01/08/comp4133aads-week6-graph-algorithms-1-exercises/"><span>Week 6</span><strong>Graph Algorithms 1</strong></a><a class="content-link-row" href="/2026/01/08/comp4133aads-week7-graph-algorithms-2-exercises/"><span>Week 7</span><strong>Graph Algorithms 2</strong></a><a class="content-link-row" href="/2026/01/08/comp4133aads-week8-dp1-exercises/"><span>Week 8</span><strong>Dynamic Programming 1</strong></a><a class="content-link-row" href="/2026/01/08/comp4133aads-week9-dp2-exercises/"><span>Week 9</span><strong>Dynamic Programming 2</strong></a><a class="content-link-row" href="/2026/01/08/comp4133aads-week10-pattern-matching-exercises/"><span>Week 10</span><strong>Pattern-Matching Algorithms</strong></a><a class="content-link-row" href="/2026/01/08/comp4133aads-week11-trie-exercises/"><span>Week 11</span><strong>Trie</strong></a></div></section>',
-        '<section class="content-section content-section-compact"><div class="content-section-head"><div><p class="content-section-kicker">Categories</p><h3 class="content-section-title">Browse by category</h3></div></div><div class="content-chip-row"><a href="/categories/COMP4133AADS/">COMP4133AADS</a><a href="/categories/COMP4133AADS/%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0/">Final Review</a><a href="/categories/COMP4133AADS/%E7%BB%83%E4%B9%A0%E5%A4%8D%E4%B9%A0/">Exercise Review</a><a href="/course-notes/">Back to Course Notes</a></div></section>',
-        '</div>'
-      ].join('')
+      title: "COMP4133AADS Review Directory",
+      texts: {
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(1) > :nth-child(2)": "Algorithms and Data Structures Review Route",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(1) > :nth-child(3)": "A focused exam review path: build the map first, fill in lecture exercises, then work through weekly topics and check output ability with the mock paper.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(2) > :nth-child(1) > :nth-child(2)": "overview and mock",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(2) > :nth-child(2) > :nth-child(2)": "lecture exercises",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(2) > :nth-child(3) > :nth-child(2)": "weekly topics",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Suggested reading order",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Build the exam map",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Start with the master guide and mock expectations",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(2)": "Fill core exercises",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Complexity, Map, BST, AVL",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(3) > :nth-child(2)": "Work through major modules",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(3) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "Graph, DP, Pattern, Trie",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Build the exam map first",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Final review master guide",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "All module checkpoints, a practice-oriented study route, and suggested review order.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(4) > :nth-child(2) > :nth-child(2) > :nth-child(2)": "Final mock paper",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(4) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "The four most likely major questions, with templates, simulated questions, and reference answers.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(1) > :nth-child(2)": "Complexity and core data structures",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Algorithm Complexity",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Big-O, growth rates, and complexity analysis exercises.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Hash tables, map structures, and collision handling.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "BST operations, traversals, and property checks.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(5) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "Balance factors, rotations, insertion, and deletion traces.",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(6) > :nth-child(1) > :nth-child(2)": "Graphs, dynamic programming, and strings",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(7) > :nth-child(1) > :nth-child(2)": "Browse by category",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(7) > :nth-child(2) > :nth-child(2)": "Final Review",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(7) > :nth-child(2) > :nth-child(3)": "Exercise Review",
+        ".article-entry .content-hub.content-hub-course.content-hub-course-series > :nth-child(7) > :nth-child(2) > :nth-child(4)": "Back to Course Notes"
+      }
     }
   };
 
-  var originalPageContent = null;
+  var originalPageTexts = {};
 
   function normalizePath(pathname) {
     var path = pathname || '/';
@@ -394,15 +350,24 @@
     });
   }
 
-  function captureOriginalPageContent() {
-    if (originalPageContent) return;
+  function captureOriginalPageTexts(pageKey) {
+    if (!originalPageTexts[pageKey]) {
+      originalPageTexts[pageKey] = { texts: {} };
+    }
+
+    var stored = originalPageTexts[pageKey];
     var title = document.querySelector('.article-title');
-    var entry = document.querySelector('.article-entry');
-    if (!title || !entry) return;
-    originalPageContent = {
-      title: title.innerHTML,
-      entry: entry.innerHTML
-    };
+
+    if (title && stored.title === undefined) {
+      stored.title = title.textContent;
+    }
+
+    Object.keys(pageTranslations[pageKey].texts).forEach(function(selector){
+      var element = document.querySelector(selector);
+      if (element && !Object.prototype.hasOwnProperty.call(stored.texts, selector)) {
+        stored.texts[selector] = element.textContent;
+      }
+    });
   }
 
   function applyPageTranslation(lang) {
@@ -410,23 +375,29 @@
     var page = pageTranslations[pageKey];
     if (!page) return null;
 
-    var title = document.querySelector('.article-title');
-    var entry = document.querySelector('.article-entry');
-    if (!title || !entry) return page.title;
+    captureOriginalPageTexts(pageKey);
 
-    captureOriginalPageContent();
+    var title = document.querySelector('.article-title');
 
     if (lang === 'en') {
-      title.textContent = page.title;
-      entry.innerHTML = page.html;
+      if (title) title.textContent = page.title;
+      Object.keys(page.texts).forEach(function(selector){
+        var element = document.querySelector(selector);
+        if (element) element.textContent = page.texts[selector];
+      });
       return page.title;
     }
 
-    if (originalPageContent) {
-      title.innerHTML = originalPageContent.title;
-      entry.innerHTML = originalPageContent.entry;
+    var original = originalPageTexts[pageKey];
+    if (original) {
+      if (title && original.title) title.textContent = original.title;
+      Object.keys(original.texts).forEach(function(selector){
+        var element = document.querySelector(selector);
+        if (element) element.textContent = original.texts[selector];
+      });
     }
-    return title.textContent.trim();
+
+    return title ? title.textContent.trim() : '';
   }
 
   function getDocumentTitlePrefix(lang, translatedPageTitle) {
@@ -487,4 +458,11 @@
     bindLanguageToggles();
     applyLanguage(getStoredLanguage(), false);
   });
+
+  window.MikuscI18n = {
+    translate: translate,
+    getLanguage: function(){
+      return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'zh';
+    }
+  };
 })();

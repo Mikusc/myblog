@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" data-site-theme-color>
   <title>Shuttle Bus Next Departure</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/favicon.ico">
@@ -658,6 +660,22 @@
   </style>
 </head>
 <body>
+  <script>
+    (function () {
+      try {
+        var key = 'mikusc.site.theme';
+        var stored = window.localStorage && window.localStorage.getItem(key);
+        var theme = stored === 'dark' || stored === 'light'
+          ? stored
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        document.body.classList.toggle('dark-mode', theme === 'dark');
+        var meta = document.querySelector('meta[data-site-theme-color]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#07111c' : '#ffffff');
+      } catch (e) {}
+    })();
+  </script>
   <div class="bus-topbar">
     <a class="bus-brand" href="/">
       <span class="bus-mark">M</span>
@@ -814,9 +832,16 @@
         optionHola: "HOLA (西门)",
         optionUnnc: "UNNC (23号楼)",
         btnRefresh: "刷新时间",
+        languageAria: "切换到英文",
+        themeToLight: "切换到浅色模式",
+        themeToDark: "切换到深色模式",
+        campusTime: "校园时间：",
+        geoLoading: "正在自动定位…",
+        geoAutoCached: "已使用上次定位结果：{stop}。",
+        geoManual: "当前默认采用 HOLA，点击“刷新时间”可自动定位。",
         btnTimetableShow: "查看总时刻表",
         btnTimetableHide: "收起总时刻表",
-        footer: "时刻表通过2025年10月校内班车时刻表整理。",
+        footer: "时刻表根据2025年10月校内班车时刻表整理。班车时刻为校园时间（Asia/Shanghai）。",
         currTime: "当前时间：",
         depLoc: "出发站点：",
         todayEnd: "今日班车已全部结束。",
@@ -834,7 +859,8 @@
         ttOptionWeekday: "周一至周五",
         ttOptionWeekend: "周末",
         ttBtnSearch: "搜索",
-        ttNote: "* 时间按你设备本地时区显示",
+        ttNote: "* 班车时刻为校园时间（Asia/Shanghai）；当前时间按设备本地时区显示",
+        searchResultSep: "：",
         geoAutoSuccess: "自动定位成功，距离最近的站点是 {stop}（约 {dist} 公里）。",
         geoFail: "无法获取定位信息，已默认采用 HOLA。",
         geoErr: "未允许定位或发生错误，已默认采用 HOLA。",
@@ -859,9 +885,16 @@
         optionHola: "HOLA (West Gate)",
         optionUnnc: "UNNC (Building 23)",
         btnRefresh: "Refresh Times",
+        languageAria: "Switch site language to Chinese",
+        themeToLight: "Switch to light mode",
+        themeToDark: "Switch to dark mode",
+        campusTime: "Campus time: ",
+        geoLoading: "Detecting your location…",
+        geoAutoCached: "Using last detected stop: {stop}.",
+        geoManual: "Defaulting to HOLA. Press Refresh to auto-detect.",
         btnTimetableShow: "View Full Timetable",
         btnTimetableHide: "Hide Timetable",
-        footer: "Schedule based on Oct 2025 timetable. Local time zone shown.",
+        footer: "Schedule based on the Oct 2025 on-campus timetable. Bus times are campus time (Asia/Shanghai).",
         currTime: "Time: ",
         depLoc: "From: ",
         todayEnd: "No more buses today.",
@@ -879,7 +912,8 @@
         ttOptionWeekday: "Weekday",
         ttOptionWeekend: "Weekend",
         ttBtnSearch: "Search",
-        ttNote: "* Times shown in your local time zone.",
+        ttNote: "* Bus times are campus time (Asia/Shanghai). Current time is shown in your device's local time zone.",
+        searchResultSep: ":",
         geoAutoSuccess: "Auto-detected: {stop} (approx {dist} km).",
         geoFail: "Geolocation failed, defaulting to HOLA.",
         geoErr: "Geolocation denied/error, defaulting to HOLA.",
@@ -897,59 +931,201 @@
       }
     };
 
-    let currentLang = 'zh';
+    const CAMPUS_TIME_ZONE = 'Asia/Shanghai';
+    const STORAGE_KEYS = {
+      lang: 'mikusc.site.lang',
+      theme: 'mikusc.site.theme',
+      autoLocation: 'mikusc.site.bus.autoLocation'
+    };
 
-    function setLanguage(lang) {
+    function readStorage(key) {
+      try {
+        return window.localStorage && window.localStorage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function writeStorage(key, value) {
+      try {
+        if (window.localStorage) window.localStorage.setItem(key, value);
+      } catch (e) {}
+    }
+
+    let geoRequestId = 0;
+    function invalidateGeoRequests() {
+      geoRequestId += 1;
+    }
+
+    const cachedAutoLocationValue = readStorage(STORAGE_KEYS.autoLocation);
+    let cachedAutoLocation = cachedAutoLocationValue === 'HOLA' || cachedAutoLocationValue === 'UNNC'
+      ? cachedAutoLocationValue
+      : null;
+
+    const storedLanguage = readStorage(STORAGE_KEYS.lang);
+    let currentLang = storedLanguage === 'en' ? 'en' : 'zh';
+
+    const THEME_ICONS = {
+      dark: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+      light: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'
+    };
+
+    function getCurrentTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    }
+
+    function getPreferredTheme() {
+      const stored = readStorage(STORAGE_KEYS.theme);
+      if (stored === 'dark' || stored === 'light') return stored;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function updateThemeButtonLabel() {
+      const btn = document.getElementById('themeBtn');
+      if (!btn) return;
+      const isDark = getCurrentTheme() === 'dark';
+      const t = translations[currentLang];
+      const label = isDark ? t.themeToLight : t.themeToDark;
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+      btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+
+    function applyTheme(theme, shouldStore) {
+      const safeTheme = theme === 'dark' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', safeTheme);
+      document.documentElement.style.colorScheme = safeTheme;
+      document.body.classList.toggle('dark-mode', safeTheme === 'dark');
+      const themeColor = document.querySelector('meta[data-site-theme-color]');
+      if (themeColor) themeColor.setAttribute('content', safeTheme === 'dark' ? '#07111c' : '#ffffff');
+      if (shouldStore) writeStorage(STORAGE_KEYS.theme, safeTheme);
+      const btn = document.getElementById('themeBtn');
+      if (btn) btn.innerHTML = THEME_ICONS[safeTheme];
+      updateThemeButtonLabel();
+    }
+
+    function setLanguage(lang, shouldStore) {
       if (!translations[lang]) return;
+      invalidateGeoRequests();
       currentLang = lang;
+      if (shouldStore) writeStorage(STORAGE_KEYS.lang, currentLang);
       document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-      
+      document.title = translations[lang].title;
+
       const t = translations[lang];
-      
+
       // Update data-i18n elements
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (t[key]) {
           if (key === 'btnTimetableShow') {
-             const panel = document.getElementById("timetablePanel");
-             el.textContent = panel.classList.contains("open") ? t.btnTimetableHide : t.btnTimetableShow;
+            const panel = document.getElementById("timetablePanel");
+            el.textContent = panel.classList.contains("open") ? t.btnTimetableHide : t.btnTimetableShow;
           } else {
-             el.textContent = t[key];
+            el.textContent = t[key];
           }
         }
       });
-      
-      refreshDisplay();
+
+      const langBtn = document.getElementById('langBtn');
+      if (langBtn) {
+        langBtn.setAttribute('aria-label', t.languageAria);
+        langBtn.setAttribute('title', t.languageAria);
+      }
+
+      updateThemeButtonLabel();
+      refreshDisplay({ allowGeolocation: false });
       if (document.getElementById("timetablePanel").classList.contains("open")) {
         renderTimetable();
         const searchRes = document.getElementById("ttSearchResult");
-        if(searchRes.innerHTML !== "") runSearch();
+        if (searchRes.innerHTML !== "") runSearch();
       }
     }
 
     // Toggle Language
     document.getElementById('langBtn').addEventListener('click', () => {
       const newLang = currentLang === 'zh' ? 'en' : 'zh';
-      setLanguage(newLang);
+      setLanguage(newLang, true);
     });
 
     // Toggle Theme
     document.getElementById('themeBtn').addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      const btn = document.getElementById('themeBtn');
-      if (isDark) {
-         btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-      } else {
-        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+      applyTheme(getCurrentTheme() === 'dark' ? 'light' : 'dark', true);
+    });
+
+    // Keep standalone /bus/ in sync with the main site when preferences change in another tab.
+    window.addEventListener('storage', event => {
+      if (event.key === STORAGE_KEYS.theme) {
+        applyTheme(event.newValue || getPreferredTheme(), false);
+      } else if (event.key === STORAGE_KEYS.lang) {
+        setLanguage(event.newValue === 'en' ? 'en' : 'zh', false);
       }
     });
 
-    // Utility to convert HH:MM string to a Date object on the current day
-    function parseTimeToDate(timeStr) {
+    // Campus time helpers.
+    // Bus times are fixed wall-clock times in Asia/Shanghai. Current time is displayed
+    // in the device's local time zone, while comparisons happen in campus time.
+    const zonedFormatterCache = {};
+    function getZonedParts(date, timeZone) {
+      if (!zonedFormatterCache[timeZone]) {
+        zonedFormatterCache[timeZone] = new Intl.DateTimeFormat('en-US', {
+          timeZone: timeZone,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hourCycle: 'h23'
+        });
+      }
+      const parts = {};
+      zonedFormatterCache[timeZone].formatToParts(date).forEach(part => {
+        if (part.type !== 'literal') parts[part.type] = part.value;
+      });
+      const year = Number(parts.year);
+      const month = Number(parts.month);
+      const day = Number(parts.day);
+      return {
+        year: year,
+        month: month,
+        day: day,
+        hour: Number(parts.hour),
+        minute: Number(parts.minute),
+        second: Number(parts.second),
+        weekday: new Date(Date.UTC(year, month - 1, day)).getUTCDay()
+      };
+    }
+
+    function getCampusNow() {
+      return getZonedParts(new Date(), CAMPUS_TIME_ZONE);
+    }
+
+    function getCampusMinutes(parts) {
+      return parts.hour * 60 + parts.minute + parts.second / 60;
+    }
+
+    const campusOffsetCache = {};
+    function getTimeZoneOffsetMs(timeZone, parts) {
+      const cacheKey = timeZone + ':' + parts.year + '-' + parts.month + '-' + parts.day;
+      if (campusOffsetCache[cacheKey] !== undefined) return campusOffsetCache[cacheKey];
+      const probe = new Date(Date.UTC(parts.year, parts.month - 1, parts.day, 12, 0, 0));
+      const zoned = getZonedParts(probe, timeZone);
+      const asUTC = Date.UTC(zoned.year, zoned.month - 1, zoned.day, zoned.hour, zoned.minute, zoned.second);
+      campusOffsetCache[cacheKey] = asUTC - probe.getTime();
+      return campusOffsetCache[cacheKey];
+    }
+
+    function campusTimeToEpoch(timeStr, campusParts) {
       const [h, m] = timeStr.split(':').map(Number);
-      const now = new Date();
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m);
+      const offset = getTimeZoneOffsetMs(CAMPUS_TIME_ZONE, campusParts);
+      return Date.UTC(campusParts.year, campusParts.month - 1, campusParts.day, h, m, 0) - offset;
+    }
+
+    function formatCampusTime(campusParts) {
+      const h = String(campusParts.hour).padStart(2, '0');
+      const m = String(campusParts.minute).padStart(2, '0');
+      return h + ':' + m;
     }
 
     // Compute great‑circle distance between two lat/lng points using Haversine formula
@@ -965,18 +1141,15 @@
       return R * c;
     }
 
-    // Determine which schedule applies based on location and day/time
-    function getSchedule(location, now) {
-      const day = now.getDay(); // 0 = Sunday, 6 = Saturday
-      const isWeekend = (day === 0 || day === 6);
+    // Determine which schedule applies based on location and campus time.
+    function getSchedule(location, campusNow) {
+      const isWeekend = campusNow.weekday === 0 || campusNow.weekday === 6;
 
       if (location === 'HOLA') {
         if (isWeekend) return schedules.HOLA.weekend;
 
-        const endPeak = parseTimeToDate('08:30');
-
         // 工作日：早高峰结束前，把早高峰+非高峰拼在一起
-        if (now < endPeak) {
+        if (getCampusMinutes(campusNow) < 8 * 60 + 30) {
           return schedules.HOLA.morningPeak.concat(schedules.HOLA.weekday);
         }
 
@@ -992,12 +1165,15 @@
     }
 
 
-    // Given a list of times and the current time, return the next two departures.
-    function getNextDepartures(scheduleTimes, now) {
-      const departures = scheduleTimes.map(t => ({ time: t, date: parseTimeToDate(t) }))
-        .filter(obj => obj.date >= now)
-        .sort((a, b) => a.date - b.date);
-      return departures.slice(0, 2);
+    // Given a list of campus wall-clock times and the current campus time,
+    // return the next two departures as real timestamps.
+    function getNextDepartures(scheduleTimes, campusNow) {
+      const nowEpoch = Date.now();
+      return scheduleTimes
+        .map(t => ({ time: t, date: campusTimeToEpoch(t, campusNow) }))
+        .filter(obj => obj.date >= nowEpoch)
+        .sort((a, b) => a.date - b.date)
+        .slice(0, 2);
     }
 
     function timeToMinutes(timeStr) {
@@ -1022,21 +1198,44 @@
       return `${h}:${m}`;
     }
 
+    let activeDisplayLocation = 'HOLA';
+    let timetableLocationManual = false;
+
     // Determine selected location based on user choice or auto detection.
-    // When auto detection is used, a status message will explain the result or fallback.
-    function determineLocation(callback) {
+    // Auto detection is cached in memory and localStorage, and is only requested
+    // when the user explicitly refreshes or changes the main location selector.
+    function determineLocation(callback, options) {
+      const opts = options || {};
+      const allowGeolocation = opts.allowGeolocation !== false;
       const selectValue = document.getElementById('locationSelect').value;
       const statusDiv = document.getElementById('statusMessage');
       const t = translations[currentLang];
-      
+
       statusDiv.textContent = '';
       if (selectValue === 'auto') {
+        if (cachedAutoLocation) {
+          statusDiv.textContent = t.geoAutoCached.replace('{stop}', cachedAutoLocation);
+          callback({ location: cachedAutoLocation });
+          return;
+        }
+
+        if (!allowGeolocation) {
+          statusDiv.textContent = t.geoManual;
+          callback({ location: 'HOLA' });
+          return;
+        }
+
         if (!navigator.geolocation) {
           statusDiv.textContent = t.geoFail;
           callback({ location: 'HOLA' });
           return;
         }
+
+        const requestId = ++geoRequestId;
+        statusDiv.textContent = t.geoLoading;
         navigator.geolocation.getCurrentPosition(position => {
+          if (requestId !== geoRequestId) return;
+
           const { latitude, longitude } = position.coords;
           const userCoord = { lat: latitude, lng: longitude };
           const distToHOLA = haversineDistance(userCoord, LOCATION_COORDS.HOLA);
@@ -1044,13 +1243,22 @@
           const selected = distToHOLA <= distToUNNC ? 'HOLA' : 'UNNC';
           const nearest = selected === 'HOLA' ? 'HOLA' : 'UNNC';
           const nearestDist = (selected === 'HOLA' ? distToHOLA : distToUNNC).toFixed(2);
-          
-          let msg = t.geoAutoSuccess.replace('{stop}', nearest).replace('{dist}', nearestDist);
+
+          cachedAutoLocation = selected;
+          writeStorage(STORAGE_KEYS.autoLocation, selected);
+
+          const msg = t.geoAutoSuccess.replace('{stop}', nearest).replace('{dist}', nearestDist);
           statusDiv.textContent = msg;
           callback({ location: selected });
         }, err => {
+          if (requestId !== geoRequestId) return;
+
           statusDiv.textContent = t.geoErr;
           callback({ location: 'HOLA' });
+        }, {
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maximumAge: 300000
         });
       } else {
         callback({ location: selectValue });
@@ -1058,29 +1266,33 @@
     }
 
     // Main function to refresh display
-    function refreshDisplay() {
-      const now = new Date();
+    function refreshDisplay(options) {
+      const opts = options || {};
       determineLocation(({ location }) => {
-        const schedule = getSchedule(location, now);
-        const next = getNextDepartures(schedule, now);
+        const now = new Date();
+        const campusNow = getCampusNow();
+        activeDisplayLocation = location;
+        const schedule = getSchedule(location, campusNow);
+        const next = getNextDepartures(schedule, campusNow);
         const timesDiv = document.getElementById('timesDisplay');
         const t = translations[currentLang];
-        
+
         let html = '';
-        html += `<span>${t.currTime}${formatTime(now)}</span>`;
+        html += `<span>${t.currTime}<strong>${formatTime(now)}</strong></span>`;
+        html += `<span>${t.campusTime}<strong>${formatCampusTime(campusNow)}</strong></span>`;
         html += `<span>${t.depLoc}<strong>${location}</strong></span>`;
-        
+
         if (next.length === 0) {
           html += `<span>${t.todayEnd}</span>`;
         } else if (next.length === 1) {
           html += `<span>${t.nextBus}<strong>${next[0].time}</strong></span>`;
-          const diffMs = next[0].date - now;
+          const diffMs = next[0].date - Date.now();
           const diffMin = diffMs <= 0 ? 0 : Math.ceil(diffMs / 60000);
           html += `<span>${t.minLeft}<strong>${diffMin}</strong>${t.min}</span>`;
           html += `<span>${t.noMoreNext}</span>`;
         } else {
           html += `<span>${t.nextBus}<strong>${next[0].time}</strong></span>`;
-          const diffMs = next[0].date - now;
+          const diffMs = next[0].date - Date.now();
           const diffMin = diffMs <= 0 ? 0 : Math.ceil(diffMs / 60000);
           html += `<span>${t.minLeft}<strong>${diffMin}</strong>${t.min}</span>`;
           html += `<span>${t.nextTwoBus}<strong>${next[1].time}</strong></span>`;
@@ -1089,28 +1301,58 @@
 
         const panel = document.getElementById("timetablePanel");
         if (panel.classList.contains("open")) {
+          if (!timetableLocationManual) {
+            const expected = location === 'UNNC' ? 'UNNC' : 'HOLA';
+            const ttLocation = document.getElementById('ttLocation');
+            if (ttLocation.value !== expected) ttLocation.value = expected;
+          }
           renderTimetable();
         }
-      });
+      }, { allowGeolocation: opts.allowGeolocation !== false });
     }
 
     // Event handlers
-    document.getElementById('refreshBtn').addEventListener('click', refreshDisplay);
-    document.getElementById('locationSelect').addEventListener('change', refreshDisplay);
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+      refreshDisplay({ allowGeolocation: true });
+    });
+    document.getElementById('locationSelect').addEventListener('change', () => {
+      invalidateGeoRequests();
+      refreshDisplay({ allowGeolocation: true });
+    });
 
-    // Initial load and periodic refresh every minute
-    setLanguage('zh');
-    setInterval(refreshDisplay, 60000);
+    // Initial load plus a minute-aligned refresh, paused while the tab is hidden.
+    applyTheme(getPreferredTheme(), false);
+    setLanguage(currentLang, false);
+
+    let refreshTimer = null;
+    function scheduleNextMinuteRefresh() {
+      clearTimeout(refreshTimer);
+      const delay = (60 - new Date().getSeconds()) * 1000 + 60;
+      refreshTimer = setTimeout(() => {
+        refreshDisplay({ allowGeolocation: false });
+        scheduleNextMinuteRefresh();
+      }, delay);
+    }
+    scheduleNextMinuteRefresh();
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearTimeout(refreshTimer);
+      } else {
+        refreshDisplay({ allowGeolocation: false });
+        scheduleNextMinuteRefresh();
+      }
+    });
 
     // ===== Full timetable (collapsible) =====
     function isWeekendDay(d) { return d === 0 || d === 6; }
 
-    function buildTimetableData(location, dayType, now) {
+    function buildTimetableData(location, dayType, campusNow) {
       const t = translations[currentLang];
       const useWeekend =
         dayType === 'weekend' ? true :
         dayType === 'weekday' ? false :
-        isWeekendDay(now.getDay()); // auto
+        isWeekendDay(campusNow.weekday); // auto
 
       if (location === 'HOLA') {
         if (useWeekend) {
@@ -1144,8 +1386,8 @@
       return { title: "", sections: [] };
     }
 
-    function getTimetableTimes(location, dayType, now) {
-      const data = buildTimetableData(location, dayType, now);
+    function getTimetableTimes(location, dayType, campusNow) {
+      const data = buildTimetableData(location, dayType, campusNow);
       return data.sections.flatMap(section => section.times);
     }
 
@@ -1167,6 +1409,8 @@
         const idx = times.indexOf(next);
         if (idx >= 0 && idx < times.length - 1) {
           next = times[idx + 1];
+        } else {
+          next = null;
         }
       }
       return { previous, next };
@@ -1183,8 +1427,8 @@
       }
       const loc = document.getElementById("ttLocation").value;
       const dayType = document.getElementById("ttDayType").value;
-      const now = new Date();
-      const times = getTimetableTimes(loc, dayType, now);
+      const campusNow = getCampusNow();
+      const times = getTimetableTimes(loc, dayType, campusNow);
       if (times.length === 0) {
         resultDiv.textContent = t.noTimes;
         return;
@@ -1192,17 +1436,17 @@
       const surrounding = findSurroundingTimes(times, normalized);
       const prevText = surrounding.previous ? surrounding.previous : t.none;
       const nextText = surrounding.next ? surrounding.next : t.none;
-      resultDiv.innerHTML = `${t.searchResultPrefix} <strong>${normalized}</strong>：${t.prevBus} <span class="time-chip">${prevText}</span> ${t.nextBusLabel} <span class="time-chip">${nextText}</span>`;
+      resultDiv.innerHTML = `${t.searchResultPrefix} <strong>${normalized}</strong>${t.searchResultSep}${t.prevBus} <span class="time-chip">${prevText}</span> ${t.nextBusLabel} <span class="time-chip">${nextText}</span>`;
     }
 
     function renderTimetable() {
       const t = translations[currentLang];
       const loc = document.getElementById("ttLocation").value;
       const dayType = document.getElementById("ttDayType").value;
-      const now = new Date();
-      const data = buildTimetableData(loc, dayType, now);
+      const campusNow = getCampusNow();
+      const data = buildTimetableData(loc, dayType, campusNow);
       const times = data.sections.flatMap(section => section.times);
-      const nextTime = getNextDepartures(times, now)[0]?.time || null;
+      const nextTime = getNextDepartures(times, campusNow)[0]?.time || null;
 
       document.getElementById("timetableTable").innerHTML = `
         <div class="timetable-title">${t.ttTitle}: ${data.title}</div>
@@ -1228,15 +1472,16 @@
       panel.classList.toggle("open", !open);
       btn.textContent = open ? t.btnTimetableShow : t.btnTimetableHide;
       if (!open) {
-        // 默认跟随当前选择站点
-        const current = document.getElementById('locationSelect').value;
-        document.getElementById('ttLocation').value = (current === 'UNNC') ? 'UNNC' : 'HOLA';
+        // 默认跟随当前主面板实际使用的站点
+        timetableLocationManual = false;
+        document.getElementById('ttLocation').value = activeDisplayLocation === 'UNNC' ? 'UNNC' : 'HOLA';
         renderTimetable();
         runSearch();
       }
     });
 
     document.getElementById("ttLocation").addEventListener("change", () => {
+      timetableLocationManual = true;
       renderTimetable();
       runSearch();
     });
