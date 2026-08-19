@@ -3,6 +3,21 @@ const { BlobServiceClient } = require('@azure/storage-blob');
 const crypto = require('node:crypto');
 const path = require('node:path');
 const zlib = require('node:zlib');
+const {
+  DEFAULT_RATE_LIMIT,
+  DEFAULT_RATE_LIMIT_WINDOW_SECONDS,
+  authenticateGenerationRequest,
+  consumeRateLimit,
+  contentLengthResponse,
+  isRateLimitStoreError,
+  isRequestTooLargeError,
+  positiveInteger,
+  readRequestBuffer,
+  rateLimitResponse,
+  rateLimitUnavailableResponse,
+  requestTooLargeResponse,
+  withRateLimitHeaders
+} = require('../security/generationRequestGuard');
 
 const STATE_FAILED = 5;
 const STATE_RUNTIME_BACKEND_SUBMITTED = 9;
@@ -50,6 +65,22 @@ function getFirstSetting(names) {
   }
   return '';
 }
+
+const RUNTIME_MAX_REQUEST_BYTES = positiveInteger(
+  getSetting('SCENESHIFT_RUNTIME_MAX_REQUEST_BYTES'),
+  12 * 1024 * 1024,
+  100 * 1024 * 1024
+);
+const GENERATION_RATE_LIMIT = positiveInteger(
+  getSetting('SCENESHIFT_GENERATION_RATE_LIMIT'),
+  DEFAULT_RATE_LIMIT,
+  10000
+);
+const GENERATION_RATE_WINDOW_SECONDS = positiveInteger(
+  getSetting('SCENESHIFT_GENERATION_RATE_WINDOW_SECONDS'),
+  DEFAULT_RATE_LIMIT_WINDOW_SECONDS,
+  86400
+);
 
 function getContainer() {
   const conn = getSetting('AZURE_STORAGE_CONNECTION_STRING');
@@ -196,9 +227,13 @@ async function parseSubmission(request) {
   const contentType = request.headers.get('content-type') || '';
   const fields = {};
   let image = null;
+  const buffer = await readRequestBuffer(request, RUNTIME_MAX_REQUEST_BYTES);
 
   if (contentType.toLowerCase().includes('multipart/form-data')) {
-    const form = await request.formData();
+    const form = await new Response(buffer, {
+      headers: { 'content-type': contentType }
+    }).formData();
+
     for (const name of ['metadata', 'request_json', 'prompt_text']) {
       const value = form.get(name);
       if (typeof value === 'string') fields[name] = value;
@@ -214,7 +249,6 @@ async function parseSubmission(request) {
       };
     }
   } else {
-    const buffer = Buffer.from(await request.arrayBuffer());
     fields.metadata = buffer.toString('utf8');
   }
 
@@ -932,9 +966,25 @@ app.http('submitSceneShiftRuntimeGeneration', {
   authLevel: 'anonymous',
   route: 'v1/runtime-generations',
   handler: async (request) => {
-    const container = await ensureContainer();
+    const authentication = authenticateGenerationRequest(request, getSetting);
+    if (!authentication.ok) return authentication.response;
+
+    const sizeResponse = contentLengthResponse(request, RUNTIME_MAX_REQUEST_BYTES);
+    if (sizeResponse) return sizeResponse;
+
+    let container = null;
     let jobId = '';
+    let rateLimit = null;
     try {
+      container = await ensureContainer();
+      rateLimit = await consumeRateLimit(container, {
+        scope: 'runtime-generations',
+        identity: authentication.identity,
+        limit: GENERATION_RATE_LIMIT,
+        windowSeconds: GENERATION_RATE_WINDOW_SECONDS
+      });
+      if (!rateLimit.allowed) return rateLimitResponse(rateLimit);
+
       const submission = await parseSubmission(request);
       const created = await createJob(container, submission);
       jobId = created.jobId;
@@ -944,8 +994,13 @@ app.http('submitSceneShiftRuntimeGeneration', {
           ? await submitFullChainInitial(container, jobId, request)
           : await submitSeed3D(container, jobId, request);
       }
-      return jsonResponse(200, resultFromJob(job, request));
+      return withRateLimitHeaders(jsonResponse(200, resultFromJob(job, request)), rateLimit);
     } catch (error) {
+      if (isRequestTooLargeError(error)) {
+        return withRateLimitHeaders(requestTooLargeResponse(error.maxBytes), rateLimit);
+      }
+      if (isRateLimitStoreError(error)) return rateLimitUnavailableResponse();
+
       if (jobId) {
         const job = await updateJob(container, jobId, {
           output_state: STATE_FAILED,
@@ -953,9 +1008,12 @@ app.http('submitSceneShiftRuntimeGeneration', {
           status_note: 'Runtime backend worker failed.',
           progress01: 0
         });
-        return jsonResponse(500, resultFromJob(job, request));
+        return withRateLimitHeaders(jsonResponse(500, resultFromJob(job, request)), rateLimit);
       }
-      return jsonResponse(500, { error: String(error.message || error) });
+      return withRateLimitHeaders(
+        jsonResponse(500, { error: String(error.message || error) }),
+        rateLimit
+      );
     }
   }
 });

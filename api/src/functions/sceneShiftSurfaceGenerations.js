@@ -1,6 +1,21 @@
 const { app } = require('@azure/functions');
 const { BlobServiceClient } = require('@azure/storage-blob');
 const crypto = require('node:crypto');
+const {
+  DEFAULT_RATE_LIMIT,
+  DEFAULT_RATE_LIMIT_WINDOW_SECONDS,
+  authenticateGenerationRequest,
+  consumeRateLimit,
+  contentLengthResponse,
+  isRateLimitStoreError,
+  isRequestTooLargeError,
+  positiveInteger,
+  readRequestText,
+  rateLimitResponse,
+  rateLimitUnavailableResponse,
+  requestTooLargeResponse,
+  withRateLimitHeaders
+} = require('../security/generationRequestGuard');
 
 const STATE_FAILED = 5;
 const STATE_SURFACE_BACKEND_SUBMITTED = 9;
@@ -24,6 +39,21 @@ function getFirstSetting(names) {
 }
 
 const containerName = getSetting('SCENESHIFT_UPLOAD_CONTAINER') || 'scene-shift';
+const SURFACE_MAX_REQUEST_BYTES = positiveInteger(
+  getSetting('SCENESHIFT_SURFACE_MAX_REQUEST_BYTES'),
+  256 * 1024,
+  10 * 1024 * 1024
+);
+const GENERATION_RATE_LIMIT = positiveInteger(
+  getSetting('SCENESHIFT_GENERATION_RATE_LIMIT'),
+  DEFAULT_RATE_LIMIT,
+  10000
+);
+const GENERATION_RATE_WINDOW_SECONDS = positiveInteger(
+  getSetting('SCENESHIFT_GENERATION_RATE_WINDOW_SECONDS'),
+  DEFAULT_RATE_LIMIT_WINDOW_SECONDS,
+  86400
+);
 
 function getContainer() {
   const conn = getSetting('AZURE_STORAGE_CONNECTION_STRING');
@@ -468,10 +498,27 @@ app.http('submitSceneShiftSurfaceGeneration', {
   authLevel: 'anonymous',
   route: 'v1/surface-generations',
   handler: async (request) => {
-    const container = await ensureContainer();
+    const authentication = authenticateGenerationRequest(request, getSetting);
+    if (!authentication.ok) return authentication.response;
+
+    const sizeResponse = contentLengthResponse(request, SURFACE_MAX_REQUEST_BYTES);
+    if (sizeResponse) return sizeResponse;
+
+    let container = null;
     let jobId = '';
+    let rateLimit = null;
     try {
-      const payload = JSON.parse(await request.text());
+      container = await ensureContainer();
+      rateLimit = await consumeRateLimit(container, {
+        scope: 'surface-generations',
+        identity: authentication.identity,
+        limit: GENERATION_RATE_LIMIT,
+        windowSeconds: GENERATION_RATE_WINDOW_SECONDS
+      });
+      if (!rateLimit.allowed) return rateLimitResponse(rateLimit);
+
+      const requestText = await readRequestText(request, SURFACE_MAX_REQUEST_BYTES);
+      const payload = JSON.parse(requestText);
       const submission = parseSurfaceSubmission(payload);
       jobId = `${safeId(submission.request_id)}-${shortUuid()}`;
       const now = utcNow();
@@ -497,16 +544,24 @@ app.http('submitSceneShiftSurfaceGeneration', {
         updated_at: now
       };
       await uploadJson(container, surfaceBlob(jobId, 'job.json'), job);
-      return jsonResponse(200, summarizeJob(job, request));
+      return withRateLimitHeaders(jsonResponse(200, summarizeJob(job, request)), rateLimit);
     } catch (error) {
+      if (isRequestTooLargeError(error)) {
+        return withRateLimitHeaders(requestTooLargeResponse(error.maxBytes), rateLimit);
+      }
+      if (isRateLimitStoreError(error)) return rateLimitUnavailableResponse();
+
       if (jobId) {
         const job = await updateJob(container, jobId, {
           surfaces: [],
           failure_reason: String(error.message || error)
         });
-        return jsonResponse(500, summarizeJob(job, request));
+        return withRateLimitHeaders(jsonResponse(500, summarizeJob(job, request)), rateLimit);
       }
-      return jsonResponse(500, { error: String(error.message || error) });
+      return withRateLimitHeaders(
+        jsonResponse(500, { error: String(error.message || error) }),
+        rateLimit
+      );
     }
   }
 });
