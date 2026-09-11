@@ -1,0 +1,3 @@
+# Vite output embeds upstream GLSL strings; preserve their original whitespace.
+source/campus/assets/* linguist-generated -whitespace
+source/campus/model/*.bin linguist-generated binary

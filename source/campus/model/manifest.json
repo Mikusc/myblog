@@ -1,0 +1,10 @@
+{
+  "bytes": 37055304,
+  "sha256": "c2b11e0709b0b405a8197a1adda8033885b90b61e5b9993b5f7208f5cf5bad33",
+  "parts": [
+    "campus-c2b11e0709b0-0.bin",
+    "campus-c2b11e0709b0-1.bin",
+    "campus-c2b11e0709b0-2.bin"
+  ],
+  "revision": "2026-09-09 building multiview refinement 2"
+}

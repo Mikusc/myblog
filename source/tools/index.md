@@ -20,6 +20,22 @@ layout: page
       <article class="content-tool-card">
         <div>
           <span class="content-tool-status">Available</span>
+          <h3 class="content-feature-title">宁诺校园 · 3D 导览</h3>
+          <p class="content-card-desc">旋转、缩放查看宁诺校园，切换钟楼、教学区、图书馆与创新园区视角，也可全屏展示规划项目的建成愿景。</p>
+          <div class="content-card-meta">
+            <span>UNNC campus</span>
+            <span>Interactive 3D</span>
+            <span>首次载入约 37 MB</span>
+          </div>
+        </div>
+        <a class="content-action content-action-primary" href="/campus/">
+          <span>打开校园导览</span>
+          <span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
+        </a>
+      </article>
+      <article class="content-tool-card">
+        <div>
+          <span class="content-tool-status">Available</span>
           <h3 class="content-feature-title">Bus</h3>
           <p class="content-card-desc">宁诺相关 bus 查询入口，包含下一班车提示和完整时刻表视图，适合在手机上快速查看。</p>
           <div class="content-card-meta">

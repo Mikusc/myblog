@@ -21,7 +21,7 @@ layout: page
       <span class="content-stat-label">GitHub 置顶仓库</span>
     </div>
     <div class="content-stat">
-      <span class="content-stat-number">7</span>
+      <span class="content-stat-number">8</span>
       <span class="content-stat-label">项目入口</span>
     </div>
   </div>
@@ -57,7 +57,13 @@ layout: page
         </a>
       </div>
     </div>
-    <div class="content-card-grid content-card-grid-two content-feature-followup">
+    <div class="content-card-grid content-card-grid-three content-feature-followup">
+      <a class="content-card" href="/campus/">
+        <span class="content-card-label">Blender · Three.js · UNNC</span>
+        <strong class="content-card-title">宁诺校园 · 3D 导览</strong>
+        <span class="content-card-desc">依据校园地图、卫星影像与多角度照片重建的交互式校园模型，支持建筑视角切换和全屏演示，包含规划项目的建成效果推演。模型为参考资料估建。</span>
+        <span class="content-card-meta"><span>校园重建</span><span>多角度导览</span><span>建成愿景</span></span>
+      </a>
       <article class="content-card">
         <span class="content-card-label">Private · Unity · Home Assistant</span>
         <strong class="content-card-title">MR-HomeAssistant</strong>
@@ -67,7 +73,7 @@ layout: page
       <a class="content-card" href="/tools/">
         <span class="content-card-label">Tools · Campus Utility</span>
         <strong class="content-card-title">工具与独立页面</strong>
-        <span class="content-card-desc">站点内工具会集中放在 Tools 页面，目前包含宁诺相关 Bus 工具入口，后续可以继续扩展学习、开发和校园相关工具。</span>
+        <span class="content-card-desc">站点内工具会集中放在 Tools 页面，目前包含宁诺校园 3D 导览与 Bus 工具，后续可以继续扩展学习、开发和校园相关工具。</span>
         <span class="content-card-meta"><span>Bus</span><span>Utilities</span><span>Standalone pages</span></span>
       </a>
     </div>
@@ -142,7 +148,7 @@ layout: page
       <a class="content-card" href="/tools/">
         <span class="content-card-label">Tools</span>
         <strong class="content-card-title">工具箱</strong>
-        <span class="content-card-desc">放置小工具和独立页面，目前包含宁诺相关的 Bus 工具入口。</span>
+        <span class="content-card-desc">放置小工具和独立页面，目前包含宁诺校园 3D 导览与 Bus 工具入口。</span>
         <span class="content-card-meta"><span>Bus</span><span>Standalone pages</span></span>
       </a>
     </div>
