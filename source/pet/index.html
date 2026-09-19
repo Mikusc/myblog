@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="抱着小鹿的瑶妹动画小伙伴。切换九种动作、跟随鼠标或触摸方向，并下载宠物包。">
+  <meta name="theme-color" content="#1c1720">
+  <title>瑶妹 · 万象棋 | Mikusc的小站</title>
+  <link rel="canonical" href="https://www.mikusc.top/pet/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/yaomei-3af48a284f4f.webp">
+  <style>
+    :root{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;color:#f7eef5;background:#1c1720;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 30%,#403046 0,transparent 60%),#1c1720}
+    main{width:min(900px,95vw);padding:28px 24px 40px;text-align:center}
+    a{color:#d1b3ca;text-underline-offset:4px}
+    a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #efc7e3;outline-offset:5px}
+    .top-links{display:flex;justify-content:space-between;gap:16px;margin-bottom:28px;font-size:12px}
+    header{margin-bottom:18px}
+    .eyebrow{font-size:11px;letter-spacing:4px;color:#ddadca}
+    h1{font-size:32px;letter-spacing:2px;font-weight:650;margin:12px 0}
+    p{color:#beafc2;font-size:14px}
+    .stage{height:380px;position:relative;display:grid;place-items:center;isolation:isolate;overflow:hidden;border:1px solid #ffffff0c;border-radius:28px;background:radial-gradient(ellipse at 50% 65%,#e7a4ce12,transparent 60%)}
+    .pet{width:192px;height:208px;background-image:url('assets/yaomei-3af48a284f4f.webp');background-size:1536px 2288px;background-repeat:no-repeat;transform:scale(1.55);position:relative;z-index:2}
+    .stage:after{content:"";width:235px;height:2px;border-radius:50%;background:#ffdaed1c;position:absolute;bottom:51px}
+    #status{font-size:12px;color:#c8abc6;position:absolute;bottom:15px;margin:0}
+    .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:25px 0 17px}
+    button{font:inherit;font-size:13px;min-height:44px;border:1px solid #ffffff16;color:#cdbed0;background:#ffffff06;border-radius:12px;padding:10px 16px;cursor:pointer;transition:.18s}
+    button:hover{background:#ffffff12;color:#fff}
+    button[aria-pressed=true]{background:#e4acd0;color:#251c25;border-color:#e4acd0}
+    .options{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 24px}
+    .follow{color:#dac5d8;font-size:13px;display:inline-flex;align-items:center;gap:7px;min-height:44px;cursor:pointer}
+    input{accent-color:#e4acd0}
+    .hint{font-size:12px;line-height:1.8;margin:7px 0;color:#ac98ad}
+    footer{margin-top:23px;color:#aa94ad;font-size:12px;line-height:2}
+    .downloads{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:8px}
+    @media(max-width:480px){main{padding:22px 14px 32px}h1{font-size:28px}.stage{height:350px}.pet{transform:scale(1.4)}.top-links{margin-bottom:22px}button{padding:10px 13px}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="top-links"><a href="/">← Mikusc的小站</a><a href="/tools/">工具箱</a></div>
+    <header>
+      <div class="eyebrow">YOUR LITTLE COMPANION</div>
+      <h1>瑶妹 · 万象棋</h1>
+      <p>抱好小鹿，陪你等一个好点子。</p>
+    </header>
+    <section class="stage" aria-label="瑶妹宠物动画预览">
+      <div class="pet" role="img" aria-label="抱着粉色小鹿玩偶的瑶妹"></div>
+      <p id="status" aria-live="polite">待机 · 轻轻眨眼</p>
+    </section>
+    <nav class="actions" id="actions" aria-label="切换动作"></nav>
+    <div class="options">
+      <label class="follow"><input type="checkbox" id="follow" aria-describedby="follow-hint">让瑶妹看向鼠标</label>
+      <label class="follow"><input type="checkbox" id="compare">对照原版</label>
+    </div>
+    <p class="hint" id="follow-hint">勾选跟随后，移动鼠标或轻触舞台，和瑶妹打个招呼。</p>
+    <footer>
+      <div id="version-note" aria-live="polite">紫色眼睛 · 帽前装饰 · 白色过膝袜</div>
+      <div class="downloads">
+        <a href="downloads/yaomei-wanxiangqi.zip" download>下载宠物包</a>
+        <a href="assets/yaomei-3af48a284f4f.webp" download="yaomei-spritesheet.webp">下载动画素材</a>
+      </div>
+    </footer>
+    <noscript><p>启用 JavaScript 后即可切换动作和跟随方向。</p></noscript>
+  </main>
+  <script>
+    const states = [
+      {id:'idle',label:'待机',row:0,durations:[280,110,110,140,140,320],hint:'待机 · 轻轻眨眼'},
+      {id:'running-right',label:'向右跑',row:1,durations:[120,120,120,120,120,120,120,220],hint:'向右小跑'},
+      {id:'running-left',label:'向左跑',row:2,durations:[120,120,120,120,120,120,120,220],hint:'向左小跑'},
+      {id:'waving',label:'挥手',row:3,durations:[140,140,140,280],hint:'嗨，又见面啦'},
+      {id:'jumping',label:'跳跃',row:4,durations:[140,140,140,140,280],hint:'开心地跳一下'},
+      {id:'failed',label:'委屈',row:5,durations:[140,140,140,140,140,140,140,240],hint:'小小失落，抱紧小鹿'},
+      {id:'waiting',label:'等你',row:6,durations:[150,150,150,150,150,260],hint:'正在等你的回应'},
+      {id:'running',label:'思考',row:7,durations:[120,120,120,120,120,220],hint:'认真想办法'},
+      {id:'review',label:'检查',row:8,durations:[150,150,150,150,150,280],hint:'让我再仔细看看'}
+    ];
+    const pet = document.querySelector('.pet');
+    const stage = document.querySelector('.stage');
+    const actions = document.querySelector('#actions');
+    const status = document.querySelector('#status');
+    const follow = document.querySelector('#follow');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let state = states[0], frame = 0, timer, gazing = false;
+
+    function cell(row, column) {
+      pet.style.backgroundPosition = `${-column * 192}px ${-row * 208}px`;
+      pet.dataset.row = row;
+      pet.dataset.frame = column;
+    }
+
+    function tick() {
+      clearTimeout(timer);
+      if (gazing || document.hidden) return;
+      cell(state.row, frame);
+      if (!reducedMotion.matches) {
+        timer = setTimeout(() => {
+          frame = (frame + 1) % state.durations.length;
+          tick();
+        }, state.durations[frame]);
+      }
+    }
+
+    function resume() {
+      gazing = false;
+      status.textContent = state.hint;
+      tick();
+    }
+
+    function choose(next) {
+      state = next;
+      frame = 0;
+      follow.checked = false;
+      actions.querySelectorAll('button').forEach(button => {
+        button.setAttribute('aria-pressed', button.dataset.state === state.id);
+      });
+      resume();
+    }
+
+    states.forEach(item => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = item.label;
+      button.dataset.state = item.id;
+      button.setAttribute('aria-pressed', item === state);
+      button.addEventListener('click', () => choose(item));
+      actions.append(button);
+    });
+
+    function lookAtPointer(event) {
+      if (!follow.checked) return;
+      const bounds = pet.getBoundingClientRect();
+      const dx = event.clientX - (bounds.left + bounds.width / 2);
+      const dy = event.clientY - (bounds.top + bounds.height * .38);
+      if (Math.hypot(dx, dy) < 55) {
+        resume();
+        return;
+      }
+      gazing = true;
+      clearTimeout(timer);
+      const angle = (Math.atan2(dx, -dy) * 180 / Math.PI + 360) % 360;
+      const index = Math.round(angle / 22.5) % 16;
+      cell(9 + Math.floor(index / 8), index % 8);
+      status.textContent = '正在看向你';
+    }
+
+    document.addEventListener('pointermove', lookAtPointer, {passive:true});
+    stage.addEventListener('pointerdown', lookAtPointer, {passive:true});
+    document.documentElement.addEventListener('pointerleave', resume);
+    follow.addEventListener('change', () => {
+      resume();
+      if (follow.checked) status.textContent = '移动鼠标，或轻触舞台';
+    });
+    document.querySelector('#compare').addEventListener('change', event => {
+      pet.style.backgroundImage = event.target.checked
+        ? "url('assets/yaomei-original-c2e17375035e.webp')"
+        : "url('assets/yaomei-3af48a284f4f.webp')";
+      document.querySelector('#version-note').textContent = event.target.checked
+        ? '正在显示原版 · 取消勾选可回到新版'
+        : '紫色眼睛 · 帽前装饰 · 白色过膝袜';
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) clearTimeout(timer);
+      else tick();
+    });
+    reducedMotion.addEventListener('change', tick);
+    tick();
+  </script>
+</body>
+</html>
