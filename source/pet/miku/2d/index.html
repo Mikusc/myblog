@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Miku 动画小伙伴：切换九种动作、跟随鼠标或触摸方向、对照原版，并下载宠物包。">
+  <meta name="description" content="Miku · 2D Q版 动画宠物：九组动作、鼠标与触摸方向跟随，并可下载到 Codex。">
   <meta name="theme-color" content="#1c1720">
-  <title>Miku · 初音未来 | Mikusc的小站</title>
-  <link rel="canonical" href="https://www.mikusc.top/pet/miku/">
+  <title>Miku · 2D Q版 | Mikusc的小站</title>
+  <link rel="canonical" href="https://www.mikusc.top/pet/miku/2d/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="/pet/assets/miku-5f8f76037771.webp">
+  <link rel="preload" as="image" href="/pet/assets/miku-2d-ccd3d6c2fd50.webp">
   <link rel="stylesheet" href="/pet/pet.css?v=b2b1d26b1eb8">
   <script src="/pet/pet.js?v=1eff3139e031" defer></script>
 </head>
@@ -22,34 +22,34 @@
       <a href="/pet/derakkuma/">Derakkuma</a>
     </nav>
     <nav class="form-switcher" aria-label="选择形态">
-      <a href="/pet/miku/" aria-current="page">像素版</a>
-      <a href="/pet/miku/2d/">2D Q版</a>
+      <a href="/pet/miku/">像素版</a>
+      <a href="/pet/miku/2d/" aria-current="page">2D Q版</a>
       <a href="/pet/miku/3d/">3D Q版</a>
     </nav>
     <header>
       <div class="eyebrow">YOUR LITTLE COMPANION</div>
-      <h1>Miku · 初音未来</h1>
+      <h1>Miku · 2D Q版</h1>
       <p>带上小葱，给今天加一点元气。</p>
     </header>
     <section class="stage" aria-label="Miku 宠物动画预览" aria-busy="true">
-      <div class="pet pet--pixel" style="background-image:url('/pet/assets/miku-5f8f76037771.webp')" role="img" aria-label="扎着青色双马尾、拿着小葱的 Miku"></div>
+      <div class="pet" style="background-image:url('/pet/assets/miku-2d-ccd3d6c2fd50.webp')" role="img" aria-label="扎着青色双马尾、拿着小葱的 Miku"></div>
       <p id="status" aria-live="polite">正在加载 Miku…</p>
     </section>
     <nav class="actions" id="actions" aria-label="切换动作"></nav>
     <div class="options">
       <label class="follow"><input type="checkbox" id="follow" aria-describedby="follow-hint">让Miku看向鼠标</label>
-      <label class="follow"><input type="checkbox" id="compare">对照原版</label>
+      <label class="follow"><input type="checkbox" id="compare">对照像素版</label>
     </div>
     <p class="hint" id="follow-hint">勾选跟随后，移动鼠标或轻触舞台，和小伙伴打个招呼。</p>
     <footer>
-      <div id="version-note" aria-live="polite">青色双马尾 · 随身小葱 · 元气小伙伴</div>
+      <div id="version-note" aria-live="polite">2D Q版 · 清爽线稿 · 九组动作与方向跟随</div>
       <div class="downloads">
-        <a href="/pet/downloads/miku.zip" download>下载宠物包</a>
-        <a href="/pet/assets/miku-5f8f76037771.webp" download="miku-spritesheet.webp">下载动画素材</a>
+        <a href="/pet/downloads/miku-2d.zip" download>下载宠物包</a>
+        <a href="/pet/assets/miku-2d-ccd3d6c2fd50.webp" download="miku-2d-spritesheet.webp">下载动画素材</a>
       </div>
     </footer>
     <noscript><p>启用 JavaScript 后即可切换动作和跟随方向；素材仍可直接下载。</p></noscript>
   </main>
-  <script type="application/json" id="pet-config">{"name":"Miku","current":{"src":"/pet/assets/miku-5f8f76037771.webp","rows":11,"note":"青色双马尾 · 随身小葱 · 元气小伙伴"},"original":{"src":"/pet/assets/miku-original-3f0ccb97dbc1.webp","rows":9,"note":"正在显示原版 · 取消勾选可回到新版"}}</script>
+  <script type="application/json" id="pet-config">{"name":"Miku","current":{"src":"/pet/assets/miku-2d-ccd3d6c2fd50.webp","rows":11,"note":"2D Q版 · 清爽线稿 · 九组动作与方向跟随","pixelated":false},"original":{"src":"/pet/assets/miku-5f8f76037771.webp","rows":11,"note":"正在显示像素版 · 取消勾选回到 Q版","pixelated":true}}</script>
 </body>
 </html>

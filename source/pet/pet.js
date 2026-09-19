@@ -12,6 +12,7 @@
     {id: 'review', label: '检查', row: 8, durations: [150,150,150,150,150,280], hint: '让我再仔细看看'}
   ];
   const pet = document.querySelector('.pet');
+  const defaultPixelated = pet.classList.contains('pet--pixel');
   const stage = document.querySelector('.stage');
   const actions = document.querySelector('#actions');
   const status = document.querySelector('#status');
@@ -93,6 +94,7 @@
     if (follow.disabled) follow.checked = false;
     pet.style.backgroundImage = `url("${variant.src}")`;
     pet.style.backgroundSize = `1536px ${variant.rows * 208}px`;
+    pet.classList.toggle('pet--pixel', variant.pixelated ?? defaultPixelated);
     document.querySelector('#version-note').textContent = variant.note;
     document.querySelector('#follow-hint').textContent = follow.disabled
       ? '原版保留九种动作，切回新版即可体验方向跟随。'
