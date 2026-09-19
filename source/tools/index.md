@@ -20,16 +20,16 @@ layout: page
       <article class="content-tool-card">
         <div>
           <span class="content-tool-status">Available</span>
-          <h3 class="content-feature-title">瑶妹 · 万象棋</h3>
-          <p class="content-card-desc">抱着小鹿的 Q 版瑶妹，陪你挥挥手、跳一跳、等一个好点子。可以切换九种动作，让她看向鼠标或轻触的位置，也能下载宠物包。</p>
+          <h3 class="content-feature-title">宠物小屋</h3>
+          <p class="content-card-desc">瑶妹、Miku、Ribbonbun 和 Derakkuma 都在这里。选一位小伙伴，切换九种动作，让它看向鼠标或轻触的位置，也能下载宠物包。</p>
           <div class="content-card-meta">
-            <span>动画小伙伴</span>
+            <span>4 位小伙伴</span>
             <span>鼠标 / 触摸互动</span>
             <span>9 个动作</span>
           </div>
         </div>
         <a class="content-action content-action-primary" href="/pet/">
-          <span>打开瑶妹</span>
+          <span>打开宠物小屋</span>
           <span class="content-action-icon site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>
         </a>
       </article>

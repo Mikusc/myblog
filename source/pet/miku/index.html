@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Miku 动画小伙伴：切换九种动作、跟随鼠标或触摸方向、对照原版，并下载宠物包。">
+  <meta name="theme-color" content="#1c1720">
+  <title>Miku · 初音未来 | Mikusc的小站</title>
+  <link rel="canonical" href="https://www.mikusc.top/pet/miku/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="/pet/assets/miku-5f8f76037771.webp">
+  <link rel="stylesheet" href="/pet/pet.css?v=d96130268b2d">
+  <script src="/pet/pet.js?v=5df550bfbf78" defer></script>
+</head>
+<body data-theme="miku">
+  <main>
+    <div class="top-links"><a href="/">← Mikusc的小站</a><a href="/tools/">工具箱</a></div>
+    <nav class="pet-switcher" aria-label="选择宠物">
+      <a href="/pet/">瑶妹</a>
+      <a href="/pet/miku/" aria-current="page">Miku</a>
+      <a href="/pet/ribbonbun/">Ribbonbun</a>
+      <a href="/pet/derakkuma/">Derakkuma</a>
+    </nav>
+    <header>
+      <div class="eyebrow">YOUR LITTLE COMPANION</div>
+      <h1>Miku · 初音未来</h1>
+      <p>带上小葱，给今天加一点元气。</p>
+    </header>
+    <section class="stage" aria-label="Miku 宠物动画预览" aria-busy="true">
+      <div class="pet pet--pixel" style="background-image:url('/pet/assets/miku-5f8f76037771.webp')" role="img" aria-label="扎着青色双马尾、拿着小葱的 Miku"></div>
+      <p id="status" aria-live="polite">正在加载 Miku…</p>
+    </section>
+    <nav class="actions" id="actions" aria-label="切换动作"></nav>
+    <div class="options">
+      <label class="follow"><input type="checkbox" id="follow" aria-describedby="follow-hint">让Miku看向鼠标</label>
+      <label class="follow"><input type="checkbox" id="compare">对照原版</label>
+    </div>
+    <p class="hint" id="follow-hint">勾选跟随后，移动鼠标或轻触舞台，和小伙伴打个招呼。</p>
+    <footer>
+      <div id="version-note" aria-live="polite">青色双马尾 · 随身小葱 · 元气小伙伴</div>
+      <div class="downloads">
+        <a href="/pet/downloads/miku.zip" download>下载宠物包</a>
+        <a href="/pet/assets/miku-5f8f76037771.webp" download="miku-spritesheet.webp">下载动画素材</a>
+      </div>
+    </footer>
+    <noscript><p>启用 JavaScript 后即可切换动作和跟随方向；素材仍可直接下载。</p></noscript>
+  </main>
+  <script type="application/json" id="pet-config">{"name":"Miku","current":{"src":"/pet/assets/miku-5f8f76037771.webp","rows":11,"note":"青色双马尾 · 随身小葱 · 元气小伙伴"},"original":{"src":"/pet/assets/miku-original-3f0ccb97dbc1.webp","rows":9,"note":"正在显示原版 · 取消勾选可回到新版"}}</script>
+</body>
+</html>
