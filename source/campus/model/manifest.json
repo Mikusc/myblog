@@ -6,5 +6,26 @@
     "campus-c2b11e0709b0-1.bin",
     "campus-c2b11e0709b0-2.bin"
   ],
-  "revision": "2026-09-09 building multiview refinement 2"
+  "revision": "2026-09-09 building multiview refinement 2",
+  "compressed": {
+    "encoding": "gzip",
+    "bytes": 10867298,
+    "parts": [
+      {
+        "file": "campus-c2b11e0709b0-0.bin.gz",
+        "bytes": 6801055,
+        "decodedBytes": 16000000
+      },
+      {
+        "file": "campus-c2b11e0709b0-1.bin.gz",
+        "bytes": 3082804,
+        "decodedBytes": 16000000
+      },
+      {
+        "file": "campus-c2b11e0709b0-2.bin.gz",
+        "bytes": 983439,
+        "decodedBytes": 5055304
+      }
+    ]
+  }
 }

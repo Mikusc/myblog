@@ -61,7 +61,7 @@ layout: page
       <a class="content-card" href="/campus/">
         <span class="content-card-label">Blender · Three.js · UNNC</span>
         <strong class="content-card-title">宁诺校园 · 3D 导览</strong>
-        <span class="content-card-desc">依据校园地图、卫星影像与多角度照片重建的交互式校园模型，支持建筑视角切换和全屏演示，包含规划项目的建成效果推演。模型为参考资料估建。</span>
+        <span class="content-card-desc">依据校园地图、卫星影像与多角度照片重建的交互式校园模型，支持建筑点选、实景对照、现状／建成愿景切换及全屏演示。模型为参考资料估建。</span>
         <span class="content-card-meta"><span>校园重建</span><span>多角度导览</span><span>建成愿景</span></span>
       </a>
       <article class="content-card">

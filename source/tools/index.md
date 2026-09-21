@@ -37,11 +37,11 @@ layout: page
         <div>
           <span class="content-tool-status">Available</span>
           <h3 class="content-feature-title">宁诺校园 · 3D 导览</h3>
-          <p class="content-card-desc">旋转、缩放查看宁诺校园，切换钟楼、教学区、图书馆与创新园区视角，也可全屏展示规划项目的建成愿景。</p>
+          <p class="content-card-desc">旋转、缩放探索校园，点选建筑对照实景与入口资料，切换现状和建成愿景。支持手机与全屏演示。</p>
           <div class="content-card-meta">
             <span>UNNC campus</span>
             <span>Interactive 3D</span>
-            <span>首次载入约 37 MB</span>
+            <span>模型无损压缩 · 首次下载约 10.9 MB</span>
           </div>
         </div>
         <a class="content-action content-action-primary" href="/campus/">
