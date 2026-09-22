@@ -41,7 +41,7 @@ layout: page
           <div class="content-card-meta">
             <span>UNNC campus</span>
             <span>Interactive 3D</span>
-            <span>模型无损压缩 · 首次下载约 15.9 MB</span>
+            <span>模型无损压缩 · 首次下载约 16.5 MB</span>
           </div>
         </div>
         <a class="content-action content-action-primary" href="/campus/">

@@ -1,42 +1,42 @@
 {
-  "bytes": 64810764,
-  "sha256": "c6afecaec67e4eb6d228e3471a75ce70b891d3c931d4e639ed1a7f31c3b8057e",
+  "bytes": 66746752,
+  "sha256": "5435cd146ef591d6bdf84551e691d4e6f219088372fe0696ebcda0efbcee847e",
   "parts": [
-    "campus-c6afecaec67e-0.bin",
-    "campus-c6afecaec67e-1.bin",
-    "campus-c6afecaec67e-2.bin",
-    "campus-c6afecaec67e-3.bin",
-    "campus-c6afecaec67e-4.bin"
+    "campus-5435cd146ef5-0.bin",
+    "campus-5435cd146ef5-1.bin",
+    "campus-5435cd146ef5-2.bin",
+    "campus-5435cd146ef5-3.bin",
+    "campus-5435cd146ef5-4.bin"
   ],
-  "revision": "2026-09-22 high street refinement 1",
+  "revision": "2026-09-22 satellite road refinement 1",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 15921784,
+    "bytes": 16529462,
     "parts": [
       {
-        "file": "campus-c6afecaec67e-0.bin.gz",
-        "bytes": 2960022,
+        "file": "campus-5435cd146ef5-0.bin.gz",
+        "bytes": 2959851,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-c6afecaec67e-1.bin.gz",
-        "bytes": 2844675,
+        "file": "campus-5435cd146ef5-1.bin.gz",
+        "bytes": 2846135,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-c6afecaec67e-2.bin.gz",
-        "bytes": 7012792,
+        "file": "campus-5435cd146ef5-2.bin.gz",
+        "bytes": 7124956,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-c6afecaec67e-3.bin.gz",
-        "bytes": 2936062,
+        "file": "campus-5435cd146ef5-3.bin.gz",
+        "bytes": 3098320,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-c6afecaec67e-4.bin.gz",
-        "bytes": 168233,
-        "decodedBytes": 810764
+        "file": "campus-5435cd146ef5-4.bin.gz",
+        "bytes": 500200,
+        "decodedBytes": 2746752
       }
     ]
   }

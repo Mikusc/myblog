@@ -3,7 +3,11 @@
 <title>资料说明 · 宁诺校园</title>
 <style>body{max-width:720px;margin:70px auto;padding:0 25px;font:16px/1.9 Arial,'PingFang SC',sans-serif;color:#183b4d;background:#f5f8fa}h1{font-size:28px}h2{font-size:20px;margin-top:32px}a{color:#007785}li{margin:12px 0}</style>
 <a href="./">← 返回校园</a><h1>模型与参考资料</h1>
-<p>本展示使用 2026 年 9 月 22 日更新的建筑多角度与生活区优化模型，并包含两处未来项目的建成效果推演。建筑、道路与绿化依据地图、卫星影像和公开照片近似重建，部分尺寸及遮挡区域仍为估计，不是测绘级模型。</p>
+<p>本展示使用 2026 年 9 月 22 日更新的卫星道路、建筑多角度与生活区优化模型，并包含两处未来项目的建成效果推演。建筑、道路与绿化依据地图、卫星影像和公开照片近似重建，部分尺寸及遮挡区域仍为估计，不是测绘级模型。</p>
+<h2 id="satellite-roads-2026-09-22">2026-09-22 卫星道路校核</h2>
+<p>对照 <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer">Esri World Imagery</a> 的配准影像，修订教学区椭圆环路与Trent中轴铺地宽度、生活区贴楼通道和西侧过水桥。环路采用约8.5米、中轴约9米的可见铺地估宽；这些数字不等于车道净宽，也不表示精确测量。商业街的浅色步行铺地保留圆形景观空间，未添加无法辨认的交通标线。</p>
+<p>本轮重新导出同范围影像，与原本地参考图的像素及文件哈希一致；教学区、生活区、西侧与南侧四处元数据采样均返回2025年9月17日、WV02来源。服务标注源分辨率0.5米、SRC_ACC字段8.47；分辨率不是模型定位精度。建筑和树影有遮挡及视差，保留已吻合的路网中心线，未按细小偏差整体移动建筑。</p>
+<p>路网连接关系辅以 © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> 数据与已缓存的<a href="https://www.nottingham.edu.cn/en/estates/space-management/campus-map.aspx">校方2025-10-16校园图</a>；本轮校方地图页面连接超时，未声称取得新版地图。商业街另参考<a href="https://www.bilibili.com/video/BV1LBMuzoEvt/">校方2025住宿视频</a>的156–162秒街景。道路转接、桥面高度、护缘和树荫下细节仍为估计；不代表实时通行状态。卫星图和视频帧仅作本地参考，未作为贴图或照片发布。</p>
 <h2 id="high-street-2026-09-22">2026-09-22 商业街资料参照</h2>
 <p>以校方视频、卫星与现有平面推断15／19号之间横向商业街及12号西南低翼；楼段匹配为中等置信，12号低翼约8米高为估计。16号小灶台的西侧地址有文字依据，本模型采用西北短端门面，精确段位待核。未把未知品牌按顺序填入空白店招。</p>
 <p>商业街导览单独聚焦宿舍底层店面与街道细节，宿舍楼体继续按楼号点选。商业基座、招牌、两层柱廊及伞桌花箱结合下列校方资料参照；具体商铺沿墙顺序、门位、尺寸与未被照片覆盖的部分仍为估建，不表示实时营业情况。</p>
@@ -51,7 +55,7 @@
 <li><a href="https://www.broadwaymalyan.com/projects/unnc-li-dak-sum-incubator/">Broadway Malyan IEB 实景与航拍</a>：内外弧立面、绿化、底层露台及屋顶细节。</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:Sir_Colin_Campbell_Building_(Sports_Centre),_University_of_Nottingham_Ningbo_China.jpg">旧体育馆正面实拍</a>：摄影 源義信，Wikimedia Commons，CC BY-SA 4.0；作为几何参考，照片在建筑对照面板中以缩略图展示。</li>
 <li>地理轮廓来源：© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>，依据 ODbL。<a href="./osm-campus-source.json">下载校园地理数据来源</a>。</li>
-<li>卫星影像参考：Esri, Vantor, Earthstar Geographics, and the GIS User Community。影像未嵌入网站，拍摄日期不明。</li>
+<li>卫星影像参考：Esri, Vantor, Earthstar Geographics, and the GIS User Community。影像未嵌入网站；本轮影像时相核验见上方卫星道路记录。</li>
 </ul>
 <p>旧体育馆红顶、柱廊进深、窗格与屋顶设备尺寸仍是照片估值；部分背面受树木遮挡。本模型没有经过摄影测量，不代表学校官方导览或实时建设状态。</p><h2>2026-09-22 导览交互更新</h2>
 <p>模型以无损 gzip 分块传输，解压后与对应版本的原始模型完全一致，并核对 SHA-256；不支持原生解压的浏览器使用原始分块。压缩不改变几何，建筑外观修订记录见上文。静止时停止连续绘制，拖动、镜头过渡和自动环绕期间恢复。</p>

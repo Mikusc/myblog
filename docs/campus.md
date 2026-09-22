@@ -11,9 +11,19 @@
 3. 运行本仓库 `npm run build`，确认 `public/campus/index.html` 及其引用资源齐全。检查 `/campus/`、视角切换、返回博客、资料说明以及博客中的两个入口。
 4. 按博客发布流程提交并推送，等待 Azure 工作流成功，再检查公开地址与模型清单。
 
-当前模型为 `unnc-campus-high-street.glb`（`2026-09-22 high street refinement 1`）。导览保留对数深度缓冲以减少屋顶、水面、操场和绿地的闪烁。模型按哈希命名并分块传输；支持浏览器优先下载约 15.9 MB 的 gzip 分块（比原始 64.8 MB 减少 75.4%），解压后逐字节一致并校验 SHA-256。旧浏览器保留原始分块回退。2026-09-22 商业街模型 SHA-256：`c6afecaec67e4eb6d228e3471a75ce70b891d3c931d4e639ed1a7f31c3b8057e`。
+当前模型为 `unnc-campus-satellite-roads.glb`（`2026-09-22 satellite road refinement 1`）。导览保留对数深度缓冲以减少屋顶、水面、操场和绿地的闪烁。模型按哈希命名并分块传输；支持浏览器优先下载约 16.5 MB 的 gzip 分块（比原始 66.7 MB 减少 75.2%），解压后逐字节一致并校验 SHA-256。旧浏览器保留原始分块回退。2026-09-22 道路校核模型 SHA-256：`5435cd146ef591d6bdf84551e691d4e6f219088372fe0696ebcda0efbcee847e`。
 
 `source/campus/sources.html` 保留参考资料、估建限制和 OpenStreetMap/ODbL 来源说明；更新时必须一起保留。
+
+## 2026-09-22 卫星道路第一轮校核
+
+本轮使用 `unnc-campus-satellite-roads.glb`，原始 66.7 MB、gzip 分块 16.5 MB，模型 SHA-256 为 `5435cd146ef591d6bdf84551e691d4e6f219088372fe0696ebcda0efbcee847e`。
+
+本轮依据卫星影像、OpenStreetMap 路网及可核对的校园材料校核道路和步道；具体来源与采用范围见导览资料页 `source/campus/sources.html`，逐项变化见 `satellite-roads-refinement-report.json`。同范围新旧卫星图逐像素一致，教学区、生活区、西侧及南侧四点元数据均标注2025-09-17；2026-09-22是本轮校核日期；道路宽度、路缘尺寸与未被影像清晰覆盖的连接仍为估计，不作测绘或实时通行状态说明。
+
+保留已有建筑、生活区、商业街细化，以及点选目录、按需渲染、手机取景和现状／建成愿景切换。道路与既有资产的准确关系仍须结合模型预览核对，导出语义检查只验证报告列明的对象变化范围。
+
+同步前已核对源项目提交、清洁工作区、最终 GLB 与分块哈希、gzip 无损还原以及只允许道路模块明确对象变化的导出对照。线上核验须在发布后单独运行 `verify_live_satellite_roads.py`，不能以文件同步代替线上验证。
 
 ## 2026-09-22 商业街第一轮细化
 
