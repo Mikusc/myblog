@@ -1,42 +1,42 @@
 {
-  "bytes": 65644812,
-  "sha256": "40206912429d41841182fd2a0c98b7a4940b4f64c77dc0bdb2a7d35711808c54",
+  "bytes": 64810764,
+  "sha256": "c6afecaec67e4eb6d228e3471a75ce70b891d3c931d4e639ed1a7f31c3b8057e",
   "parts": [
-    "campus-40206912429d-0.bin",
-    "campus-40206912429d-1.bin",
-    "campus-40206912429d-2.bin",
-    "campus-40206912429d-3.bin",
-    "campus-40206912429d-4.bin"
+    "campus-c6afecaec67e-0.bin",
+    "campus-c6afecaec67e-1.bin",
+    "campus-c6afecaec67e-2.bin",
+    "campus-c6afecaec67e-3.bin",
+    "campus-c6afecaec67e-4.bin"
   ],
-  "revision": "2026-09-22 residential refinement 1",
+  "revision": "2026-09-22 high street refinement 1",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 15971210,
+    "bytes": 15921784,
     "parts": [
       {
-        "file": "campus-40206912429d-0.bin.gz",
-        "bytes": 2857260,
+        "file": "campus-c6afecaec67e-0.bin.gz",
+        "bytes": 2960022,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-40206912429d-1.bin.gz",
-        "bytes": 2755580,
+        "file": "campus-c6afecaec67e-1.bin.gz",
+        "bytes": 2844675,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-40206912429d-2.bin.gz",
-        "bytes": 7117867,
+        "file": "campus-c6afecaec67e-2.bin.gz",
+        "bytes": 7012792,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-40206912429d-3.bin.gz",
-        "bytes": 2823117,
+        "file": "campus-c6afecaec67e-3.bin.gz",
+        "bytes": 2936062,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-40206912429d-4.bin.gz",
-        "bytes": 417386,
-        "decodedBytes": 1644812
+        "file": "campus-c6afecaec67e-4.bin.gz",
+        "bytes": 168233,
+        "decodedBytes": 810764
       }
     ]
   }
