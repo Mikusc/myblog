@@ -1,0 +1,16 @@
+{
+  "rawBytes": 71269500,
+  "meshoptBytes": 40828108,
+  "gzipBytes": 9316760,
+  "rawSha256": "9f70b1747ee5db78c5f527f176a8d3223b1bb71abf84f62784f45742367ed5dd",
+  "meshoptSha256": "fc676578996427dd48a1da4be5fd5c0f9ae8912955025fa9ec50f57d482e9387",
+  "views": 1580,
+  "modes": {
+    "ATTRIBUTES": 1114,
+    "INDICES": 466
+  },
+  "sceneObjects": 671,
+  "meshes": 555,
+  "verification": "All index/attribute arrays, names, transforms, userData and material properties identical",
+  "encoderVersion": "1.1.1"
+}

@@ -1,43 +1,33 @@
 {
-  "bytes": 66746752,
-  "sha256": "5435cd146ef591d6bdf84551e691d4e6f219088372fe0696ebcda0efbcee847e",
+  "bytes": 40828108,
+  "sha256": "fc676578996427dd48a1da4be5fd5c0f9ae8912955025fa9ec50f57d482e9387",
   "parts": [
-    "campus-5435cd146ef5-0.bin",
-    "campus-5435cd146ef5-1.bin",
-    "campus-5435cd146ef5-2.bin",
-    "campus-5435cd146ef5-3.bin",
-    "campus-5435cd146ef5-4.bin"
+    "campus-fc6765789964-0.bin",
+    "campus-fc6765789964-1.bin",
+    "campus-fc6765789964-2.bin"
   ],
-  "revision": "2026-09-22 satellite road refinement 1",
+  "revision": "2026-10-06-batch4-meshopt-siyuan-tree-lod",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 16529462,
+    "bytes": 9316760,
     "parts": [
       {
-        "file": "campus-5435cd146ef5-0.bin.gz",
-        "bytes": 2959851,
+        "file": "campus-fc6765789964-0.bin.gz",
+        "bytes": 1424662,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-5435cd146ef5-1.bin.gz",
-        "bytes": 2846135,
+        "file": "campus-fc6765789964-1.bin.gz",
+        "bytes": 6911746,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-5435cd146ef5-2.bin.gz",
-        "bytes": 7124956,
-        "decodedBytes": 16000000
-      },
-      {
-        "file": "campus-5435cd146ef5-3.bin.gz",
-        "bytes": 3098320,
-        "decodedBytes": 16000000
-      },
-      {
-        "file": "campus-5435cd146ef5-4.bin.gz",
-        "bytes": 500200,
-        "decodedBytes": 2746752
+        "file": "campus-fc6765789964-2.bin.gz",
+        "bytes": 980352,
+        "decodedBytes": 8828108
       }
     ]
-  }
+  },
+  "geometryEncoding": "EXT_meshopt_compression",
+  "sourceSha256": "9f70b1747ee5db78c5f527f176a8d3223b1bb71abf84f62784f45742367ed5dd"
 }
