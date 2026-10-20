@@ -4,9 +4,9 @@
 
 # Site
 title: Mikusc的小站
-subtitle: '课程复习、项目实践与技术笔记'
-description: 'Mikusc 的个人博客，记录课程复习、项目实践、SceneShift 与技术笔记。'
-keywords: Mikusc, blog, Hexo, SceneShift, COMP4133AADS
+subtitle: 'AI 应用、空间交互与可体验的项目'
+description: '肖凯文（Mikusc）的项目作品集：AI 社群运营、IHCI 数字会场、XR 原型、LLM 研究评测与开放工具。'
+keywords: Mikusc, 肖凯文, AI, IHCI, XR, SceneShift, portfolio
 author: Mikusc
 language: zh-CN
 timezone: Asia/Shanghai
@@ -32,6 +32,7 @@ skip_render:
   - "bus/**"
   - "campus/**"
   - "pet/**"
+  - "ihci/**"
 
 # Writing
 new_post_name: :title.md # File name of new posts

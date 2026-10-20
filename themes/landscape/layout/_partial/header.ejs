@@ -1,5 +1,5 @@
 <%
-  var showHomeHero = typeof homeView !== 'undefined' ? homeView : is_home();
+  var showHomeHero = false; // The project-led landing page provides its own compact introduction.
   var navI18nKeys = {
     '首页': 'nav.home',
     '课程笔记': 'nav.courseNotes',
@@ -34,7 +34,7 @@
         <span class="site-mark">M</span>
         <span class="site-name-wrap">
           <span class="site-name" data-i18n="site.name"><%= config.title %></span>
-          <span class="site-tagline" data-i18n="site.tagline">Course Notes · Projects · Tech Notes</span>
+          <span class="site-tagline" data-i18n="site.tagline">Applied AI · Spatial Interaction · Projects</span>
         </span>
       </a>
       <div class="site-nav-panel navbar-wrapper">

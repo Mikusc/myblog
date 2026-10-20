@@ -1,55 +1,8 @@
 ---
 title: 关于
-date: 2026-05-29 22:05:00
+date: 2026-10-20 18:00:00
 layout: page
 ---
-
 <div class="content-hub content-hub-about">
-  <section class="content-hub-hero">
-    <p class="content-hub-kicker">About</p>
-    <h2 class="content-hub-title">关于这个个人博客</h2>
-    <p class="content-hub-lede">这里是 Mikusc 的个人博客，主要整理课程复习、项目实践和技术笔记。当前内容集中在算法课程复习、Hexo 站点维护，以及 SceneShift Discussion Room 相关的 mixed-reality 项目记录。</p>
-  </section>
-
-  <section class="content-section">
-    <div class="content-section-head">
-      <p class="content-section-kicker">Focus</p>
-      <h3 class="content-section-title">目前关注的方向</h3>
-    </div>
-    <div class="content-card-grid">
-      <article class="content-card">
-        <span class="content-card-label">XR / MR</span>
-        <strong class="content-card-title">空间交互原型</strong>
-        <span class="content-card-desc">围绕 Unity、Meta Quest 和 mixed reality 的项目实践与交互实验。</span>
-      </article>
-      <article class="content-card">
-        <span class="content-card-label">AI Systems</span>
-        <strong class="content-card-title">AI-assisted spatial computing</strong>
-        <span class="content-card-desc">探索 AI 与空间计算、房间理解、生成式工作流结合的可能性。</span>
-      </article>
-      <article class="content-card">
-        <span class="content-card-label">Course Notes</span>
-        <strong class="content-card-title">课程复习与算法练习</strong>
-        <span class="content-card-desc">按课程、lecture 和 week 整理复习材料，方便后续快速回看。</span>
-      </article>
-      <article class="content-card">
-        <span class="content-card-label">Engineering</span>
-        <strong class="content-card-title">工具、部署与工程记录</strong>
-        <span class="content-card-desc">记录博客维护、后端部署、常用工具和项目调试过程。</span>
-      </article>
-    </div>
-  </section>
-
-  <section class="content-section content-section-compact">
-    <div class="content-section-head">
-      <p class="content-section-kicker">This Site</p>
-      <h3 class="content-section-title">站点内容入口</h3>
-    </div>
-    <div class="content-link-list">
-      <a class="content-link-row" href="/course-notes/"><span>Notes</span><strong>Course Notes</strong></a>
-      <a class="content-link-row" href="/projects/"><span>Work</span><strong>Projects</strong></a>
-      <a class="content-link-row" href="/tools/"><span>Tools</span><strong>Tools</strong></a>
-      <a class="content-link-row" href="/archives/"><span>Archive</span><strong>Archives</strong></a>
-    </div>
-  </section>
-</div>
+<section class="content-hub-hero"><p class="content-hub-kicker">ABOUT MIKUSC</p>
+<h2 class="content-hub-title" data-zh="肖凯文 · Mikusc" data-en="Kaiwen Xiao · Mikusc" data-page-title>肖凯文 · Mikusc</h2><p class="content-hub-lede" data-zh="我在宁波诺丁汉大学攻读计算机科学硕士，预计 2027 年 7 月毕业。我关心如何把 AI 接进真实任务：从可体验的产品原型，到空间交互、研究评测与持续运营的内容工作流。" data-en="I am an MSc Computer Science student at the University of Nottingham Ningbo China, expecting to graduate in July 2027. I focus on connecting AI to real tasks—from interactive prototypes to spatial interaction, research evaluation, and ongoing content workflows." >我在宁波诺丁汉大学攻读计算机科学硕士，预计 2027 年 7 月毕业。我关心如何把 AI 接进真实任务：从可体验的产品原型，到空间交互、研究评测与持续运营的内容工作流。</p></section><section class="content-section"><div class="content-section-head"><p class="content-section-kicker">PRACTICE</p><h3 class="content-section-title" data-zh="我如何做项目" data-en="How I work" >我如何做项目</h3></div><div class="content-card-grid"><article class="content-card"><span class="content-card-label">01 · Problem</span><strong class="content-card-title" data-zh="从具体问题出发" data-en="Start with a concrete problem" >从具体问题出发</strong><span class="content-card-desc" data-zh="先明确谁会使用、需要完成什么、哪些约束必须满足，再决定实现范围。" data-en="Define the user, the task, and the constraints before deciding what to build." >先明确谁会使用、需要完成什么、哪些约束必须满足，再决定实现范围。</span></article><article class="content-card"><span class="content-card-label">02 · AI collaboration</span><strong class="content-card-title" data-zh="组织 AI 与工具" data-en="Coordinate AI and tools" >组织 AI 与工具</strong><span class="content-card-desc" data-zh="把资料、任务与重复步骤整理为上下文、脚本和 Skill，借助 AI 迭代实现。" data-en="Organize references, tasks, and repeatable steps into context, scripts, and Skills, then iterate with AI assistance." >把资料、任务与重复步骤整理为上下文、脚本和 Skill，借助 AI 迭代实现。</span></article><article class="content-card"><span class="content-card-label">03 · Verification</span><strong class="content-card-title" data-zh="保留自己的判断与检查" data-en="Keep human judgment and checks" >保留自己的判断与检查</strong><span class="content-card-desc" data-zh="我负责需求与方案选择、结果核验和失败修正；生成出来的内容需要经过检查才能交付。" data-en="I take responsibility for requirements, approach selection, verification, and corrections; generated outputs need checks before delivery." >我负责需求与方案选择、结果核验和失败修正；生成出来的内容需要经过检查才能交付。</span></article><article class="content-card"><span class="content-card-label">04 · Delivery</span><strong class="content-card-title" data-zh="留下可体验的成果" data-en="Leave something people can explore" >留下可体验的成果</strong><span class="content-card-desc" data-zh="优先提供演示、可阅读的案例或公开工具，并说明已完成和仍待验证的部分。" data-en="Provide demos, readable case studies, or public tools, with a clear account of completed work and remaining validation." >优先提供演示、可阅读的案例或公开工具，并说明已完成和仍待验证的部分。</span></article></div></section><section class="content-section"><div class="content-section-head"><p class="content-section-kicker">EXPERIENCE</p><h3 class="content-section-title" data-zh="近期经历" data-en="Recent experience" >近期经历</h3></div><div class="content-note-panel"><p class="" data-zh="2026.07—10｜北京航空航天大学虚拟现实技术与系统全国重点实验室 · 科研助理。推进 LLM 多轮对话原型、数据审计与研究评测。" data-en="July–October 2026 | Research Assistant, State Key Laboratory of Virtual Reality Technology and Systems, Beihang University. Worked on LLM dialogue prototypes, data auditing, and research evaluation." >2026.07—10｜北京航空航天大学虚拟现实技术与系统全国重点实验室 · 科研助理。推进 LLM 多轮对话原型、数据审计与研究评测。</p><p class="" data-zh="持续参与 AI 辅助社群运营，Arcaea 腾讯频道规模为 5.6 万人（2026 年 10 月）。这一数字描述频道规模，不归因为 AI 带来的增长。" data-en="Ongoing AI-assisted community operations for an Arcaea Tencent Channel with 56,000 members as of October 2026. This describes membership, not growth attributed to AI." >持续参与 AI 辅助社群运营，Arcaea 腾讯频道规模为 5.6 万人（2026 年 10 月）。这一数字描述频道规模，不归因为 AI 带来的增长。</p></div></section><section class="content-section content-section-compact"><div class="content-link-list"><a class="content-link-row" href="/projects/"><strong class="" data-zh="浏览全部项目" data-en="Explore all projects" >浏览全部项目</strong></a><a class="content-link-row" href="/contact/"><strong class="" data-zh="联系与公开入口" data-en="Contact &amp; public links" >联系与公开入口</strong></a><a class="content-link-row" href="/course-notes/"><strong class="" data-zh="课程与学习笔记" data-en="Course &amp; learning notes" >课程与学习笔记</strong></a></div></section></div>

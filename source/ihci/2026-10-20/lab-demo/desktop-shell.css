@@ -1,0 +1,86 @@
+/* The same progressive controls as phones, arranged for a wide venue canvas. */
+.desktop-only {display:none}
+@media(min-width:721px) {
+  body.desktop-venue {height:100dvh;overflow:hidden;background:#f5f5f7}
+  .desktop-venue .mobile-only:not([hidden]) {display:inline-flex!important}
+  .desktop-venue .desktop-only {display:inline}
+  .glass-ui.desktop-venue .topbar {height:64px;padding:0 24px;gap:14px;background:#f5f5f7}
+  .glass-ui.desktop-venue .brand {font-size:18px;gap:8px}
+  .desktop-venue .brand .conference-logo {width:64px;height:38px;border-radius:8px}
+  .glass-ui.desktop-venue #current-venue {display:block;margin-left:10px;letter-spacing:0;font-size:12px;color:#6e6e73}
+  .desktop-venue .topbar .demo-badge {display:none}
+  .desktop-venue #mobile-menu-toggle {margin-left:auto;height:44px;min-width:90px;align-items:center;justify-content:center;gap:8px;border:1px solid #d9dfe8;border-radius:16px;background:#ffffffb8;color:#0066cc;font-size:14px;font-weight:550}
+  .desktop-venue #mobile-menu-toggle:hover {background:#fff;border-color:#9fc2f0}
+  .desktop-venue #mobile-menu-toggle svg {width:19px;height:19px}
+  .desktop-venue .topbar:has(.author-shortcut:not([hidden])) #mobile-menu-toggle {margin-left:0}
+  .glass-ui.desktop-venue .workspace {display:block;height:calc(100dvh - 64px);min-height:0;padding:0 12px 12px}
+  .glass-ui.desktop-venue .stage {height:100%;min-height:0;border-radius:24px;border:1px solid #ffffffbd;box-shadow:none;overflow:hidden}
+  .glass-ui.desktop-venue .viewport {position:absolute;inset:0;min-height:0;height:100%;border-radius:inherit}
+  .glass-ui.desktop-venue .view-caption {top:23px;left:24px;max-width:calc(100% - 180px);padding:0;border:0;background:none;box-shadow:none;color:#636366;font-size:12px;letter-spacing:0}
+  .desktop-venue .view-caption .live-dot {display:none}
+  .desktop-venue #mobile-walk-toggle {position:absolute;top:12px;right:18px;z-index:3;height:44px;padding:0 16px;align-items:center;justify-content:center;gap:7px;border:1px solid #ffffffdf;border-radius:22px;background:#ffffffe0;color:#0066cc;font-size:13px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 3px 12px #00000007}
+  .desktop-venue #mobile-walk-toggle svg {width:18px;height:18px}
+  .desktop-venue #mobile-walk-toggle[aria-expanded=true] {background:#0066cc;color:#fff;border-color:#0066cc}
+  .desktop-venue[data-mobile-walking=false] #walk-controls {display:none!important}
+  .glass-ui.desktop-venue .walk-controls {bottom:calc(var(--footer-height,84px) + 30px);max-width:344px}
+  .glass-ui.desktop-venue .stage-footer {left:50%;right:auto;bottom:18px;transform:translateX(-50%);width:calc(100% - 48px);max-width:860px;padding:16px 18px;border-radius:23px;max-height:60dvh;overflow:auto;overscroll-behavior:contain;background:#ffffffeb;border:1px solid #fff;box-shadow:0 6px 28px #202a3814;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+  .desktop-venue #poster-footer:not(.mobile-details-open) {display:grid;grid-template-columns:minmax(170px,1fr) auto;align-items:center;gap:24px}
+  .desktop-venue #poster-footer:not(.mobile-details-open) :is(#active-room,#active-authors,#active-activity,[data-reaction-bar=poster],#back-spot) {display:none!important}
+  .glass-ui.desktop-venue .poster-info {gap:12px;margin:0;min-width:0}
+  .glass-ui.desktop-venue .poster-info>div {min-width:0}
+  .glass-ui.desktop-venue .active-code {width:40px;height:44px;border-radius:12px;font-size:12px}
+  .glass-ui.desktop-venue .poster-info h2 {font-size:18px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .glass-ui.desktop-venue .poster-actions {display:flex;align-items:center;gap:8px}
+  .glass-ui.desktop-venue .poster-actions .button {flex:none;min-height:44px;padding:10px 17px;border-radius:15px;font-size:13px}
+  .glass-ui.desktop-venue #open-discussion {background:#0066cc;border-color:#0066cc;color:#fff;box-shadow:0 3px 8px #0066cc18}
+  .glass-ui.desktop-venue #open-discussion:hover {background:#0058b4}
+  .glass-ui.desktop-venue #read-poster {background:#edf0f5;border-color:transparent;color:#353940;box-shadow:none}
+  .desktop-venue #mobile-reactions-toggle {height:44px;min-width:84px;padding:0 12px;gap:7px;border:0;border-radius:15px;align-items:center;justify-content:center;background:#edf0f5;color:#4f5967;font-size:13px}
+  .desktop-venue #mobile-reactions-toggle svg {width:22px;height:22px}
+  .desktop-venue #mobile-reactions-toggle[aria-expanded=true] {background:#e3efff;color:#0066cc}
+  .glass-ui.desktop-venue #next-poster {width:44px;height:44px;min-width:44px;padding:0;background:#edf0f5;border-color:transparent;color:#4f5967;font-size:0;box-shadow:none}
+  .desktop-venue #next-poster::after {content:'→';font-size:23px}
+  .desktop-venue .mobile-details-open .poster-info {margin-bottom:12px}
+  .desktop-venue .mobile-details-open .poster-actions {justify-content:flex-end;margin-top:12px}
+  .desktop-venue .mobile-details-open .reaction-bar {margin:0}
+  .desktop-venue .reaction-feedback:empty {display:none}
+  .glass-ui.desktop-venue .overview-footer p {margin-top:4px;font-size:12px}
+  .glass-ui.desktop-venue .map {padding:58px 20px calc(var(--footer-height,84px) + 86px)}
+  .glass-ui.desktop-venue .map-shortcuts {bottom:calc(var(--footer-height,84px) + 32px)}
+  .desktop-venue .interaction-sound-prompt {top:68px;right:18px}
+  .desktop-venue .toast {bottom:calc(var(--footer-height,84px) + 40px)}
+  .glass-ui.desktop-venue #mobile-menu {position:fixed;inset:76px 12px 12px auto;margin:0;width:420px;max-width:calc(100vw - 36px);height:calc(100dvh - 88px);max-height:calc(100dvh - 88px);padding:0;border:1px solid #fff;border-radius:24px;background:#f5f5f7;box-shadow:0 16px 64px #00000024;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .desktop-venue #mobile-menu::backdrop {background:#17212d21;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .desktop-venue .mobile-menu-header {display:flex;align-items:center;justify-content:space-between;padding:16px 20px 10px;flex-shrink:0}
+  .desktop-venue .mobile-menu-header h2 {margin:0;font-size:21px;font-weight:650}
+  .desktop-venue #mobile-menu-close {width:44px;height:44px;border:0;border-radius:50%;background:#e9eaee;font-size:25px;color:#59616d}
+  .desktop-venue .mobile-menu-scroll {overflow:auto;overscroll-behavior:contain;min-height:0;padding-bottom:20px;scrollbar-width:thin}
+  .glass-ui.desktop-venue #mobile-menu .stage-toolbar {position:static;display:flex;flex-wrap:wrap;gap:8px;height:auto;margin:0;padding:0 20px 18px;border:0;background:none;box-shadow:none}
+  .glass-ui.desktop-venue #mobile-menu .mode-switch {width:100%;flex-basis:100%;max-width:none;min-height:48px;box-shadow:none;background:#e7e9ee;border-color:transparent}
+  .glass-ui.desktop-venue #mobile-menu .mode-switch button {flex:1;min-height:44px;padding:8px 10px;font-size:13px}
+  .glass-ui.desktop-venue #mobile-menu .scan-entry {margin:0;flex:1;min-height:44px;justify-content:center;box-shadow:none;font-size:13px}
+  .glass-ui.desktop-venue #mobile-menu #reset-view {width:44px;height:44px;box-shadow:none}
+  .glass-ui.desktop-venue #mobile-menu .sidebar {width:auto;height:auto;max-height:none;overflow:visible;margin:0;padding:0 20px;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .desktop-venue #mobile-menu .sidebar::after {display:none}
+  .desktop-venue #mobile-menu .intro,.desktop-venue #mobile-menu .stats {display:none}
+  .desktop-venue #mobile-menu .poster-list {margin-bottom:18px}
+  .desktop-venue #mobile-utility-links {display:flex;flex-wrap:wrap;gap:10px;padding:18px 20px 0}
+  .desktop-venue #mobile-utility-links a {display:inline-flex!important;min-height:44px;align-items:center;padding:8px 13px;border-radius:14px;background:#e9edf4;color:#0066cc;font-size:12px;text-decoration:none;box-shadow:none}
+  .desktop-venue button:focus-visible {outline:3px solid #007aff;outline-offset:2px}
+  .glass-ui.desktop-venue[data-glass-reduced=true] :is(.stage-footer,#mobile-walk-toggle,#mobile-menu) {background:#f5f5f7;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .glass-ui.desktop-venue[data-glass-reduced=true] #mobile-walk-toggle[aria-expanded=true] {background:#0066cc;color:#fff}
+}
+@media(min-width:721px) and (max-width:1000px) {
+  .desktop-venue #poster-footer:not(.mobile-details-open) {gap:14px}
+  .glass-ui.desktop-venue .poster-info {gap:9px}
+  .glass-ui.desktop-venue .poster-info h2 {font-size:16px}
+  .glass-ui.desktop-venue .poster-actions .button {padding-inline:12px}
+}
+/* A wide screen can keep the Poster in view while its discussion is open. */
+@media(min-width:1280px) {
+  .glass-ui.desktop-venue #discussion {position:fixed;inset:76px 16px 16px auto;margin:0;width:460px;height:calc(100dvh - 92px);max-height:calc(100dvh - 92px);border-radius:24px;background:#f8f8fa;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .desktop-venue #discussion::backdrop {background:#18233210;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .glass-ui.desktop-venue #discussion .discussion-header {padding:17px 20px 14px}
+  .glass-ui.desktop-venue #discussion .discussion-header h2 {font-size:20px}
+  .glass-ui.desktop-venue #discussion .discussion-scroll {padding:15px 18px}
+}

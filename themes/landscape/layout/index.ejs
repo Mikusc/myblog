@@ -1,174 +1,47 @@
 <%
+  var portfolio = site.data.portfolio || {intro:{zh:'',en:''},projects:[]};
+  var projects = portfolio.projects || [];
+  var featured = projects.filter(function(project){return project.featured;});
   var posts = site.posts && site.posts.toArray ? site.posts.toArray() : [];
-  posts.sort(function(a, b){
-    return b.date.valueOf() - a.date.valueOf();
-  });
-  var coursePosts = posts.filter(function(post){
-    return /COMP4133AADS|Lecture|Week|期末|练习/.test(post.title || '');
-  });
-  var latestPosts = posts.slice(0, 3);
-  var courseCards = coursePosts.slice(0, 3);
-  var categories = {};
-
-  posts.forEach(function(post){
-    if (!post.categories) return;
-    var cats = post.categories.toArray ? post.categories.toArray() : post.categories.data || [];
-    cats.forEach(function(cat){
-      if (cat && cat.name) categories[cat.name] = true;
-    });
-  });
-
-  function cleanExcerpt(post, length){
-    var raw = post.excerpt || post.content || '';
-    return truncate(strip_html(raw).replace(/\s+/g, ' ').trim(), {length: length || 120});
-  }
-
-  function postType(post){
-    if (/COMP4133AADS|Lecture|Week|期末|练习/.test(post.title || '')) return 'Course Note';
-    return 'Blog Post';
-  }
-
-  function arrowIcon(className){
-    return '<span class="' + className + ' site-drawn-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>';
-  }
-
-  var pathways = [
-    {
-      title: '课程笔记',
-      desc: '按课程、lecture 和 week 整理复习材料，适合考前快速定位知识点。',
-      href: url_for('/course-notes/'),
-      titleKey: 'home.pathways.course.title',
-      descKey: 'home.pathways.course.desc'
-    },
-    {
-      title: '项目实践',
-      desc: '集中展示博客、Web、XR 和 Unity 相关项目，把实践过程留下可回溯记录。',
-      href: url_for('/projects/'),
-      titleKey: 'home.pathways.projects.title',
-      descKey: 'home.pathways.projects.desc'
-    },
-    {
-      title: '工具箱',
-      desc: '收集学习、开发与写作中常用的工具入口，减少重复查找成本。',
-      href: url_for('/tools/'),
-      titleKey: 'home.pathways.tools.title',
-      descKey: 'home.pathways.tools.desc'
-    }
-  ];
+  posts.sort(function(a,b){return b.date.valueOf()-a.date.valueOf();});
+  var demo = projects.filter(function(project){return project.id === 'ihci';})[0];
 %>
+<div class="portfolio-page portfolio-home">
+  <section class="portfolio-intro">
+    <div class="portfolio-intro-copy">
+      <p class="portfolio-kicker">MIKUSC · SELECTED WORK</p>
+      <h1 data-zh="把想法做成可体验的项目" data-en="Ideas made tangible.">把想法做成可体验的项目</h1>
+      <p class="portfolio-intro-text" data-zh="<%= (portfolio.intro || {}).zh || '' %>" data-en="<%= (portfolio.intro || {}).en || '' %>"><%= (portfolio.intro || {}).zh || '' %></p>
+      <div class="portfolio-actions">
+        <a class="portfolio-button" href="#selected-work"><span data-zh="浏览代表项目" data-en="Explore selected work">浏览代表项目</span><span aria-hidden="true">↓</span></a>
+        <a class="portfolio-button portfolio-button-quiet" href="<%- url_for('/about/') %>" data-zh="关于我" data-en="About me">关于我</a>
+      </div>
+      <p class="portfolio-intro-footnote"><span data-zh="AI 应用 · 空间交互 · 内容工作流" data-en="Applied AI · Spatial interaction · Content workflows">AI 应用 · 空间交互 · 内容工作流</span></p>
+    </div>
+    <% if (demo) { %>
+    <a class="portfolio-feature" href="<%- url_for('/projects/ihci/') %>">
+      <% if (demo.image) { %><img src="<%- url_for(demo.image) %>" alt="<%= (demo.imageAlt || demo.title).zh %>" data-alt-zh="<%= (demo.imageAlt || demo.title).zh %>" data-alt-en="<%= (demo.imageAlt || demo.title).en %>" decoding="async"><% } else { %><div class="portfolio-feature-pattern" aria-hidden="true"><span>IHCI</span><span>2026</span></div><% } %>
+      <div class="portfolio-feature-caption"><div><span class="portfolio-kicker" data-zh="近期项目" data-en="Recent work">近期项目</span><strong data-zh="<%= demo.title.zh %>" data-en="<%= demo.title.en %>"><%= demo.title.zh %></strong></div><span class="portfolio-feature-arrow" aria-hidden="true">↗</span></div>
+    </a>
+    <% } %>
+  </section>
 
-<div class="home-page">
-  <section class="home-section home-overview">
-    <div class="home-overview-panel">
-      <div class="home-overview-copy">
-        <p class="home-section-kicker">Mikusc Blog</p>
-        <h2 class="home-overview-title" data-i18n="home.overview.title">课程复习、项目实践与技术笔记</h2>
-        <p class="home-overview-text" data-i18n="home.overview.text">这里记录课程复习、项目实践、开发过程和工具整理，方便之后按主题回看，也方便从一处进入常用内容。</p>
-      </div>
-      <div class="home-stat-grid">
-        <div class="home-stat">
-          <span class="home-stat-number"><%= posts.length %></span>
-          <span class="home-stat-label" data-i18n="home.stats.posts.label">篇文章</span>
-          <p class="home-stat-desc" data-i18n="home.stats.posts.desc">当前博客已发布的学习记录与技术笔记。</p>
-        </div>
-        <div class="home-stat">
-          <span class="home-stat-number"><%= coursePosts.length %></span>
-          <span class="home-stat-label" data-i18n="home.stats.course.label">篇课程笔记</span>
-          <p class="home-stat-desc" data-i18n="home.stats.course.desc">围绕 COMP4133AADS 的复习、练习与模拟题。</p>
-        </div>
-        <div class="home-stat">
-          <span class="home-stat-number"><%= Object.keys(categories).length %></span>
-          <span class="home-stat-label" data-i18n="home.stats.categories.label">个分类</span>
-          <p class="home-stat-desc" data-i18n="home.stats.categories.desc">通过分类和归档快速跳转到相关主题。</p>
-        </div>
-      </div>
+  <section class="portfolio-section" id="selected-work">
+    <div class="portfolio-section-head"><div><p class="portfolio-kicker">SELECTED PROJECTS</p><h2 data-zh="从成果进入，了解我如何推进" data-en="Explore the work. See how it was built.">从成果进入，了解我如何推进</h2></div><a class="portfolio-text-link" href="<%- url_for('/projects/') %>"><span data-zh="全部项目" data-en="All projects">全部项目</span><span aria-hidden="true">↗</span></a></div>
+    <div class="portfolio-grid"><% featured.forEach(function(project){ %><%- partial('_partial/project-card', {project:project}, {cache:false}) %><% }); %></div>
+  </section>
+
+  <section class="portfolio-section portfolio-method">
+    <div class="portfolio-section-head"><div><p class="portfolio-kicker">HOW I WORK</p><h2 data-zh="让 AI 参与过程，让结果经得起检查" data-en="AI in the workflow. Evidence in the result.">让 AI 参与过程，让结果经得起检查</h2></div></div>
+    <div class="portfolio-method-grid">
+      <article><span class="portfolio-step">01</span><h3 data-zh="把问题拆清楚" data-en="Frame the problem">把问题拆清楚</h3><p data-zh="先明确使用场景、约束和交付目标，再选择工具与实现范围。" data-en="Define the use case, constraints, and deliverable before choosing tools and scope.">先明确使用场景、约束和交付目标，再选择工具与实现范围。</p></article>
+      <article><span class="portfolio-step">02</span><h3 data-zh="把 AI 接入工作流" data-en="Build an AI-assisted workflow">把 AI 接入工作流</h3><p data-zh="将上下文、任务拆解和反复使用的步骤沉淀为脚本、Skill 与原型。" data-en="Turn context, task breakdowns, and repeatable steps into scripts, Skills, and prototypes.">将上下文、任务拆解和反复使用的步骤沉淀为脚本、Skill 与原型。</p></article>
+      <article><span class="portfolio-step">03</span><h3 data-zh="检查后再交付" data-en="Verify before delivery">检查后再交付</h3><p data-zh="结合来源核验、测试、人工审阅和交互预览，记录成果与尚待验证的部分。" data-en="Use source checks, tests, human review, and interaction previews to document results and remaining limits.">结合来源核验、测试、人工审阅和交互预览，记录成果与尚待验证的部分。</p></article>
     </div>
   </section>
 
-  <section class="home-section home-news">
-    <div class="home-section-head">
-      <div>
-        <p class="home-section-kicker">News and Notes</p>
-        <h2 class="home-section-title" data-i18n="home.news.title">最新文章与课程笔记</h2>
-        <p class="home-section-note" data-i18n="home.news.note">最近更新的学习记录和课程复习材料会集中展示在这里，适合快速浏览和继续阅读。</p>
-      </div>
-      <a class="home-arrow-link" href="<%- url_for('/archives/') %>">
-        <span data-i18n="home.news.allPosts">全部文章</span>
-        <%- arrowIcon('home-arrow-button') %>
-      </a>
-    </div>
-
-    <div class="home-news-events">
-      <div class="home-news-column">
-        <div class="home-column-head">
-          <h3 class="home-column-title" data-i18n="home.news.latestPosts">最新文章</h3>
-          <a class="home-column-link" href="<%- url_for('/archives/') %>">
-            <span data-i18n="home.news.morePosts">更多文章</span>
-            <%- arrowIcon('home-inline-arrow') %>
-          </a>
-        </div>
-        <div class="home-news-grid">
-          <% latestPosts.forEach(function(post){ %>
-            <a class="home-news-card" href="<%- url_for(post.path) %>">
-              <div class="home-news-media">
-                <span class="home-news-date"><%= date(post.date, 'YYYY-MM-DD') %></span>
-                <%- arrowIcon('home-news-arrow') %>
-              </div>
-              <div class="home-news-body">
-                <h4 class="home-news-title"><%= post.title || __('untitled') %></h4>
-                <p class="home-news-excerpt"><%= cleanExcerpt(post, 105) %></p>
-              </div>
-            </a>
-          <% }) %>
-        </div>
-      </div>
-
-      <div class="home-events-column">
-        <div class="home-column-head">
-          <h3 class="home-column-title" data-i18n="nav.courseNotes">课程笔记</h3>
-          <a class="home-column-link" href="<%- url_for('/course-notes/') %>">
-            <span data-i18n="home.news.enterDirectory">进入目录</span>
-            <%- arrowIcon('home-inline-arrow') %>
-          </a>
-        </div>
-        <div class="home-event-list">
-          <% courseCards.forEach(function(post){ %>
-            <a class="home-event-card" href="<%- url_for(post.path) %>">
-              <div class="home-event-datebox">
-                <span class="home-event-day" data-i18n-date="<%= post.date.toISOString() %>" data-i18n-date-format="monthDay"><%= date(post.date, 'M月D日') %></span>
-                <span class="home-event-year" data-i18n-date="<%= post.date.toISOString() %>" data-i18n-date-format="year"><%= date(post.date, 'YYYY年') %></span>
-              </div>
-              <div class="home-event-body">
-                <span class="home-event-type"><%= postType(post) %></span>
-                <h4 class="home-event-title"><%= post.title || __('untitled') %></h4>
-              </div>
-            </a>
-          <% }) %>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="home-section home-pathways">
-    <div class="home-section-head">
-      <div>
-        <p class="home-section-kicker">Explore</p>
-        <h2 class="home-section-title" data-i18n="home.explore.title">内容入口</h2>
-      </div>
-    </div>
-    <div class="home-pathway-grid">
-      <% pathways.forEach(function(item){ %>
-        <a class="home-pathway-card" href="<%- item.href %>">
-          <div>
-            <h3 class="home-pathway-title" data-i18n="<%= item.titleKey %>"><%= item.title %></h3>
-            <p class="home-pathway-desc" data-i18n="<%= item.descKey %>"><%= item.desc %></p>
-          </div>
-          <div class="home-pathway-footer">
-            <span data-i18n="home.explore.viewContent">查看内容</span>
-            <%- arrowIcon('home-arrow-button') %>
-          </div>
-        </a>
-      <% }) %>
-    </div>
+  <section class="portfolio-section portfolio-notes">
+    <div class="portfolio-section-head"><div><p class="portfolio-kicker">NOTES &amp; EXPLORATIONS</p><h2 data-zh="项目之外，也保留学习过程" data-en="The notes behind the work">项目之外，也保留学习过程</h2></div><a class="portfolio-text-link" href="<%- url_for('/archives/') %>"><span data-zh="文章归档" data-en="Writing archive">文章归档</span><span aria-hidden="true">↗</span></a></div>
+    <div class="portfolio-note-layout"><div class="portfolio-note-list"><% posts.slice(0,3).forEach(function(post){ %><a href="<%- url_for(post.path) %>"><time datetime="<%= date(post.date,'YYYY-MM-DD') %>"><%= date(post.date,'YYYY.MM.DD') %></time><strong><%= post.title %></strong><span aria-hidden="true">↗</span></a><% }); %></div><div class="portfolio-note-routes"><a href="<%- url_for('/course-notes/') %>"><strong data-zh="课程笔记" data-en="Course notes">课程笔记</strong><span data-zh="课程复习、算法与练习" data-en="Review guides, algorithms, and exercises">课程复习、算法与练习</span></a><a href="<%- url_for('/tools/') %>"><strong data-zh="工具与独立页面" data-en="Tools and experiments">工具与独立页面</strong><span data-zh="校园导览、实用工具与探索" data-en="Campus guides, utilities, and explorations">校园导览、实用工具与探索</span></a></div></div>
   </section>
 </div>

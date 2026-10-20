@@ -1,0 +1,366 @@
+/* Fieldnotes material system: Apple HIG-inspired navigation above calm content.
+   Regular material is the default. No nested optical filters or cloned content. */
+.glass-ui {
+  --ink:#1d1d1f; --muted:#636366; --tint:#0066cc; --accent-ink:var(--tint);
+  --stroke:#d8d8de; --separator:#1d1d1f14; --surface:#f5f5f7;
+  --glass-fill:linear-gradient(145deg,rgba(255,255,255,.76),rgba(245,245,247,.62));
+  --glass-shadow:0 12px 36px #0000000a,0 2px 6px #00000009,inset 0 1px 0 #ffffffee;
+  color:var(--ink); background:linear-gradient(145deg,#fafafa,#f0f0f3);
+  background-attachment:fixed; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+.glass-ui .glass-surface {
+  position:relative; background:var(--glass-fill); border:1px solid #ffffffd9;
+  box-shadow:var(--glass-shadow); -webkit-backdrop-filter:blur(20px) saturate(1.1);
+  backdrop-filter:var(--glass-filter,blur(20px) saturate(1.1));
+}
+.glass-ui .glass-surface::after {
+  content:''; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  border:1px solid #ffffff42; box-shadow:inset 0 -1px 0 var(--separator);
+}
+.glass-ui [data-glass=lens]::after,.glass-ui [data-glass=regular]::after {
+  background:radial-gradient(100px 60px at var(--glass-light-x,18%) var(--glass-light-y,0%),#ffffff85,transparent 90%);
+}
+.glass-ui .topbar {height:76px;padding:0 30px;gap:20px;background:transparent;border:0}
+.glass-ui .brand {font-family:inherit;font-size:22px;font-weight:650;letter-spacing:-.25px;color:var(--ink)}
+.glass-ui .brand-icon {border-radius:10px;background:linear-gradient(145deg,#0a70e8,#0061d9);box-shadow:0 3px 8px #0000001c;color:#fff}
+.glass-ui .topbar #current-venue {color:var(--muted);font-size:12px}
+.glass-ui .demo-badge {border:0;background:#ffffff82;color:var(--muted);border-radius:99px;padding:8px 12px}
+.glass-ui .entry-toolbar-link,.glass-ui .plan-link {min-height:44px;display:inline-flex;align-items:center;padding:10px 15px;border-radius:99px;border:1px solid #ffffffdd;background:#ffffffa1;color:var(--ink);font-size:12px;box-shadow:0 2px 8px #0000000a}
+.glass-ui .workspace {height:calc(100dvh - 76px);min-height:660px;padding:0 22px 22px;gap:18px;grid-template-columns:294px minmax(0,1fr)}
+.glass-ui .sidebar {border-radius:28px;padding:23px 22px;scrollbar-width:thin;scrollbar-color:#d1d1d6 transparent}
+.glass-ui .venue-switch {margin:0 0 18px;gap:8px;color:var(--muted);font-size:11px}
+.glass-ui .venue-switch select {border:1px solid var(--stroke);border-radius:13px;min-height:44px;padding:10px 12px;background:#ffffffb8;color:var(--ink);font-size:12px}
+.glass-ui .eyebrow {color:var(--muted);font-size:10px;letter-spacing:1.8px;margin-bottom:10px}
+.glass-ui .intro h1 {font-size:27px;letter-spacing:-.8px;font-weight:650}
+.glass-ui .intro-copy {color:var(--muted);font-size:12px;line-height:1.75;margin:10px 0 0}
+.glass-ui .stats {margin:17px 0 20px;padding:12px 0;gap:21px;border-color:var(--separator);color:var(--muted)}
+.glass-ui .stats strong {font-family:inherit;font-size:24px;font-weight:550;color:var(--ink)}
+.glass-ui .list-heading h2 {font-size:14px;font-weight:650}
+.glass-ui .list-heading>span {font-size:11px;color:var(--muted)}
+.glass-ui .search-label {font-size:11px;color:var(--muted);margin:3px 0 14px}
+.glass-ui .search-label input {border:1px solid var(--stroke);background:#ffffffc9;border-radius:14px;min-height:44px;padding:11px 13px;color:var(--ink);font-size:14px}
+.glass-ui .community-nav {gap:6px;margin:0 0 16px}
+.glass-ui .community-nav button,.glass-ui .community-nav a {min-height:40px;padding:8px 11px;border-radius:99px;border:1px solid var(--stroke);background:#ffffffb5;color:var(--ink);font-size:11px}
+.glass-ui .poster-list {gap:9px}
+.glass-ui .poster-entry {border:1px solid #ffffffce;background:#ffffffa3;box-shadow:0 2px 9px #00000006;border-radius:17px;padding:14px 12px;gap:10px;grid-template-columns:34px 1fr 13px;transition:background .18s,border-color .18s,box-shadow .18s}
+.glass-ui .poster-entry:hover {background:#ffffffed;box-shadow:0 4px 12px #0000000a}
+.glass-ui .poster-entry[aria-pressed=true] {background:#eaf2ff;border-color:#d7e5fa;box-shadow:none}
+.glass-ui .entry-number {font-family:inherit;font-size:19px;font-weight:600;line-height:1.3;border-color:var(--separator);color:var(--ink)}
+.glass-ui .entry-title {font-size:13px;font-weight:600;color:var(--ink);line-height:1.6}
+.glass-ui .entry-room {font-size:11px;color:var(--muted)}
+.glass-ui .entry-activity {font-size:11px;color:var(--muted)}
+.glass-ui .entry-arrow {color:var(--muted)}
+.glass-ui .poster-entry[aria-pressed=true] :is(.entry-number,.entry-arrow) {color:var(--tint)}
+.glass-ui .community-nav :is(button,a):hover {background:#fff;border-color:#c2d7f1}
+.glass-ui .social-summary {margin-top:19px;padding-top:17px;border-color:var(--separator)}
+.glass-ui .social-heading h2 {font-size:13px;font-weight:600}
+.glass-ui .social-heading>span {font-size:11px;color:var(--muted)}
+.glass-ui #social-identity {font-size:11px;color:var(--muted)}
+.glass-ui .person-chip {border-radius:99px;background:#ffffffb3;padding:5px 9px;color:var(--ink)}
+.glass-ui .social-note,.glass-ui .visitor-details,.glass-ui .sidebar-bottom {font-size:11px;color:var(--muted)}
+.glass-ui .appearance-settings {margin-top:16px;font-size:12px;color:var(--ink);line-height:1.7}
+.glass-ui .appearance-settings summary {cursor:pointer;min-height:36px;display:list-item;padding:6px 0}
+.glass-ui .appearance-settings label {display:flex;gap:9px;align-items:center;min-height:44px;cursor:pointer}
+.glass-ui .appearance-settings input {accent-color:var(--tint);width:18px;height:18px}
+.glass-ui .appearance-settings p {font-size:11px;margin:3px 0 8px;color:var(--muted)}
+.glass-ui .sidebar-bottom {padding-top:18px}
+.glass-ui .sidebar-bottom :is(summary,details p),.glass-ui .person-chip small {color:var(--muted)}
+.glass-ui .sidebar-bottom .dot {background:#8e8e93}
+.glass-ui .live-dot {background:#30a46c}
+.glass-ui .fade {background:var(--surface)}
+.glass-ui .loading>span:last-child {color:var(--muted)}
+.glass-ui .loading-mark {border-color:var(--tint)}
+.glass-ui .stage {border-radius:30px;overflow:hidden;border:1px solid #ffffffdd;box-shadow:0 8px 32px #00000008;background:#ededf0}
+.glass-ui .viewport {border-radius:inherit;background:radial-gradient(ellipse at 48% 38%,#f8f8fa,#e5e5e8)}
+.glass-ui .stage-toolbar {position:absolute;top:19px;left:20px;right:20px;height:auto;padding:0;z-index:5;gap:10px;pointer-events:none}
+.glass-ui .stage-toolbar>* {pointer-events:auto}
+.glass-ui .mode-switch {position:relative;border-radius:99px;padding:5px;gap:2px;min-height:54px;flex-shrink:0;--glass-fill:linear-gradient(150deg,#ffffffe0,#f5f5f7a3)}
+.glass-ui .mode-switch button {position:relative;z-index:1;min-height:42px;padding:8px 15px;font-size:12px;border-radius:99px;color:var(--ink);background:transparent;transition:color .18s,transform .18s}
+.glass-ui .mode-switch button[aria-pressed=true] {color:var(--tint);background:#ffffffcf;box-shadow:0 2px 6px #00000012;font-weight:600}
+.glass-ui .mode-switch[data-indicator-ready=true] button[aria-pressed=true] {background:transparent;box-shadow:none}
+.glass-ui .mode-indicator {display:none;position:absolute;top:5px;bottom:5px;left:var(--selection-left,5px);width:var(--selection-width,84px);border:1px solid #ffffffee;border-radius:99px;background:linear-gradient(155deg,#fffffffa,#ffffffb3);box-shadow:0 2px 8px #00000012;transition:left .28s cubic-bezier(.2,.8,.2,1),width .28s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.glass-ui .mode-switch[data-indicator-ready=true] .mode-indicator {display:block}
+.glass-ui .stage-toolbar .scan-entry {margin-left:auto;margin-right:0;border-radius:99px;min-height:48px;display:inline-flex;align-items:center;padding:10px 17px;font-size:12px;font-weight:550;color:var(--ink)}
+.glass-ui .icon-button {width:44px;height:44px;border-radius:50%;background:#ffffffac;border:1px solid var(--stroke);color:var(--ink);flex-shrink:0;font-size:24px}
+.glass-ui .stage-toolbar .icon-button {width:48px;height:48px}
+.glass-ui .view-caption {top:87px;left:24px;padding:8px 12px;border:1px solid #ffffffb0;background:#fafafcdc;border-radius:99px;font-size:10px;color:var(--ink);box-shadow:0 2px 8px #0000000a}
+.glass-ui .look-controls {position:absolute;bottom:calc(var(--footer-height,165px) + 34px);left:50%;border-radius:99px;padding:4px;z-index:3}
+.glass-ui .look-controls button {min-height:40px;border-radius:99px;color:var(--ink);padding:8px 14px;font-size:12px}
+.glass-ui .look-controls button:hover {border-radius:99px;background:#ffffffa6}
+.glass-ui .stage-footer {position:absolute;left:20px;right:20px;bottom:18px;z-index:4;border-radius:24px;padding:19px 22px;--glass-fill:linear-gradient(145deg,#ffffffdf,#f9f9fbbf);box-shadow:0 8px 30px #00000012,inset 0 1px 0 white}
+.glass-ui .overview-footer strong {font-size:16px;font-weight:600}
+.glass-ui .overview-footer p {font-size:12px;color:var(--ink);line-height:1.65}
+.glass-ui .button {min-height:46px;border-radius:99px;font-size:13px;padding:11px 18px;gap:12px;transition:background .16s,box-shadow .16s,transform .16s}
+.glass-ui .primary {background:linear-gradient(155deg,#0a70e8,#0061d9);border:1px solid #0060d3;color:white;box-shadow:inset 0 1px 0 #ffffff35,0 4px 10px #0066cc18}
+.glass-ui .primary:hover {background:linear-gradient(155deg,#0060d3,#004eb9);box-shadow:inset 0 1px 0 #ffffff35,0 5px 14px #0066cc26}
+.glass-ui .secondary {background:#ffffffbf;border:1px solid var(--stroke);color:var(--ink);box-shadow:inset 0 1px 0 white}
+.glass-ui .secondary:hover {background:white;border-color:#a8c7ee}
+.glass-ui button:not(:disabled):active,.glass-ui .scan-entry:active {transform:scale(.97)}
+.glass-ui .poster-info {gap:12px;margin-bottom:11px}
+.glass-ui .active-code {width:44px;height:44px;border-radius:13px;font:600 13px/1.2 -apple-system,sans-serif;background:#e7f1ff;border-color:#b9d5f8;color:var(--tint)}
+.glass-ui .poster-info p {color:var(--muted);font-size:11px}
+.glass-ui .poster-info h2 {font-size:20px;font-weight:650;letter-spacing:-.3px;color:var(--ink)}
+.glass-ui .text-button {font-size:12px;min-height:44px;min-width:44px;padding:6px 9px;color:var(--tint)}
+.glass-ui .poster-actions {gap:9px}
+.glass-ui .poster-actions .button {min-height:44px;white-space:nowrap;min-width:0}
+.glass-ui .active-activity {font-size:11px;color:var(--muted);margin:0 0 12px}
+.glass-ui .map {background:#f5f5f7;padding:90px 18px calc(var(--footer-height,100px) + 104px)}
+.glass-ui .map-shortcuts {bottom:calc(var(--footer-height,92px) + 34px);border-radius:99px;background:#fffffff2;box-shadow:0 4px 18px #00000012}
+.glass-ui .map-shortcuts button {border-radius:99px;color:var(--ink)}
+.glass-ui .map-shortcuts button[aria-pressed=true] {color:white;background:#0066cc}
+.glass-ui .map-shortcuts button:hover {outline-color:#b5cfee}
+.glass-ui .map-node circle {fill:var(--tint);stroke:#fff}
+.glass-ui .map-node[aria-pressed=true] circle {stroke:#1d1d1f}
+.glass-ui .map-node:focus circle {stroke:#8cbcf5}
+.glass-ui .map-node .activity-halo {fill:none;stroke:var(--tint)}
+.glass-ui .map-node .activity-count {fill:var(--ink);stroke:#fff}
+.glass-ui .map-route {stroke:#97b9e4}
+.glass-ui .map .labels,.glass-ui .map .label {fill:#48484a}
+.glass-ui .map .label {stroke:#f5f5f7}
+.glass-ui .map :is(.small,.sheet-title) {fill:#636366}
+.glass-ui .scene-error,.glass-ui .loading {padding-top:110px;padding-bottom:160px;background:#f5f5f7;color:var(--ink)}
+.glass-ui .toast {background:#1c1c1eed;border:1px solid #ffffff36;border-radius:99px;color:white;box-shadow:0 8px 25px #00000024;font-size:13px}
+
+/* Sheets share one regular material; their text cells have opaque semantic fills. */
+.glass-ui dialog,.glass-ui #discussion,.glass-ui #community-hub,.glass-ui #schedule-dialog,.glass-ui #report-dialog {
+  border:1px solid #fffffff5;border-radius:30px;background:linear-gradient(140deg,#fffffff0,#f5f5f7d9);
+  color:var(--ink);box-shadow:0 28px 100px #00000038,inset 0 1px 0 white;
+  -webkit-backdrop-filter:blur(22px) saturate(1.08);backdrop-filter:blur(22px) saturate(1.08);overflow:hidden;
+}
+.glass-ui dialog::backdrop {background:#00000030;-webkit-backdrop-filter:none;backdrop-filter:none}
+.glass-ui #discussion {width:690px;height:min(830px,91dvh);max-height:calc(100dvh - 28px)}
+.glass-ui .discussion-header,.glass-ui .reader-toolbar {padding:22px 25px 18px;border-bottom:1px solid var(--separator);background:transparent}
+.glass-ui .discussion-header h2 {font-size:22px;font-weight:650;letter-spacing:-.5px;color:var(--ink)}
+.glass-ui .discussion-header .eyebrow {color:var(--muted);font-size:10px}
+.glass-ui .discussion-presence {padding:10px 25px;background:#f2f2f7b8;color:var(--ink);font-size:12px;border-bottom:1px solid var(--separator)}
+.glass-ui .discussion-scroll,.glass-ui .hub-scroll {padding:17px 23px 23px;background:#fafafad6;scrollbar-width:thin;scrollbar-color:#d1d1d6 transparent}
+.glass-ui .question-card {padding:18px 20px;margin:0 0 15px;border:1px solid #cbded0;border-radius:21px;background:linear-gradient(135deg,#e7f4e9,#f1f8ef);box-shadow:inset 0 1px 0 #ffffffda,0 4px 12px #00000006}
+.glass-ui .question-title {font-size:16px;line-height:1.8;color:#28583d;font-weight:550;padding:10px 0}
+.glass-ui .question-meta {font-size:11px;gap:10px;color:#476a52}
+.glass-ui .message {border-radius:21px;padding:18px 20px;background:#f5f5f7;border-color:#e2e2e7}
+.glass-ui .message.author-answer {background:linear-gradient(135deg,#e4f0fb,#f1f7fc);border-color:#c9dced;box-shadow:inset 0 1px 0 #ffffffed}
+.glass-ui .message.root-question {background:#eaf5e9;border-color:#cbded0}
+.glass-ui .message-meta {color:var(--muted);font-size:12px}
+.glass-ui .message-meta time {color:var(--muted);font-size:11px}
+.glass-ui .message p {color:var(--ink);font-size:15px;line-height:1.85}
+.glass-ui .message blockquote {background:#ededf2;border-color:#c7c7cc;color:var(--muted)}
+.glass-ui .message .text-button {color:var(--tint);min-height:44px}
+.glass-ui .role-tag {border-radius:99px;font-size:10px;padding:2px 8px;border-color:#b5d1be;background:#ffffff6b;color:#3b674b}
+.glass-ui .author-answer .role-tag {color:#375f83;border-color:#b4cde2}
+.glass-ui .thread-actions {gap:8px;margin-top:13px}
+.glass-ui .thread-actions button,.glass-ui .question-prompts button,.glass-ui .admin-section button:not(.primary) {min-height:40px;border-radius:99px;border:1px solid var(--stroke);padding:8px 12px;background:#ffffffb5;color:var(--ink);font-size:12px}
+.glass-ui .thread-actions button[aria-pressed=true] {background:#e7f1ff;color:var(--tint);border-color:#afcff5}
+.glass-ui .discussion-form {padding:16px 23px 20px;background:#fafafce8;border-top:1px solid var(--separator)}
+.glass-ui .discussion-form>label {font-size:12px;color:var(--ink);margin-bottom:8px}
+.glass-ui .discussion-form textarea {border-radius:16px;border:1px solid var(--stroke);background:#ffffffeb;font-size:16px;line-height:1.6;color:var(--ink);padding:12px 14px;min-height:76px;box-shadow:inset 0 1px 3px #00000006}
+.glass-ui #discussion-input {height:44px;min-height:44px;max-height:120px;line-height:24px;padding:9px 12px;overflow-y:auto}
+.glass-ui .discussion-form textarea::placeholder {color:var(--muted)}
+.glass-ui .discussion-compose-footer p {font-size:11px;color:var(--muted)}
+.glass-ui .discussion-compose-footer .button {min-width:88px;min-height:42px}
+.glass-ui .discussion-compose-footer p[data-error=true] {color:#92492e}
+.glass-ui .discussion-reply {border-radius:12px;background:#e7f1ff;color:var(--ink);font-size:12px}
+.glass-ui .discussion-form input,.glass-ui .hub-toolbar input {accent-color:var(--tint)}
+.glass-ui .discussion-empty,.glass-ui .empty-state {color:var(--ink);line-height:1.8}
+.glass-ui .hub-toolbar {padding:12px 25px;color:var(--ink)}
+.glass-ui .hub-toolbar label {display:flex;align-items:center;gap:8px;min-height:44px}
+.glass-ui .unread-pill,.glass-ui .community-nav b:not(:empty) {background:var(--tint);font-size:10px}
+.glass-ui .reader-scroll {background:#fafafce8}
+.glass-ui .reader-scroll article {padding:34px 38px 42px}
+.glass-ui .reader-scroll h1 {color:var(--ink);font-size:32px;font-weight:650;letter-spacing:-.7px}
+.glass-ui .reader-summary {color:var(--ink);border-color:var(--stroke)}
+.glass-ui .reader-scroll p {color:var(--ink);font-size:15px;line-height:1.9}
+.glass-ui .reader-toolbar>span {font-size:12px;color:var(--ink);letter-spacing:.5px}
+.glass-ui .reader-scroll :is(.eyebrow,.reader-authors,figcaption,.reader-credit) {color:var(--muted)}
+.glass-ui .reader-scroll a,.glass-ui .schedule-card a {color:var(--tint)}
+.glass-ui .reader-scroll h2 {color:var(--ink)}
+.glass-ui .concept-art {border-radius:21px;background:linear-gradient(145deg,#ededf0,#f8f8fa);border-color:var(--stroke)}
+.glass-ui .concept-art :is(.nodes,small) {color:var(--muted)}
+.glass-ui .schedule-card {border-color:var(--stroke)}
+.glass-ui .schedule-card time {color:var(--muted)}
+.glass-ui .admin-section article {background:#ffffffbd;border-color:var(--stroke);border-radius:16px}
+.glass-ui .admin-section input,.glass-ui .admin-section select {border-radius:12px;min-height:44px;background:#fffffff0}
+.glass-ui .admin-section :is(input,select) {color:var(--ink);border-color:var(--stroke)}
+.glass-ui .map-fallback {color:var(--ink)}
+.glass-ui #report-dialog,.glass-ui #schedule-dialog {height:auto}
+.glass-ui.glass-dialog-open .stage .glass-surface {backdrop-filter:none;-webkit-backdrop-filter:none;background:#f5f5f7d9}
+.glass-ui.glass-dialog-open .sidebar,.glass-ui dialog.glass-inactive {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#f5f5f7!important}
+
+/* Entry / camera / QR pages use the same type, rounded geometry and material. */
+.glass-ui.entry-page .entry-shell {max-width:1120px;padding:36px 28px 65px}
+.glass-ui .scan-layout>.appearance-settings {grid-column:1/-1;order:3}
+.glass-ui.entry-page h1 {font-size:clamp(32px,4vw,46px);letter-spacing:-1.2px;line-height:1.25;font-weight:650;color:var(--ink)}
+.glass-ui.entry-page .lead {color:var(--ink);font-size:15px;line-height:1.9;max-width:37em}
+.glass-ui .camera-panel,.glass-ui .share-form,.glass-ui .qr-card {border-radius:28px;border:1px solid #ffffffed;background:linear-gradient(145deg,#ffffffe8,#f7f7f9e0);box-shadow:var(--glass-shadow);backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1)}
+.glass-ui .camera-panel {padding:17px}
+.glass-ui .camera-window {border-radius:20px;background:#1c1c1e}
+.glass-ui .camera-window video {background:#1c1c1e}
+.glass-ui .camera-placeholder {background:radial-gradient(ellipse at 50% 30%,#48484a,#252527);color:#f5f5f7}
+.glass-ui .camera-placeholder p {color:#e5e5ea}
+.glass-ui .camera-placeholder img {border-color:#ffffff70}
+.glass-ui .scan-guides {border-color:#ffffffd9}
+.glass-ui .scan-status {font-size:13px;color:var(--ink)}
+.glass-ui .scan-help,.glass-ui .manual-link {color:var(--ink);font-size:12px}
+.glass-ui .target-preview {border-color:var(--separator);padding-top:24px}
+.glass-ui .target-preview :is(p,a),.glass-ui .share-form :is(label,p) {color:var(--muted)}
+.glass-ui .target-preview a,.glass-ui .manual-link {color:var(--tint)}
+.glass-ui .target-preview h2 {color:var(--ink)}
+.glass-ui .target-preview img,.glass-ui .access-intro img {border-radius:9px;box-shadow:0 8px 22px #00000024}
+.glass-ui .entry-details {color:var(--ink);border-color:var(--separator)}
+.glass-ui .entry-details p {color:var(--ink);line-height:1.85}
+.glass-ui .share-form {padding:25px;max-width:none}
+.glass-ui .share-form input {border-radius:99px;background:#ffffffdd;border-color:var(--stroke);min-height:46px;padding:12px 18px}
+.glass-ui .share-form input {color:var(--ink)}
+.glass-ui .qr-card {padding:24px}
+.glass-ui .qr-card svg {background:white;border-radius:14px}
+.glass-ui .qr-card h2 {font-weight:600;color:var(--ink)}
+.glass-ui .qr-card p,.glass-ui .qr-card .qr-url {color:var(--muted)}
+.glass-ui .entry-caption,.glass-ui .copy-status {color:var(--muted)}
+.glass-ui .entry-actions {gap:9px}
+
+/* Display is the same visual family, with no live optical maps or hidden controls. */
+.glass-ui.display-mode .workspace {height:100dvh;min-height:0;padding:0;gap:0;grid-template-columns:310px minmax(0,1fr)}
+.glass-ui.display-mode .sidebar {border-radius:0;padding:28px 24px;background:#f5f5f7;backdrop-filter:none;-webkit-backdrop-filter:none;border:0;border-right:1px solid var(--stroke)}
+.glass-ui.display-mode .stage {height:100dvh;border:0;border-radius:0;box-shadow:none}
+.glass-ui.display-mode .viewport {border-radius:0}
+.glass-ui.display-mode #display-banner {background:#fafafcec;border-color:var(--stroke);padding:24px 28px;gap:20px;max-width:none}
+.glass-ui.display-mode #display-banner h1 {font-size:29px;font-weight:650;color:var(--ink)}
+.glass-ui.display-mode #display-banner p {color:var(--muted)}
+.glass-ui.display-mode .display-count strong {color:var(--tint)}
+.glass-ui.display-mode .view-caption {top:17px;left:20px}
+.glass-ui.display-mode .appearance-settings {display:none}
+.glass-ui.display-mode .poster-entry {border-radius:20px}
+
+/* Degradation is visual only; all controls and semantic labels remain available. */
+.glass-ui[data-glass-reduced=true] .glass-surface,.glass-ui[data-glass-reduced=true] dialog,
+.glass-ui[data-glass-reduced=true] .camera-panel,.glass-ui[data-glass-reduced=true] .share-form,.glass-ui[data-glass-reduced=true] .qr-card {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#f5f5f7!important;border-color:var(--stroke)}
+.glass-ui[data-glass-reduced=true] .glass-surface::after {display:none}
+.glass-ui[data-glass-motion=false] *,.glass-ui[data-glass-motion=false] *::before,.glass-ui[data-glass-motion=false] *::after {animation:none!important;transition:none!important}
+.glass-ui[data-glass-motion=false] button:active,.glass-ui[data-glass-motion=false] .scan-entry:active {transform:none}
+.glass-ui :is(button,a,input,textarea,select,summary,[tabindex]):focus-visible {outline:3px solid #007aff;outline-offset:3px}
+/* Override control-specific rings after pointer input, including restored dialog
+   focus. Selected reactions still use their own border/background, not outline. */
+.glass-ui[data-focus-input=pointer] :is(button,a,select,summary,[role=button],[tabindex]):focus {outline:none!important}
+.glass-ui button:disabled {opacity:.45}
+.glass-ui :is(.community-nav button,.community-nav a,.mode-switch button,.look-controls button,.thread-actions button,.question-prompts button,.discussion-compose-footer .button,.appearance-settings summary) {min-height:44px}
+
+@media(min-width:721px) and (max-height:850px) {
+  .glass-ui .workspace {min-height:570px}
+  .glass-ui .sidebar {padding:18px}
+  .glass-ui .venue-switch {margin-bottom:13px}
+  .glass-ui .intro-copy {margin-top:8px;font-size:11px}
+  .glass-ui .stats {margin:13px 0;padding:10px 0}
+  .glass-ui .intro h1 {font-size:25px}
+}
+@media(max-width:1100px) and (min-width:721px) {
+  .glass-ui .workspace {grid-template-columns:260px minmax(0,1fr);gap:13px;padding:0 16px 16px}
+  .glass-ui .sidebar {padding:18px}
+  .glass-ui .stage-toolbar {left:15px;right:15px;gap:6px}
+  .glass-ui .mode-switch button {padding:8px 11px}
+  .glass-ui .stage-toolbar .scan-entry {padding:10px 13px}
+  .glass-ui .stage-footer {left:15px;right:15px;padding:17px}
+  .glass-ui .poster-actions .button {font-size:12px;padding:10px 11px}
+}
+@media(max-width:720px) {
+  .glass-ui .topbar {height:64px;padding:0 17px;gap:10px}
+  .glass-ui .brand {font-size:18px}
+  .glass-ui .topbar #current-venue {font-size:11px;margin-right:auto}
+  .glass-ui .topbar .entry-toolbar-link {min-height:44px;font-size:11px;padding:9px 12px;margin-left:0}
+  .glass-ui .topbar .plan-link {font-size:11px;padding:10px 12px}
+  .glass-ui .workspace {height:auto;min-height:0;padding:0 10px 14px;gap:14px}
+  .glass-ui .stage {height:calc(100svh - 78px);min-height:640px;border-radius:25px}
+  .glass-ui .sidebar {padding:22px 20px;border:1px solid white;border-radius:25px;overflow:visible}
+  .glass-ui .venue-switch {font-size:12px}
+  .glass-ui .list-heading h2 {font-size:17px}
+  .glass-ui .poster-entry {padding:16px 14px;border-radius:18px}
+  .glass-ui .entry-title {font-size:14px}
+  .glass-ui .entry-activity {font-size:12px}
+  .glass-ui .community-nav button,.glass-ui .community-nav a {min-height:44px;font-size:12px}
+  .glass-ui .search-label input {font-size:16px}
+  .glass-ui .stage-toolbar,.glass-ui .stage-toolbar:has(.scan-entry) {top:13px;left:10px;right:10px;padding:0;gap:6px}
+  .glass-ui .mode-switch {min-height:50px;padding:4px;gap:0;flex:1;max-width:290px}
+  .glass-ui .mode-switch button,.glass-ui .stage-toolbar:has(.scan-entry) .mode-switch button {font-size:11px;padding:8px 9px;min-height:40px;flex:1}
+  .glass-ui .mode-indicator {top:4px;bottom:4px}
+  .glass-ui .stage-toolbar .scan-entry {min-height:44px;font-size:11px;padding:9px 11px;flex-shrink:0}
+  .glass-ui .stage-toolbar .icon-button,.glass-ui .stage-toolbar:has(.scan-entry) .icon-button {width:44px;height:44px}
+  .glass-ui .view-caption {top:78px;left:15px;font-size:10px}
+  .glass-ui .look-controls {bottom:calc(var(--footer-height,165px) + 24px);padding:3px}
+  .glass-ui .look-controls button {min-height:40px;font-size:12px;padding:8px 14px}
+  .glass-ui .stage-footer {left:10px;right:10px;bottom:11px;padding:16px;border-radius:21px}
+  .glass-ui .poster-info {gap:10px;margin-bottom:9px;flex-wrap:wrap}
+  .glass-ui .poster-info>div {flex:1;min-width:0}
+  .glass-ui .poster-info h2 {font-size:17px;line-height:1.5}
+  .glass-ui .poster-info p {font-size:10px;line-height:1.5}
+  .glass-ui #back-spot {min-height:44px;font-size:11px;padding:3px 0;flex-basis:100%;text-align:right}
+  .glass-ui #back-spot:disabled {display:none}
+  .glass-ui .active-code {width:39px;height:39px;font-size:12px}
+  .glass-ui .active-activity {font-size:11px;margin-bottom:10px}
+  .glass-ui .poster-actions {gap:6px}
+  .glass-ui .poster-actions .button {font-size:11px;padding:10px 7px;min-height:44px;white-space:nowrap}
+  .glass-ui .overview-footer {gap:10px}
+  .glass-ui .overview-footer strong {font-size:14px}
+  .glass-ui .overview-footer p {font-size:11px;max-width:180px}
+  .glass-ui .overview-footer .button {font-size:12px;padding:10px 15px;white-space:nowrap}
+  .glass-ui .map {padding:104px 4px calc(var(--footer-height,165px) + 92px)}
+  .glass-ui .map-shortcuts {bottom:calc(var(--footer-height,100px) + 24px)}
+  .glass-ui dialog,.glass-ui #discussion,.glass-ui #community-hub,.glass-ui #schedule-dialog,.glass-ui #report-dialog {border-radius:24px;max-width:calc(100vw - 14px);max-height:calc(100dvh - 14px)}
+  .glass-ui #discussion,.glass-ui #community-hub {height:calc(100dvh - 14px)}
+  .glass-ui .discussion-header,.glass-ui .reader-toolbar {padding:17px 17px 13px;gap:10px}
+  .glass-ui .discussion-header h2 {font-size:19px;line-height:1.4}
+  .glass-ui .discussion-header .eyebrow {font-size:9px;margin-bottom:6px}
+  .glass-ui .discussion-presence {padding:9px 17px;font-size:11px}
+  .glass-ui .discussion-scroll,.glass-ui .hub-scroll {padding:14px 13px 17px}
+  .glass-ui .question-card,.glass-ui .message {padding:15px;border-radius:18px}
+  .glass-ui .question-title {font-size:15px}
+  .glass-ui .message-meta {font-size:11px}
+  .glass-ui .thread-actions {gap:6px}
+  .glass-ui .thread-actions button {min-height:42px;padding:8px 11px;font-size:11px}
+  .glass-ui .discussion-form {padding:13px 16px max(13px,env(safe-area-inset-bottom))}
+  .glass-ui .discussion-form textarea {font-size:16px;min-height:68px}
+  .glass-ui .question-prompts {gap:6px}
+  .glass-ui .question-prompts button {min-height:36px;padding:6px 10px;font-size:11px}
+  .glass-ui .discussion-compose-footer {margin-top:9px}
+  .glass-ui .discussion-compose-footer .button {min-height:44px}
+  .glass-ui .mode-switch button,.glass-ui .stage-toolbar:has(.scan-entry) .mode-switch button,.glass-ui .look-controls button,.glass-ui .thread-actions button,.glass-ui .question-prompts button {min-height:44px}
+  .glass-ui .reader-scroll article {padding:25px 22px 32px}
+  .glass-ui .reader-scroll h1 {font-size:27px}
+  .glass-ui .reader-toolbar>span {font-size:10px}
+  .glass-ui.entry-page .entry-shell {padding:26px 20px 45px}
+  .glass-ui.entry-page h1 {font-size:34px}
+  .glass-ui .camera-panel {padding:13px;border-radius:25px}
+  .glass-ui .camera-window {border-radius:18px}
+  .glass-ui .entry-actions .button {padding:10px 12px;font-size:12px}
+  .glass-ui .share-form {padding:20px;border-radius:23px}
+  .glass-ui .share-form input {font-size:16px}
+  .glass-ui .access-intro .button {font-size:12px}
+  .glass-ui.display-mode .workspace {height:100dvh;padding:0}
+  .glass-ui.display-mode .stage {min-height:0;border-radius:0;height:100dvh}
+  .glass-ui.display-mode #display-banner {padding:16px;gap:12px}
+  .glass-ui.display-mode #display-banner h1 {font-size:20px}
+}
+@media(max-width:370px) {
+  .glass-ui .topbar #current-venue {display:none}
+  .glass-ui .topbar .entry-toolbar-link {margin-left:auto}
+  .glass-ui .stage-toolbar,.glass-ui .stage-toolbar:has(.scan-entry) {flex-wrap:wrap;justify-content:flex-end}
+  .glass-ui .mode-switch {flex-basis:100%;max-width:none}
+  .glass-ui .view-caption {top:128px}
+  .glass-ui .map {padding-top:157px}
+  .glass-ui .stage-toolbar .scan-entry {margin-left:auto}
+  .glass-ui .poster-actions .button {font-size:10px;padding:10px 5px}
+  .glass-ui .question-meta {gap:6px}
+}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more),(forced-colors:active) {
+  .glass-ui .glass-surface,.glass-ui dialog,.glass-ui .camera-panel,.glass-ui .share-form,.glass-ui .qr-card {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#f5f5f7!important;border-color:#86868b}
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+  .glass-ui .glass-surface,.glass-ui dialog,.glass-ui .camera-panel,.glass-ui .share-form,.glass-ui .qr-card {background:#f5f5f7}
+}
+@media(forced-colors:active) {
+  .glass-ui .mode-switch button[aria-pressed=true],.glass-ui .poster-entry[aria-pressed=true] {outline:2px solid Highlight;outline-offset:-3px}
+  .glass-ui .mode-indicator {display:none!important}
+}
+@media print {
+  .glass-ui {background:white;color:black}
+  .glass-ui .appearance-settings {display:none}
+  .glass-ui .qr-card {border:0;box-shadow:none;background:white;backdrop-filter:none;-webkit-backdrop-filter:none}
+}

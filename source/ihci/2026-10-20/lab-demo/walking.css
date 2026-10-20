@@ -1,0 +1,16 @@
+.walk-controls{position:absolute;z-index:3;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;width:calc(100% - 28px);max-width:344px;pointer-events:none}
+.glass-ui .walk-controls{bottom:calc(var(--footer-height,165px) + 25px)}
+.walk-controls>div{pointer-events:auto}
+.walk-pad{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:2px;padding:4px;border-radius:24px;flex-shrink:0}
+.walk-pad button{width:44px;height:44px;border:0;background:transparent;border-radius:16px;font-size:22px;color:var(--ink,#334155);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.walk-pad button[data-walk=forward]{grid-area:1/2}.walk-pad button[data-walk=left]{grid-area:2/1}.walk-pad button[data-walk=back]{grid-area:2/2}.walk-pad button[data-walk=right]{grid-area:2/3}
+.walk-pad button.is-held,.walk-pad button:active{background:#007aff;color:white}
+.walk-tools{min-width:0;flex:1;display:grid;gap:6px}
+.glass-ui .walk-controls .look-controls,.walk-controls .look-controls{position:static;transform:none;display:flex;padding:3px;margin:0;width:100%;border-radius:24px}
+.glass-ui .walk-controls .look-controls button{padding:6px;min-width:44px;min-height:44px;font-size:11px;flex:1}
+.glass-ui .walk-controls #look-center{padding:4px 2px;min-width:64px;white-space:nowrap;flex:1.5}
+.walk-info{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:3px 5px 3px 10px;border-radius:22px}
+#walk-distance{font-size:11px;line-height:1.5;font-variant-numeric:tabular-nums;color:var(--ink,#334155)}
+#walk-home{min-height:44px;min-width:44px;border:0;border-radius:18px;background:transparent;color:#0066cc;font-size:11px;padding:6px;white-space:nowrap}
+.display-mode .walk-controls{display:none!important}
+@media(max-width:360px){.walk-controls{flex-wrap:wrap;gap:5px;max-width:300px}.walk-pad{grid-template-columns:repeat(4,44px);grid-template-rows:44px;gap:3px;margin:auto}.walk-pad button[data-walk]{grid-area:auto}.walk-tools{flex-basis:100%;display:grid;gap:5px}#walk-home{font-size:10px}}

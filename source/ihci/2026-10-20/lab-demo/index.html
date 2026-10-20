@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#f5f5f7" name="theme-color"/>
+<title>IHCI 数字会场 · 2026-10-20 只读存档</title>
+<link href="./ieb-r18.css" rel="stylesheet"/>
+<meta content="IHCI 数字会场 2026-10-20 静态只读存档：IEB 一楼、实验室三楼和三张示例海报。" name="description"/>
+<link href="../brand/ihci-favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="./demo.css" rel="stylesheet"/>
+<link href="./entry.css" rel="stylesheet"/>
+<link href="./social.css" rel="stylesheet"/>
+<link href="./glass.css" rel="stylesheet"/>
+<script type="importmap">{"imports":{"three":"../vendor/three.module.js"}}</script>
+<script defer="" src="../vendor/qrcode-generator-1.4.4.js"></script>
+<script src="./app.js" type="module"></script>
+<script src="./glass-ui.js" type="module"></script>
+<link href="./discussion-images.css" rel="stylesheet"/>
+<link href="./interactions.css" rel="stylesheet"/>
+<link href="./authors.css" rel="stylesheet"/>
+<link href="./walking.css" rel="stylesheet"/>
+<link href="../brand/brand.css" rel="stylesheet"/>
+<link href="./mobile-shell.css" rel="stylesheet"/>
+<link href="./desktop-shell.css" rel="stylesheet"/>
+<link href="../../archive.css" rel="stylesheet"/></head>
+<body class="glass-ui archive-venue"><aside aria-label="项目存档说明" class="archive-strip"><div><strong>只读项目存档</strong><span>2026-10-20 · 来源 v30 · 示例布展 / 原型</span></div><nav><a href="../../index.html">存档说明</a><a href="../../../projects/">返回项目</a></nav></aside>
+<header class="topbar">
+<a aria-label="IHCI 数字会场首页" class="brand" href="../"><img alt="" aria-hidden="true" class="conference-logo" height="76" src="../brand/ihci-logo.webp" width="128"/>IHCI 数字会场</a>
+<span class="top-caption" id="current-venue">数字展厅</span>
+<a class="entry-toolbar-link" href="./access.html" id="access-link">手机入口 ↗</a>
+<a class="plan-link" href="../lab-floor/" id="plan-link">核对楼层平面 ↗</a>
+<span class="demo-badge">只读存档 · v30</span>
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="打开会场菜单" class="mobile-only" id="mobile-menu-toggle" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg><span>会场</span></button>
+</header>
+<main class="workspace">
+<aside aria-label="展厅与海报目录" class="sidebar glass-surface" data-glass="panel">
+<label class="venue-switch" for="venue-select">当前场馆<select aria-label="切换场馆" id="venue-select"></select></label><div class="intro"><p class="eyebrow" id="venue-purpose">DIGITAL VENUE</p><h1 id="venue-title">数字展厅</h1><p class="intro-copy brand-tagline">浏览空间，阅读示例海报</p><p class="intro-copy" id="venue-description">在不同场馆中，继续浏览同一组海报。</p></div>
+<div class="stats"><span><strong id="space-count">—</strong> 个空间</span><span><strong id="poster-count">03</strong> 个示例展位</span></div>
+<div class="list-heading"><h2>探索海报</h2><span id="visit-count">0 / 3 已浏览</span></div>
+<label class="search-label" for="poster-search">按编号或标题查找<input autocomplete="off" id="poster-search" placeholder="搜索 Poster" type="search"/></label><p class="empty-state" hidden="" id="search-empty">没有匹配的海报</p>
+<nav aria-label="交流与议程" class="community-nav"><button id="open-schedule">Keynote 议程</button></nav>
+<div aria-label="海报目录" class="poster-list" id="poster-list"></div>
+<details class="appearance-settings"><summary>显示设置</summary><label><input id="glass-reduce" type="checkbox"/> 减少透明效果</label></details>
+<div class="sidebar-bottom"><p><span class="dot"></span>布局核对中 · 示例布展</p><details><summary>关于这个 Demo</summary><p>可查看整层白模、进入海报前环顾，并在三个展位间切换。海报挂点为演示预留，房间布局仍在核对。</p><p id="venue-boundary"></p><p>暂用 3 m 墙高、1.65 m 视点。P-01 可进行本地图片识别；手机真机识别、现场尺度和通行仍待验收。此存档不连接线上交流服务。</p><button class="button secondary" id="restart-tour">重新开始演示</button></details></div>
+</aside>
+<section aria-label="数字展厅查看器" class="stage">
+<div class="stage-toolbar">
+<nav aria-label="浏览模式" class="mode-switch glass-surface" data-glass="lens"><span aria-hidden="true" class="mode-indicator"></span><button aria-pressed="true" data-mode="overview">3D 总览</button><button aria-pressed="false" data-mode="explore">海报浏览</button><button aria-pressed="false" data-mode="map">平面地图</button></nav>
+<a class="scan-entry glass-surface" data-glass="regular" href="./scan.html" id="open-scanner">扫描海报</a>
+<button aria-label="恢复当前视角" class="icon-button glass-surface" data-glass="regular" id="reset-view" title="恢复当前视角">⤢</button>
+</div>
+<div class="viewport">
+<div aria-label="三维楼层场景" class="scene" id="scene"></div>
+<div aria-label="平面地图，选择编号进入海报" class="map" hidden="" id="map"></div>
+<div class="loading" id="loading" role="status"><span class="loading-mark"></span><strong>正在打开数字展厅</strong><span>载入楼层与三个展位</span></div>
+<div class="scene-error" hidden="" id="scene-error"><strong>暂时无法显示 3D</strong><p>仍可从平面地图选择展位、阅读海报。</p><button class="button primary" id="error-map">打开平面地图</button></div>
+<div class="view-caption"><span class="live-dot"></span><span id="view-caption">楼层白模 · 高度暂定</span></div>
+<button aria-controls="walk-controls" aria-expanded="false" class="mobile-only" hidden="" id="mobile-walk-toggle" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="13" cy="4" r="2"></circle><path d="m7 21 3-7 2-6 3 4 4 1M7 12l3-4h2m-2 6 5 2 1 5"></path></svg><span>走动</span></button>
+<div aria-label="自由走动" class="walk-controls" hidden="" id="walk-controls">
+<div aria-label="按住移动方向" class="walk-pad glass-surface" data-glass="regular" role="group">
+<button aria-label="向左平移" data-walk="left" title="向左平移 · A / ←" type="button">←</button><button aria-label="向前走" data-walk="forward" title="向前走 · W / ↑" type="button">↑</button><button aria-label="向后走" data-walk="back" title="向后走 · S / ↓" type="button">↓</button><button aria-label="向右平移" data-walk="right" title="向右平移 · D / →" type="button">→</button>
+</div>
+<div class="walk-tools"><div class="look-controls glass-surface" data-glass="lens" hidden="" id="look-controls"><button aria-label="向左看" id="look-left">↶</button><button id="look-center">正对海报</button><button aria-label="向右看" id="look-right">↷</button></div><div class="walk-info glass-surface" data-glass="regular"><span id="walk-distance">自由走动</span><button aria-label="回到当前 Poster 展位" id="walk-home" type="button">回到展位</button></div></div>
+</div>
+<div aria-hidden="true" class="fade" id="fade"></div>
+</div>
+<footer class="stage-footer glass-surface" data-glass="panel">
+<div class="overview-footer" id="overview-footer"><div><strong id="overview-title">从一个展位开始</strong><p id="interaction-help">拖动旋转 · 滚轮缩放 · 点击展位进入</p></div><button class="button primary" disabled="" id="start-tour">开始浏览 <span>↗</span></button></div>
+<div class="poster-footer" hidden="" id="poster-footer"><div class="poster-info"><span class="active-code" id="active-code">P-01</span><div><p id="active-room"></p><h2 id="active-title"></h2></div><button class="text-button" disabled="" id="back-spot">← 返回上一处</button></div><div class="poster-actions"><button class="button primary" id="read-poster">阅读全文 ↗</button><button aria-controls="poster-footer" aria-expanded="false" aria-hidden="true" aria-label="展开表情与海报详情" class="mobile-only" disabled="" hidden="" id="mobile-reactions-toggle" tabindex="-1" type="button"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.7" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M8 14s1.3 3 4 3 4-3 4-3"></path><path d="M8 9h.01M16 9h.01" stroke-width="3"></path></svg><span class="desktop-only">回应</span></button><button class="button secondary" id="next-poster">下一站 →</button></div></div>
+</footer>
+</section>
+</main>
+<dialog aria-labelledby="mobile-menu-title" id="mobile-menu"><header class="mobile-menu-header"><h2 id="mobile-menu-title">会场</h2><button aria-label="关闭会场菜单" id="mobile-menu-close" type="button">×</button></header><div class="mobile-menu-scroll"><div id="mobile-tools"></div><div id="mobile-directory"></div><nav aria-label="分享与空间工具" id="mobile-utility-links"></nav></div></dialog>
+<dialog aria-labelledby="reader-title" id="reader"><header class="reader-toolbar"><span id="reader-code"></span><button aria-label="关闭海报正文" class="icon-button" id="close-reader">×</button></header><div class="reader-scroll" id="reader-scroll"><article id="reader-content"></article></div></dialog>
+<dialog aria-labelledby="schedule-title" id="schedule-dialog"><header class="discussion-header"><div><p class="eyebrow">KEYNOTE</p><h2 id="schedule-title">会议议程</h2></div><button aria-label="关闭议程" class="icon-button" id="close-schedule">×</button></header><div class="hub-scroll" id="schedule-content"></div></dialog>
+<div class="toast" hidden="" id="toast" role="status"></div>
+<noscript>请启用 JavaScript，或查看 <a href="../lab-floor/model.svg">楼层平面图</a>。</noscript>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "packId": "lab-p01-v1",
+  "packVersion": 1,
+  "exhibitionId": "lab-preview-01",
+  "engine": "MindAR 1.2.5",
+  "src": "./assets/p01.mind",
+  "sha256": "5e51a81a004d559f48778344916416eb8644b3d912094a4b07429b6d08ac7ad7",
+  "targets": [{"targetIndex": 0, "targetId": "spatial-learning-2026", "posterId": "P-01"}]
+}

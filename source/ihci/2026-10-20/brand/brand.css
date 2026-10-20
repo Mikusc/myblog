@@ -1,0 +1,13 @@
+/* Original IHCI artwork, served locally; no recolouring or stretching. */
+.brand {display:inline-flex;align-items:center;gap:9px;white-space:nowrap;flex-shrink:0}
+.brand .conference-logo {display:block;flex:0 0 auto;width:96px;height:57px;object-fit:contain;border-radius:10px;background:#fff}
+@media (max-width:720px) {
+  .brand {gap:8px}
+  .brand .conference-logo {width:76px;height:45px}
+  .topbar #current-venue {display:none!important}
+  .glass-ui .topbar .entry-toolbar-link {margin-left:auto}
+}
+@media (max-width:380px) {
+  .brand .conference-logo {width:60px;height:36px}
+  .glass-ui .brand {font-size:16px}
+}

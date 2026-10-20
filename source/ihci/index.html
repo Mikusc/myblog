@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="IHCI 数字会场的独立只读项目存档。浏览 IEB 一楼、实验室三楼和三张示例海报，了解从现场素材到空间交互原型的工作。">
+  <meta name="theme-color" content="#f3f5ef">
+  <title>IHCI 数字会场 · 项目存档 | Mikusc</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <style>
+    :root{color-scheme:light;--ink:#233b30;--muted:#5d6d63;--line:#d4ddd3;--green:#246348;--paper:#f3f5ef}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.8 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+    a{color:var(--green);text-underline-offset:4px}a:focus-visible{outline:3px solid #4b8a64;outline-offset:5px}
+    .wrap{max-width:1080px;margin:auto;padding:0 28px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-block:22px;border-bottom:1px solid var(--line)}.top a{text-decoration:none}.wordmark{font-weight:700;letter-spacing:.03em}
+    main{padding:64px 0 44px}.eyebrow{font:600 12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.11em;color:var(--green);margin:0 0 18px}h1{font-size:clamp(34px,6vw,60px);line-height:1.16;letter-spacing:-.05em;margin:0 0 22px;font-weight:650}h2{font-size:23px;line-height:1.5;margin:0 0 12px}h3{margin:0;font-size:23px}.lede{font-size:19px;color:var(--muted);max-width:740px;margin:0 0 18px}.meta{color:var(--muted);font-size:13px}
+    .venues{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:34px 0 46px}.venue{border:1px solid var(--line);border-radius:18px;padding:26px;background:#ffffff9c;text-decoration:none;display:flex;flex-direction:column;gap:11px;transition:border-color .15s,transform .15s}.venue:hover{border-color:#709e7e;transform:translateY(-2px)}.venue p{color:var(--muted);margin:0;font-size:14px}.venue small{letter-spacing:.08em;font-size:11px;color:var(--green)}.venue .cta{margin-top:8px;font-weight:600;font-size:14px}.section{padding:30px 0;border-top:1px solid var(--line)}.section p{margin:10px 0;color:var(--muted);max-width:880px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:30px}.label{display:inline-block;border:1px solid #bfd0bf;border-radius:20px;padding:3px 11px;font-size:12px;color:#41634c;margin-bottom:12px}.links{display:flex;gap:10px 28px;flex-wrap:wrap}.fine{font-size:13px}footer{padding:24px 0 36px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    @media(max-width:700px){.wrap{padding-inline:20px}main{padding-top:40px}.lede{font-size:17px}.venues,.cols{grid-template-columns:1fr}.venue{padding:22px}.venues{gap:14px;margin-block:28px 34px}.top{padding-block:18px;font-size:14px}}
+    @media(prefers-reduced-motion:reduce){.venue{transition:none}.venue:hover{transform:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top"><a class="wordmark" href="/">Mikusc</a><a href="../projects/">返回项目作品集 ↗</a></header>
+    <main>
+      <p class="eyebrow">SPATIAL EXPERIENCE / PROJECT ARCHIVE</p>
+      <h1>IHCI 数字会场</h1>
+      <p class="lede">把会议海报放回空间中。通过一张地图、一段场馆浏览和一个海报入口，探索研究内容如何与现场环境连接。</p>
+      <p class="meta">独立只读存档 · 2026-10-20 · 原演示站版本 30 / R18 场馆</p>
+      <div class="venues">
+        <a class="venue" href="./2026-10-20/lab-demo/index.html?venue=ieb-1f&amp;view=overview">
+          <small>01 / IEB</small><h2>IEB 一楼</h2><p>浏览大厅、Alumni、咖啡厅与连接廊。以现场素材和手绘范围组织卡通场馆，再将示例海报放入空间。</p><span class="cta">进入场馆存档 →</span>
+        </a>
+        <a class="venue" href="./2026-10-20/lab-demo/index.html?venue=lab-3f&amp;view=overview">
+          <small>02 / LAB</small><h2>实验室三楼</h2><p>用于验证地图、海报浏览与二维码入口的楼层原型。支持总览、三张示例海报与正文阅读。</p><span class="cta">进入实验室存档 →</span>
+        </a>
+      </div>
+      <section class="section">
+        <span class="label">可直接体验</span>
+        <h2>在空间与内容之间切换</h2>
+        <p>拖动查看场馆，点击海报进入观察点，打开正文或从地图切换到下一张海报。可以切换两套场馆配置；支持 WebGL 的浏览器还可在模型中走动。模型资源首次载入可能需要稍等。</p>
+        <p>手机入口可生成指向此存档的二维码。扫描 P-01 示例海报时，识别在浏览器中进行，需要 HTTPS 和相机授权；也可以直接使用目录和地图浏览。</p>
+      </section>
+      <section class="section cols">
+        <div><span class="label">保留的成果</span><h2>一个可独立查阅的快照</h2><p>场馆配置、3D 模型、地图、示例海报及浏览界面保存在本站。运行所需的 Three.js、MindAR 等依赖也随存档保存，保留各自许可。</p><p>原系统中的讨论、作者工作台和图片上传属于联网版本功能。本存档只展示浏览流程，不连接线上交流服务，也不创建访客身份。</p></div>
+        <div><span class="label">当前边界</span><h2>原型与示例布展</h2><p>P-01–P-03 是演示内容，不代表正式会议海报名单或正式布展。场馆的门位、尺寸、家具间距和实地通行仍需核对；模型内可走动不代表现实导航或无障碍路线。</p><p>手机真机的相机识别、性能与现场尺度尚待验收。此存档也不包含访客、评论、作者资料、原始采集照片视频、数据库或后台工具。</p></div>
+      </section>
+      <section class="section">
+        <h2>版本与来源</h2>
+        <p class="fine">存档冻结于 2026-10-20，来源为原演示站版本 30。副本移除了联机互动入口，并适配了本站子目录；模型与示例边界继续保留。原演示站可能继续更新。</p>
+        <nav class="links" aria-label="存档资料">
+          <a href="./2026-10-20/archive-manifest.json">文件与版本清单</a>
+          <a href="./2026-10-20/lab-demo/THIRD-PARTY.md">第三方依赖与素材说明</a>
+          <a href="https://ihci-lab-venue.mikusc.chatgpt.site/lab-demo/index.html?venue=ieb-1f&amp;view=overview" target="_blank" rel="noopener noreferrer">查看原演示站 ↗</a>
+        </nav>
+      </section>
+    </main>
+    <footer>个人项目作品存档 · IHCI 标志的来源与素材记录保留于存档，不表示会议官方授权或正式采用。</footer>
+  </div>
+</body>
+</html>

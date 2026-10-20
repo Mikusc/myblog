@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#f4f2eb" name="theme-color"/>
+<title>实验室楼层 · IHCI 数字会场 · 项目存档</title>
+<link href="../brand/ihci-favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="./viewer.css" rel="stylesheet"/>
+<script src="./viewer.js" type="module"></script>
+<link href="../brand/brand.css" rel="stylesheet"/><link href="../../archive.css" rel="stylesheet"/></head>
+<body><aside aria-label="项目存档说明" class="archive-strip"><div><strong>只读项目存档</strong><span>2026-10-20 · 来源 v30 · 示例布展 / 原型</span></div><nav><a href="../../index.html">存档说明</a><a href="../../../projects/">返回项目</a></nav></aside>
+<header class="topbar">
+<a aria-label="返回 IHCI 数字会场" class="brand" href="../"><img alt="" aria-hidden="true" class="conference-logo" height="76" src="../brand/ihci-logo.webp" width="128"/>IHCI 数字会场</a>
+<div class="breadcrumb"><span>空间工作台</span><i>/</i><strong>实验室楼层</strong></div>
+<span class="revision">待现场核对 <span>R3</span></span>
+<a class="back-link" href="../">返回会场 ↗</a>
+</header>
+<main class="studio">
+<aside aria-label="楼层信息与空间列表" class="sidebar">
+<section class="intro">
+<p class="eyebrow">LABORATORY / FLOOR ATLAS</p>
+<h1>实验室楼层<span>平面孪生</span></h1>
+<p class="intro-text">从一张图纸开始，建立可浏览、<br/>可核对的空间底图。</p>
+<div class="floor-note"><span class="status-dot"></span>楼层编号待核对 <button aria-controls="model-notes" aria-expanded="false" id="about-toggle" title="查看图纸说明">ⓘ</button></div>
+<div class="model-notes" hidden="" id="model-notes"><p>讨论中称三楼，原图右上标有 1F，图纸版本待确认。房间编号为本模型新增索引。</p><p>比例根据 8400 mm 标注估算。门洞、墙厚及局部隔间作简化表达，实际尺寸与通行情况仍需现场核对。</p></div>
+</section>
+<section aria-live="polite" class="selection" id="selection"><p class="eyebrow">正在加载空间数据</p></section>
+<div class="directory-heading"><h2>空间目录</h2><span id="room-count"></span></div>
+<label class="search"><span aria-hidden="true">⌕</span><input aria-label="查找空间" id="room-search" placeholder="查找实验室、会议室…" type="search"/></label>
+<div aria-label="按空间用途筛选" class="category-filters" id="category-filters"></div>
+<div aria-label="空间列表" class="room-list" id="room-list"></div>
+<footer class="sidebar-footer"><span>2026.09.27 · 截图描摹</span><a download="lab-floor-model.json" href="./model.json" id="export-json" title="导出可编辑空间数据">导出模型 ↓</a></footer>
+</aside>
+<section aria-label="平面模型查看器" class="map-section">
+<div class="map-topline"><div><span class="mode-pill">二维平面</span><span class="map-subtitle">房间 · 通道 · 院落</span></div><a class="quiet-button" href="../lab-demo/?venue=lab-3f" style="margin-right:8px">3D 展厅 ↗</a><a class="quiet-button" download="lab-floor-plan.svg" href="./model.svg" id="export-svg">下载 SVG ↗</a></div>
+<div aria-label="图层显示" class="layer-bar">
+<label><input checked="" id="show-labels" type="checkbox"/>空间名称</label>
+<label><input checked="" id="show-doors" type="checkbox"/>门洞</label>
+<label><input id="show-posters" type="checkbox"/>示例海报位</label>
+<label class="compare-label"><input id="show-source" type="checkbox"/>原图对照</label>
+<label hidden="" id="opacity-control">模型<input aria-label="原图对照时模型透明度" id="model-opacity" max="100" min="0" type="range" value="55"/></label>
+</div>
+<div class="map-viewport" id="map-viewport"><div class="loading-message" id="loading-message" role="status">正在载入楼层模型…</div></div>
+<div class="map-bottom"><div aria-label="空间类型图例" class="legend" id="legend"></div><div aria-label="缩放操作" class="zoom-controls"><button aria-label="缩小" id="zoom-out">−</button><output aria-label="缩放比例" id="zoom-value">100%</output><button aria-label="放大" id="zoom-in">+</button><span></span><button id="fit-floor" title="恢复全层视图">全层 ⤢</button></div></div>
+<p class="map-help" id="map-help">拖动平移 · 滚轮缩放 · 点击空间查看详情</p>
+</section>
+</main>
+<div class="toast" hidden="" id="toast" role="status"></div>
+<noscript><p class="noscript">查看交互模型需要 JavaScript。可直接打开 <a href="./model.svg">静态 SVG 平面图</a> 或 <a href="./model.json">空间数据</a>。</p></noscript>
+</body>
+</html>

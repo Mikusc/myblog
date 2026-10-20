@@ -7,8 +7,8 @@
   var dictionary = {
     zh: {
       'site.name': 'Mikusc的小站',
-      'site.tagline': 'Course Notes · Projects · Tech Notes',
-      'site.heroSubtitle': '课程复习、项目实践与技术笔记',
+      'site.tagline': 'Applied AI · Spatial Interaction · Projects',
+      'site.heroSubtitle': 'AI 应用、空间交互与项目实践',
       'site.dropdownCurrent': 'Mikusc 的小站',
       'site.arcaeaChannel': '韵律源点 Arcaea 腾讯频道',
       'social.github': 'GitHub',
@@ -74,8 +74,8 @@
     },
     en: {
       'site.name': "Mikusc's Site",
-      'site.tagline': 'Course Notes · Projects · Tech Notes',
-      'site.heroSubtitle': 'Course Review, Projects, and Technical Notes',
+      'site.tagline': 'Applied AI · Spatial Interaction · Projects',
+      'site.heroSubtitle': 'Applied AI, Spatial Interaction, and Projects',
       'site.dropdownCurrent': "Mikusc's Site",
       'site.arcaeaChannel': 'Arcaea Tencent Channel',
       'social.github': 'GitHub',
@@ -145,72 +145,6 @@
   // markup in source/*/index.md remains the single source of truth, so changing
   // page structure/content no longer requires maintaining duplicate HTML here.
   var pageTranslations = {
-    '/about/': {
-      title: "About",
-      texts: {
-        ".article-entry .content-hub.content-hub-about > :nth-child(1) > :nth-child(2)": "About this personal blog",
-        ".article-entry .content-hub.content-hub-about > :nth-child(1) > :nth-child(3)": "This is Mikusc’s personal blog. I mainly use this site to organize course review materials, project practice notes, and technical writing. The current content focuses on algorithm course review, Hexo site maintenance, and mixed-reality project records related to SceneShift Discussion Room.",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Current focus areas",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Spatial interaction prototypes",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Project practice and interaction experiments around Unity, Meta Quest, and mixed reality.",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Exploring how AI, spatial computing, room understanding, and generative workflows can fit together.",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(2)": "Course review and algorithm exercises",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "Review materials organized by course, lecture, and week for quick revisiting.",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(2)": "Tools, deployment, and engineering notes",
-        ".article-entry .content-hub.content-hub-about > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "Notes on blog maintenance, backend deployment, useful tools, and project debugging.",
-        ".article-entry .content-hub.content-hub-about > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Site entry points"
-      }
-    },
-    '/contact/': {
-      title: "Contact",
-      texts: {
-        ".article-entry .content-hub.content-hub-contact > :nth-child(1) > :nth-child(2)": "Contact and public links",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(1) > :nth-child(3)": "These are the public contact and follow-up channels for this site. For course notes, project practice, or blog issues, GitHub is preferred. For general updates, you can also find me on Bilibili or RedNote.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Main entry points",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Preferred contact route for course notes, project issues, and blog feedback.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "GitHub repository for this blog project, suitable for issues or source inspection.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "For public updates and video content.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(2) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "For daily content and public updates.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(1) > :nth-child(2)": "Arcaea Tencent Channel",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(1) > :nth-child(3)": "Arcaea-related content is kept in a separate channel for update news, pack information, and channel-organized posts.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(3) > :nth-child(1) > :nth-child(2) > :nth-child(1) > :nth-child(1)": "Open channel",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Suitable topics",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(2) > :nth-child(1)": "You can send corrections or additions for course notes, questions about SceneShift Discussion Room, XR / MR / Unity / AI-assisted spatial computing project discussion, or bugs and improvement suggestions for this blog.",
-        ".article-entry .content-hub.content-hub-contact > :nth-child(4) > :nth-child(2) > :nth-child(2)": "For feedback on a specific post, open an issue in the GitHub repository and include the post link, the relevant section, and the suggested change."
-      }
-    },
-    '/projects/': {
-      title: "Projects",
-      texts: {
-        ".article-entry .content-hub.content-hub-projects > :nth-child(1) > :nth-child(2)": "Project Practice and Prototype Entries",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(1) > :nth-child(3)": "This page collects the main projects, prototypes, and tool entry points currently available through GitHub and this site. It is designed as a set of routes you can continue into, not just a text index.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(1) > :nth-child(2)": "MR / Unity prototypes",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(2) > :nth-child(2)": "pinned GitHub repos",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(2) > :nth-child(3) > :nth-child(2)": "project entries",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(1) > :nth-child(2)": "Featured projects",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Spatial style preview driven by real room structure",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "SceneShift Discussion Room is a mixed-reality coursework prototype. It reads real room structure on Meta Quest and previews themed room decoration and spatial style changes.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1)": "Project introduction",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(1)": "GitHub repository",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(2) > :nth-child(2) > :nth-child(3) > :nth-child(1)": "Privacy policy",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(1) > :nth-child(3)": "A Unity MR smart home prototype exploring mixed-reality spatial interfaces for Home Assistant device control. The repository is private, so this card records the project entry without a public link.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(2) > :nth-child(2)": "Tools and standalone pages",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(3) > :nth-child(3) > :nth-child(2) > :nth-child(3)": "Site tools are collected under the Tools page. The current entry is the UNNC-style Bus tool, with room for study, development, and campus utilities later.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(1) > :nth-child(2)": "Main GitHub repositories",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "A scene-aware mixed-reality room stylization prototype for Meta Quest, built around MRUK room structure, semantic objects, themed materials, and a runtime control panel.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "The source repository for this personal website, covering course notes, project pages, tool entries, and the current Nottingham-inspired visual system.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(3) > :nth-child(3)": "A Codex skill for composing Meta XR Interaction SDK UISet panels in Unity, with emphasis on official prefabs, layout rules, and Quest-ready UI validation.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(4) > :nth-child(2) > :nth-child(4) > :nth-child(3)": "An automation skill repository for organizing Arcaea content, update notes, and Tencent Channel publishing workflows.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(1) > :nth-child(2)": "Recent project repositories",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "A public SurVis literature collection for COMP4126 Research Methods Coursework 3, showing the literature structure behind the XR rhythm game direction.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(5) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "A NapCat / OneBot v11 group-message code extraction validation tool, with code extraction, de-duplication, queueing, logging, and a local dashboard.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(1) > :nth-child(2)": "Public content routes",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(1) > :nth-child(2)": "Course Notes",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(1) > :nth-child(3)": "Course review posts already organized on the blog, mainly around COMP4133AADS algorithms and data structures.",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(2) > :nth-child(2)": "Toolbox",
-        ".article-entry .content-hub.content-hub-projects > :nth-child(6) > :nth-child(2) > :nth-child(2) > :nth-child(3)": "Small tools and standalone pages. The current entry is the UNNC-style Bus tool."
-      }
-    },
     '/tools/': {
       title: "Tools",
       texts: {
@@ -323,6 +257,19 @@
     });
   }
 
+  // Project copy lives alongside its data or markup, not in structural selectors.
+  function applyInlineTranslations(lang) {
+    document.querySelectorAll('[data-zh][data-en]').forEach(function(element){
+      element.textContent = element.getAttribute('data-' + lang) || element.getAttribute('data-zh') || '';
+    });
+    document.querySelectorAll('[data-alt-zh][data-alt-en]').forEach(function(element){
+      element.setAttribute('alt', element.getAttribute('data-alt-' + lang) || '');
+    });
+    document.querySelectorAll('[data-aria-zh][data-aria-en]').forEach(function(element){
+      element.setAttribute('aria-label', element.getAttribute('data-aria-' + lang) || '');
+    });
+  }
+
   function applyDateTranslations(lang) {
     document.querySelectorAll('[data-i18n-date]').forEach(function(element){
       var value = element.getAttribute('data-i18n-date');
@@ -403,7 +350,7 @@
   function getDocumentTitlePrefix(lang, translatedPageTitle) {
     if (translatedPageTitle) return translatedPageTitle;
     if (normalizePath(window.location.pathname) === '/') return '';
-    var articleTitle = document.querySelector('.article-title');
+    var articleTitle = document.querySelector('[data-page-title]') || document.querySelector('.article-title');
     if (articleTitle) return articleTitle.textContent.trim();
     return '';
   }
@@ -432,6 +379,7 @@
     if (shouldStore) storeLanguage(safeLang);
 
     applyTextTranslations(safeLang);
+    applyInlineTranslations(safeLang);
     applyDateTranslations(safeLang);
     applySearchTranslations(safeLang);
 

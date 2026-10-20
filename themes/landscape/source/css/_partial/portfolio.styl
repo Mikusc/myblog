@@ -1,0 +1,524 @@
+#main.home-main
+  max-width: none
+
+.portfolio-page
+  color: var(--ink)
+  padding: 48px 0 72px
+  a
+    color: inherit
+  h1, h2, h3, p
+    margin: 0
+  a:focus-visible
+    outline: 3px solid var(--accent-2)
+    outline-offset: 5px
+  h1
+    font: 700 46px/1.24 font-sans
+    letter-spacing: -1px
+    text-wrap: balance
+  h2
+    font: 700 28px/1.35 font-sans
+  h3
+    font: 700 21px/1.45 font-sans
+  p
+    line-height: 1.8
+
+.portfolio-kicker
+  display: block
+  color: var(--muted)
+  font: 700 11px/1.5 font-sans
+  letter-spacing: 1.6px
+  margin-bottom: 16px !important
+
+.portfolio-intro
+  display: grid
+  grid-template-columns: minmax(0,1.15fr) minmax(0,1fr)
+  gap: 54px
+  align-items: center
+  margin-bottom: 64px
+  padding: 4px 0 52px
+  border-bottom: 1px solid var(--border)
+
+.portfolio-intro-copy
+  h1
+    max-width: 550px
+  .portfolio-intro-text
+    margin-top: 22px
+    color: var(--muted)
+    font-size: 16px
+    max-width: 580px
+
+.portfolio-actions
+  display: flex
+  flex-wrap: wrap
+  gap: 12px
+  margin-top: 28px
+
+.portfolio-button
+  display: inline-flex
+  gap: 18px
+  align-items: center
+  justify-content: center
+  padding: 12px 20px
+  min-height: 46px
+  background: var(--ink)
+  color: var(--surface-1) !important
+  border: 1px solid var(--ink)
+  font: 700 14px/1.5 font-sans
+  text-decoration: none
+  transition: opacity var(--motion-fast) var(--motion-ease)
+  &:hover
+    opacity: .78
+    text-decoration: none
+
+.portfolio-button-quiet
+  background: transparent
+  border-color: var(--border)
+  color: var(--ink) !important
+
+.portfolio-intro-footnote
+  margin-top: 22px !important
+  font-size: 12px
+  color: var(--muted)
+
+.portfolio-feature
+  display: flex
+  flex-direction: column
+  min-width: 0
+  background: var(--surface-1)
+  border: 1px solid var(--border)
+  text-decoration: none
+  box-shadow: 0 12px 40px rgba(16,38,59,.06)
+  img
+    width: 100%
+    aspect-ratio: 1.55
+    object-fit: contain
+    background: var(--surface-2)
+    display: block
+  &:hover
+    text-decoration: none
+    .portfolio-feature-arrow
+      transform: translate(2px,-2px)
+
+.portfolio-feature-pattern
+  min-height: 260px
+  background: #10263b
+  color: #fff
+  display: flex
+  justify-content: space-between
+  align-items: flex-end
+  padding: 34px
+  font: 700 52px/1 font-sans
+  span + span
+    color: #37b4b0
+    font-size: 20px
+
+.portfolio-feature-caption
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 20px
+  padding: 20px 24px
+  .portfolio-kicker
+    margin-bottom: 6px !important
+  strong
+    display: block
+    font: 700 20px/1.4 font-sans
+
+.portfolio-feature-arrow
+  font-size: 28px
+  transition: transform var(--motion-fast) var(--motion-ease)
+
+.portfolio-section
+  margin-top: 54px
+  scroll-margin-top: 164px
+
+.portfolio-section-head
+  display: flex
+  align-items: flex-end
+  justify-content: space-between
+  gap: 24px
+  margin-bottom: 24px
+  .portfolio-kicker
+    margin-bottom: 10px !important
+
+.portfolio-text-link
+  display: inline-flex
+  align-items: center
+  gap: 10px
+  font: 700 13px/1.6 font-sans
+  text-decoration: none
+  &:hover
+    text-decoration: underline
+    text-underline-offset: 4px
+
+.portfolio-text-link-secondary
+  color: var(--muted) !important
+
+.portfolio-grid
+  display: grid
+  grid-template-columns: repeat(3,minmax(0,1fr))
+  gap: 22px
+
+.portfolio-card
+  min-width: 0
+  display: flex
+  flex-direction: column
+  border: 1px solid var(--border)
+  background: var(--surface-1)
+  transition: border-color var(--motion-fast) var(--motion-ease)
+  &:hover
+    border-color: var(--muted)
+
+.portfolio-card-visual
+  display: block
+  aspect-ratio: 1.85
+  position: relative
+  overflow: hidden
+  color: #fff !important
+  background: #10263b
+  text-decoration: none
+  img
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: cover
+    transition: transform var(--motion-base) var(--motion-ease)
+  &:hover img
+    transform: scale(1.025)
+
+.portfolio-card-visual-type
+  display: flex
+  flex-direction: column
+  align-items: flex-start
+  justify-content: center
+  padding: 28px
+  background: linear-gradient(130deg,#10263b,#1c4858)
+  &:hover
+    text-decoration: none
+
+.portfolio-card-monogram
+  font: 700 58px/1 font-sans
+  opacity: .85
+  letter-spacing: -2px
+
+.portfolio-card-visual-label
+  font: 400 11px/1.4 font-sans
+  color: #b8d7df
+  margin-top: 14px
+
+.portfolio-card-period
+  position: absolute
+  top: 14px
+  right: 14px
+  font: 700 10px/1.5 font-sans
+  padding: 4px 8px
+  color: #fff
+  background: rgba(16,38,59,.88)
+
+.portfolio-card-body
+  flex: 1
+  display: flex
+  flex-direction: column
+  padding: 22px
+  h3
+    margin: 14px 0 10px
+    a
+      text-decoration: none
+      &:hover
+        text-decoration: underline
+        text-underline-offset: 4px
+
+.portfolio-card-eyebrow
+  display: flex
+  flex-wrap: wrap
+  gap: 8px 12px
+  align-items: center
+  color: var(--muted)
+  font: 600 10px/1.5 font-sans
+  letter-spacing: .2px
+
+.portfolio-status
+  padding: 2px 7px
+  border: 1px solid var(--border)
+  border-radius: 2px
+
+.portfolio-card-subtitle
+  font-size: 13px
+  color: var(--muted)
+
+.portfolio-card-outcome
+  font-size: 13px
+  margin-top: 14px !important
+  padding-top: 14px
+  border-top: 1px solid var(--border)
+  color: var(--ink)
+
+.portfolio-tags
+  display: flex
+  flex-wrap: wrap
+  gap: 6px
+  list-style: none
+  padding: 0
+  margin: 18px 0 0
+  li
+    padding: 3px 7px
+    font: 400 10px/1.5 font-sans
+    color: var(--muted)
+    background: var(--surface-2)
+    border: 1px solid var(--border)
+
+.portfolio-card-actions
+  display: flex
+  flex-wrap: wrap
+  gap: 10px 18px
+  margin-top: auto
+  padding-top: 22px
+
+.portfolio-method
+  border-top: 1px solid var(--border)
+  padding-top: 40px
+
+.portfolio-method-grid
+  display: grid
+  grid-template-columns: repeat(3,minmax(0,1fr))
+  gap: 32px
+  article
+    border-left: 2px solid var(--border)
+    padding-left: 22px
+  h3
+    font-size: 18px
+    margin: 14px 0 12px
+  p
+    font-size: 14px
+    color: var(--muted)
+
+.portfolio-step
+  font: 700 12px/1.5 font-sans
+  color: var(--muted)
+  letter-spacing: 1px
+
+.portfolio-note-layout
+  display: grid
+  grid-template-columns: 1.6fr 1fr
+  gap: 32px
+
+.portfolio-note-list
+  a
+    display: grid
+    grid-template-columns: 90px 1fr auto
+    gap: 18px
+    align-items: baseline
+    text-decoration: none
+    border-top: 1px solid var(--border)
+    padding: 18px 0
+    font-size: 13px
+    &:hover strong
+      text-decoration: underline
+    time
+      color: var(--muted)
+      font-size: 11px
+    strong
+      font-weight: 600
+      line-height: 1.7
+
+.portfolio-note-routes
+  background: var(--surface-1)
+  padding: 4px 24px
+  a
+    display: block
+    padding: 17px 0
+    text-decoration: none
+    & + a
+      border-top: 1px solid var(--border)
+    &:hover strong
+      text-decoration: underline
+    strong, span
+      display: block
+    strong
+      font-size: 14px
+      margin-bottom: 6px
+    span
+      font-size: 12px
+      color: var(--muted)
+
+.portfolio-page-heading
+  max-width: 800px
+  margin-bottom: 50px
+  p:not(.portfolio-kicker)
+    font-size: 16px
+    color: var(--muted)
+    margin-top: 20px
+
+.portfolio-directory-meta
+  display: flex
+  gap: 26px
+  margin-top: 24px
+  font-size: 12px
+  color: var(--muted)
+
+.portfolio-count
+  color: var(--muted)
+  font-size: 20px
+
+.portfolio-back
+  display: inline-flex
+  gap: 10px
+  font-size: 12px
+  text-decoration: none
+  margin-bottom: 34px
+  &:hover
+    text-decoration: underline
+
+.portfolio-detail-heading
+  max-width: 880px
+  h1
+    margin-top: 18px
+  p
+    margin-top: 20px
+    font-size: 18px
+    color: var(--muted)
+
+.portfolio-detail-image
+  margin: 42px 0 0
+  img
+    width: 100%
+    max-height: 540px
+    object-fit: contain
+    display: block
+    background: var(--surface-2)
+    border: 1px solid var(--border)
+  figcaption
+    font-size: 12px
+    color: var(--muted)
+    margin-top: 10px
+    line-height: 1.7
+
+.portfolio-case-layout
+  display: grid
+  grid-template-columns: minmax(0,1fr) 230px
+  gap: 54px
+  align-items: start
+  margin-top: 42px
+
+.portfolio-case-section
+  display: grid
+  grid-template-columns: 28px minmax(0,1fr)
+  gap: 14px
+  padding: 28px 0
+  border-top: 1px solid var(--border)
+  .portfolio-step
+    padding-top: 6px
+  h2
+    font-size: 22px
+  p
+    white-space: pre-line
+    margin-top: 16px
+    font-size: 15px
+    color: var(--muted)
+
+.portfolio-case-aside
+  background: var(--surface-1)
+  padding: 24px
+  border: 1px solid var(--border)
+  h2
+    font-size: 16px
+  .portfolio-tags
+    margin-bottom: 24px
+  p
+    color: var(--muted)
+    font-size: 12px
+    margin-bottom: 24px
+
+.portfolio-extra
+  margin: 36px 0
+  background: var(--surface-1)
+  padding: 24px
+
+@media screen and (max-width: 1050px)
+  .portfolio-grid
+    grid-template-columns: repeat(2,minmax(0,1fr))
+  .portfolio-intro
+    gap: 30px
+  .portfolio-page h1
+    font-size: 38px
+
+@media screen and (max-width: 767px)
+  .portfolio-page
+    padding: 30px 0 46px
+    h1
+      font-size: 34px
+    h2
+      font-size: 24px
+  .portfolio-intro
+    grid-template-columns: 1fr
+    gap: 28px
+    margin-bottom: 40px
+    padding-bottom: 34px
+  .portfolio-feature
+    display: grid
+    grid-template-columns: 1.1fr 1fr
+    img
+      aspect-ratio: 1.25
+      height: 100%
+    .portfolio-feature-pattern
+      min-height: 160px
+      padding: 22px
+      font-size: 34px
+  .portfolio-feature-caption
+    padding: 18px
+    strong
+      font-size: 18px
+  .portfolio-section
+    margin-top: 38px
+    scroll-margin-top: 95px
+  .portfolio-section-head
+    align-items: flex-start
+    gap: 16px
+    .portfolio-text-link
+      flex-shrink: 0
+      margin-top: 2px
+    h2
+      font-size: 22px
+  .portfolio-method-grid
+    grid-template-columns: 1fr
+    gap: 24px
+  .portfolio-note-layout
+    grid-template-columns: 1fr
+    gap: 20px
+  .portfolio-case-layout
+    grid-template-columns: 1fr
+    gap: 22px
+  .portfolio-case-aside
+    order: 2
+  .portfolio-detail-heading
+    p
+      font-size: 16px
+  .portfolio-card-body
+    padding: 18px
+
+@media screen and (max-width: 540px)
+  .portfolio-grid
+    grid-template-columns: 1fr
+    gap: 20px
+  .portfolio-card-visual
+    aspect-ratio: 2
+  .portfolio-card-body h3
+    font-size: 21px
+  .portfolio-card-outcome, .portfolio-card-subtitle
+    font-size: 14px
+  .portfolio-intro-copy .portfolio-intro-text
+    font-size: 15px
+  .portfolio-note-list a
+    grid-template-columns: 1fr auto
+    gap: 8px
+    time
+      grid-column: 1 / -1
+  .portfolio-feature-arrow
+    display: none
+  .portfolio-feature-caption strong
+    font-size: 16px
+  .portfolio-detail-heading h1
+    font-size: 30px
+  .portfolio-directory-meta
+    flex-wrap: wrap
+    gap: 10px 22px

@@ -38,6 +38,9 @@
     }
   ],
   "mimeTypes": {
-    ".gz": "application/gzip"
+    ".gz": "application/gzip",
+    ".glb": "model/gltf-binary",
+    ".gltf": "model/gltf+json",
+    ".mind": "application/octet-stream"
   }
 }

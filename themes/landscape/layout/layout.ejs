@@ -7,7 +7,7 @@
       <% var homeView = is_home(); %>
       <% var listingView = page.archive || page.category || page.tag; %>
       <% var articleDetailView = page.layout === 'post'; %>
-      <% var noSidebarView = homeView || page.layout === 'page' || listingView; %>
+      <% var noSidebarView = homeView || page.layout === 'page' || page.layout === 'projects' || page.layout === 'project' || listingView; %>
       <%- partial('_partial/header', {homeView: homeView}, {cache: false}) %>
       <div class="outer <%= homeView ? 'outer-home' : '' %> <%= noSidebarView ? 'outer-full' : '' %> <%= articleDetailView ? 'outer-article-detail' : '' %>">
         <section id="main" class="<%= homeView ? 'home-main' : '' %> <%= noSidebarView ? 'main-full' : '' %>"><%- body %></section>

@@ -1,0 +1,12 @@
+<%
+  var portfolio = site.data.portfolio || {projects:[]};
+  var projects = portfolio.projects || [];
+  var groups = [
+    {zh:'代表项目', en:'Selected projects', items:projects.filter(function(p){return p.featured;})},
+    {zh:'更多实践与工具', en:'More projects and tools', items:projects.filter(function(p){return !p.featured;})}
+  ];
+%>
+<div class="portfolio-page portfolio-directory">
+  <header class="portfolio-page-heading"><p class="portfolio-kicker">PROJECT DIRECTORY</p><h1 data-page-title data-zh="项目与实践" data-en="Projects & practice">项目与实践</h1><p data-zh="围绕真实需求组织 AI、代码和内容。每个项目记录问题、推进方式、可查看的成果与当前边界。" data-en="AI, code, and content organized around real needs. Each case explains the problem, the process, what you can inspect, and the current limits.">围绕真实需求组织 AI、代码和内容。每个项目记录问题、推进方式、可查看的成果与当前边界。</p><div class="portfolio-directory-meta"><span><%= projects.length %> <span data-zh="项实践" data-en="projects">项实践</span></span><% if (portfolio.updated) { %><span><span data-zh="更新于" data-en="Updated">更新于</span> <time><%= portfolio.updated %></time></span><% } %></div></header>
+  <% groups.forEach(function(group){ if (!group.items.length) return; %><section class="portfolio-section"><div class="portfolio-section-head"><h2 data-zh="<%= group.zh %>" data-en="<%= group.en %>"><%= group.zh %></h2><span class="portfolio-count"><%= group.items.length %></span></div><div class="portfolio-grid"><% group.items.forEach(function(project){ %><%- partial('_partial/project-card', {project:project}, {cache:false}) %><% }); %></div></section><% }); %>
+</div>

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "content": "../lab-demo/exhibition.json",
+  "contentId": "ihci-demo-content",
+  "contentVersion": 2,
+  "placementsStatus": "demo-unverified",
+  "scan": {
+    "manifest": "../lab-demo/scan-targets.json",
+    "packId": "lab-p01-v1"
+  },
+  "id": "ieb-1f",
+  "title": "IEB 一楼",
+  "purpose": "目标会场预演",
+  "exhibitionId": "ihci-ieb-preview-01",
+  "layoutVersion": "ieb-1f-r18-2026-10-20",
+  "model": "../ieb-floor/venue-r18/model.json",
+  "modelId": "ieb-alumni-visual-r18-2026-10-20",
+  "adapter": "ieb",
+  "planURL": "../ieb-floor/venue-r18/index.html?view=plan",
+  "description": "R18 卡通会场：大厅、Alumni、咖啡厅及连接廊已按手绘范围和现场素材整合。虚线边界、门位、尺寸与连接净宽仍待核；P-01–03 是示例展板，非正式布展。",
+  "placements": [
+    {
+      "posterId": "P-01",
+      "roomId": "lobby-seating",
+      "position": [
+        988.078,
+        1195.2872
+      ],
+      "facing": [
+        -1,
+        -6.123233995736766e-17
+      ]
+    },
+    {
+      "posterId": "P-02",
+      "roomId": "alumni-lounge",
+      "position": [
+        967.8738181818183,
+        706.9123636363636
+      ],
+      "facing": [
+        0,
+        -1
+      ]
+    },
+    {
+      "posterId": "P-03",
+      "roomId": "cafe-north",
+      "position": [
+        876.4570121490761,
+        306.95580620588726
+      ],
+      "facing": [
+        0,
+        -1
+      ]
+    }
+  ],
+  "routes": []
+}

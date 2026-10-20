@@ -1,0 +1,19 @@
+{
+  "sourcePage": "https://ihci2026.com/",
+  "retrievedAt": "2026-10-17",
+  "assets": [
+    {
+      "file": "ihci-logo.webp",
+      "source": "https://ihci2026.com/images/logo_hu_5758ecd5d0c04f3e.webp",
+      "sha256": "f5250d3ba9dead83cc7856bd5a03b7c6fd7a3d88c75928d3ab42af98b7d5acde",
+      "modified": false
+    },
+    {
+      "file": "ihci-favicon.ico",
+      "source": "https://ihci2026.com/favicon.ico",
+      "sha256": "f7e705e16b95c75405107d00272490b03fa7d90f617e990b287f8a5d821d5ad8",
+      "modified": false
+    }
+  ],
+  "usage": "Original artwork and colours; responsive CSS sizing only. Conference demo remains labelled as a validation version."
+}

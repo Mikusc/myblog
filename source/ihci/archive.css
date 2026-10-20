@@ -1,0 +1,16 @@
+/* A small, local-only archive identity above the preserved venue interface. */
+.archive-strip{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 24px;background:#e9f0eb;border-bottom:1px solid #ccdcd0;color:#29473b;font:12px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;flex-shrink:0}
+.archive-strip>div{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.archive-strip strong{font-weight:650}
+.archive-strip span{color:#53695b}
+.archive-strip nav{display:flex;gap:16px;white-space:nowrap;padding:0}
+.archive-strip a{color:#245e45;text-decoration:underline;text-underline-offset:3px}
+.archive-strip a:focus-visible{outline:3px solid #287952;outline-offset:4px}
+body.archive-venue{display:flex!important;flex-direction:column!important;height:100dvh!important;min-height:0!important;overflow:hidden!important}
+body.archive-venue .topbar{flex-shrink:0}
+body.archive-venue .workspace{height:auto!important;min-height:0!important;flex:1;overflow:hidden}
+body.archive-venue .stage{height:100%!important;min-height:0!important}
+body.archive-venue #mobile-reactions-toggle{display:none!important}
+body.archive-venue .entry-activity{color:#67736b}
+@media(max-width:720px){.archive-strip{padding:7px 12px;gap:8px;font-size:10px}.archive-strip>div{gap:2px 8px}.archive-strip>div>span{display:block}.archive-strip nav{gap:10px}.archive-strip strong{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.archive-strip *{scroll-behavior:auto}}

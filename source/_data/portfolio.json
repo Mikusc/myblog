@@ -1,0 +1,649 @@
+{
+  "updated": "2026-10-20",
+  "intro": {
+    "zh": "我是肖凯文（Mikusc），宁波诺丁汉大学计算机科学硕士在读。我把 AI 用在产品原型、空间交互、研究评测与社群运营中：拆解问题、组织工具、检查结果，再把想法推进成可查看的作品。",
+    "en": "I’m Kaiwen Xiao (Mikusc), an MSc Computer Science student at the University of Nottingham Ningbo China. I use AI across product prototypes, spatial interaction, research evaluation, and community operations—framing problems, coordinating tools, checking results, and building work people can explore."
+  },
+  "projects": [
+    {
+      "id": "ihci",
+      "title": {
+        "zh": "IHCI 数字会场",
+        "en": "IHCI digital venue"
+      },
+      "subtitle": {
+        "zh": "从海报入口到三维展厅，让会议内容在现场之外也能被浏览。",
+        "en": "From poster entry points to a browsable 3D conference venue."
+      },
+      "category": {
+        "zh": "产品原型 · 空间交互",
+        "en": "Product prototype · Spatial interaction"
+      },
+      "status": {
+        "zh": "在线原型 / 只读归档",
+        "en": "Live prototype / Read-only archive"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "会议海报、展位和交流入口分散，参会者需要一个能连续浏览内容、理解空间关系的入口。",
+        "en": "Conference posters, exhibits, and conversations need a shared entry point that makes both content and spatial relationships accessible."
+      },
+      "approach": {
+        "zh": "我定义参观与作者两类使用流程，利用 AI 辅助需求拆解、前端开发和空间模型迭代，再通过桌面连续行走、链接检查和内容审阅修正结果。把场馆布局与内容配置分离，使同一套交互支持实验室和 IEB 两个场馆。",
+        "en": "I defined visitor and author journeys, used AI to assist requirements, frontend development, and spatial iteration, and checked the results through desktop walkthroughs, link checks, and content review. Separating venue configuration from interaction logic supports both the lab and IEB venues."
+      },
+      "outcome": {
+        "zh": "已形成海报浏览、二维码入口、三维场馆、提问和作者回复的在线原型。个人站保存 2026 年 10 月 20 日的独立只读快照，可浏览两个场馆、地图和海报；原始在线版本与归档分别提供入口。",
+        "en": "The online prototype connects posters, QR entry, 3D spaces, questions, and author replies. This site preserves an independent read-only snapshot dated 20 October 2026, including two venues, maps, and posters, with separate links to the live prototype and archive."
+      },
+      "boundary": {
+        "zh": "归档不连接实时讨论或作者后台。桌面连续行走已有检查记录；手机真机、场地尺寸和正式布展仍需进一步验收。",
+        "en": "The archive has no live discussion or author backend. Desktop walkthroughs have been checked; mobile-device acceptance, physical dimensions, and exhibition readiness still require validation."
+      },
+      "tech": [
+        "Three.js",
+        "WebAR",
+        "场馆配置 / Venue configuration",
+        "AI-assisted development"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "浏览会场备份",
+            "en": "Explore the archive"
+          },
+          "href": "/ihci/"
+        },
+        {
+          "label": {
+            "zh": "原始在线会场",
+            "en": "Original live venue"
+          },
+          "href": "https://ihci-lab-venue.mikusc.chatgpt.site/lab-demo/index.html?venue=ieb-1f&view=overview"
+        }
+      ],
+      "image": "/images/projects/ihci-venue.jpg",
+      "imageAlt": {
+        "zh": "IHCI 数字会场 IEB 一楼只读快照：大厅、Alumni 与咖啡厅",
+        "en": "IHCI IEB ground-floor archive: lobby, Alumni lounge, and café"
+      }
+    },
+    {
+      "id": "ai-community",
+      "title": {
+        "zh": "AI 辅助社群运营",
+        "en": "AI-assisted community operations"
+      },
+      "subtitle": {
+        "zh": "把官方资讯变成可追溯的内容工作流，服务 5.6 万人的 Arcaea 频道。",
+        "en": "Source-backed content workflows for an Arcaea channel with 56,000 members."
+      },
+      "category": {
+        "zh": "AI 应用 · 内容运营",
+        "en": "Applied AI · Content operations"
+      },
+      "status": {
+        "zh": "持续运营",
+        "en": "Ongoing"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "游戏资讯更新频繁，跨来源整理、版本分类、配图和发布检查容易重复耗时，也容易遗漏出处或重复发布。",
+        "en": "Frequent game updates make source collection, version classification, image selection, and publication checks repetitive and prone to missing sources or duplicates."
+      },
+      "approach": {
+        "zh": "我把 Arcaea 和 In Falsus 的官方资料整理、分类、图文编排、查重和发布校验拆成明确步骤，结合 AI 与脚本封装为可复用 Skill。保留人工选题、事实核对和发布决策，并在发布后回读页面确认结果。",
+        "en": "I structured official-source collection, classification, editing, deduplication, and publication checks for Arcaea and In Falsus into reusable AI Skills and scripts. I retain responsibility for topic selection, fact checking, and publication decisions, then read back published pages to verify the result."
+      },
+      "outcome": {
+        "zh": "Arcaea 腾讯频道规模为 5.6 万人。另一个独立案例是 In Falsus 情报长帖：汇总 22 条官方来源、27 张配图，并保留可公开阅读的发布页面；Arcaea 相关 Skill 已公开。",
+        "en": "The Arcaea Tencent Channel has 56,000 members. A separate In Falsus news post consolidates 22 official sources and 27 images into a publicly readable article. Arcaea-related Skills are publicly available."
+      },
+      "boundary": {
+        "zh": "5.6 万是截至 2026 年 10 月确认的频道人数，不代表 AI 带来的新增人数；In Falsus 的内容案例与 Arcaea 的频道规模分别统计。",
+        "en": "56,000 is the confirmed Arcaea membership as of October 2026, not growth attributed to AI. The In Falsus content example and Arcaea membership are separate measures."
+      },
+      "tech": [
+        "AI Skills",
+        "来源核验 / Source verification",
+        "图文工作流 / Editorial workflow",
+        "Automation"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "查看公开 Skill",
+            "en": "Explore the Skill"
+          },
+          "href": "https://github.com/Mikusc/Arcaea-skill"
+        },
+        {
+          "label": {
+            "zh": "阅读发布案例",
+            "en": "Read a published example"
+          },
+          "href": "https://pd.qq.com/s/dqgtjd2n3"
+        },
+        {
+          "label": {
+            "zh": "Arcaea 频道",
+            "en": "Arcaea channel"
+          },
+          "href": "https://pd.qq.com/s/frdj4o2cl?b=9"
+        }
+      ]
+    },
+    {
+      "id": "llm-persuasion",
+      "title": {
+        "zh": "LLM 对话原型与研究评测",
+        "en": "LLM dialogue prototypes & evaluation"
+      },
+      "subtitle": {
+        "zh": "从研究问题到可回放的对话原型，用数据审计和对照评测检查模型输出。",
+        "en": "From research questions to replayable dialogue prototypes and comparative evaluation."
+      },
+      "category": {
+        "zh": "研究实践 · AI 应用",
+        "en": "Research practice · Applied AI"
+      },
+      "status": {
+        "zh": "研究原型",
+        "en": "Research prototype"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "LLM 对话研究需要把理论问题落到可运行流程，同时区分数据事实、模型预测与尚未验证的解释。",
+        "en": "LLM dialogue research needs executable workflows and a clear distinction between observed data, model predictions, and untested explanations."
+      },
+      "approach": {
+        "zh": "在北京航空航天大学虚拟现实技术与系统全国重点实验室担任科研助理期间（2026.07—10），我利用 AI 辅助 Python 脚本开发与排错，推进多轮对话界面、API 调用、失败回退、结构化日志和研究者回放，并以数据清点和基线比较检查结果。",
+        "en": "As a research assistant at Beihang University’s State Key Laboratory of Virtual Reality Technology and Systems (July–October 2026), I used AI to assist Python scripting and debugging, developed multi-turn interfaces, API workflows, fallbacks, structured logs, and researcher replay, and checked outputs through data audits and baseline comparisons."
+      },
+      "outcome": {
+        "zh": "完成公开语料中 1,017 段对话、20,932 条话语的数据清点；另一项预测诊断累计完成 696 次 API 预测。形成可继续迭代的文本对话原型、诊断脚本与评测记录。",
+        "en": "Audited a public corpus containing 1,017 dialogues and 20,932 utterances. A separate prediction diagnostic completed 696 API predictions. Deliverables include a text-dialogue prototype, diagnostic scripts, and evaluation records."
+      },
+      "boundary": {
+        "zh": "这些数字描述数据与评测规模，不代表模型效果提升；现有评测尚未建立稳定的外部优势。此处只展示研究与工程概述，不公开内部对话数据或参与者信息。",
+        "en": "These figures describe data and evaluation scope, not performance gains. Current evaluation has not established a consistent external advantage. This page presents the research and engineering approach without internal dialogue or participant data."
+      },
+      "tech": [
+        "Python",
+        "Gradio",
+        "LLM APIs",
+        "数据审计 / Data auditing",
+        "Baseline evaluation"
+      ],
+      "links": []
+    },
+    {
+      "id": "pico-workflow",
+      "title": {
+        "zh": "PICO 个性化 XR 内容工作流",
+        "en": "Personalized XR workflow for PICO"
+      },
+      "subtitle": {
+        "zh": "把偏好描述转成可检查、可修改的场景配置与生成任务。",
+        "en": "Turn preferences into inspectable scene configurations and generation tasks."
+      },
+      "category": {
+        "zh": "生成式工作流 · XR",
+        "en": "Generative workflows · XR"
+      },
+      "status": {
+        "zh": "工程原型",
+        "en": "Engineering prototype"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "个性化 XR 内容不能只停留在生成素材：偏好、场景约束、素材可用性和后续审阅需要串成完整流程。",
+        "en": "Personalized XR requires more than generated assets: preferences, scene constraints, asset validity, and review must work together."
+      },
+      "approach": {
+        "zh": "我围绕六个维度、27 项设计选项组织偏好配置，利用 AI 辅助实现表格输入、结构化校验与任务编排，把生成服务接入 Unity Review Scene，并设计失败恢复、规则回退与人工审阅步骤。",
+        "en": "I organized preference configurations around six dimensions and 27 design options, used AI to assist spreadsheet input, structured validation, and task orchestration, and connected generation services to a Unity Review Scene with recovery, rule-based fallback, and human review."
+      },
+      "outcome": {
+        "zh": "形成从表格输入、配置校验、生成任务到素材审阅与导出的原型流程，并整理操作与交接材料，使候选内容能够被检查、修正和复用。",
+        "en": "Built a prototype flow from spreadsheet input and configuration checks to generation, asset review, and export, with operating and handoff documentation to support inspection, correction, and reuse."
+      },
+      "boundary": {
+        "zh": "当前成果以工程原型与交接材料为主，完整 PICO 设备运行、独立操作和实验就绪仍待验收；公开页面不包含内部患者素材或研究交接包。",
+        "en": "Current deliverables are an engineering prototype and handoff materials. Full PICO device operation, independent use, and experiment readiness remain to be validated. Internal patient assets and research handoff packages are not published."
+      },
+      "tech": [
+        "Unity",
+        "Python",
+        "LangGraph",
+        "PICO",
+        "Structured configuration"
+      ],
+      "links": []
+    },
+    {
+      "id": "sceneshift",
+      "title": {
+        "zh": "SceneShift 房间风格化",
+        "en": "SceneShift room stylization"
+      },
+      "subtitle": {
+        "zh": "让自然语言风格目标与真实房间中的目标、素材和预览对应起来。",
+        "en": "Connect a natural-language style goal to room targets, generated assets, and previews."
+      },
+      "category": {
+        "zh": "生成式 AI · 空间交互",
+        "en": "Generative AI · Spatial interaction"
+      },
+      "status": {
+        "zh": "开发中的原型",
+        "en": "Prototype in development"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "生成图片或 3D 模型之后，还需要知道它对应房间中的哪个对象、是否合适，以及如何审阅或恢复。",
+        "en": "After generating an image or 3D model, users still need to know which room object it belongs to, whether it fits, and how to review or reset it."
+      },
+      "approach": {
+        "zh": "我利用 AI 辅助开发，将自然语言与房间语义转成结构化计划，连接纹理与 3D 候选生成、Unity 预览和目标绑定，并完善接受、拒绝、旋转、重置与历史审阅。通过逐段检查生成、加载和交互结果迭代流程。",
+        "en": "I used AI-assisted development to translate language and room semantics into structured plans, connect texture and 3D generation to Unity previews and target binding, and implement accept, reject, rotate, reset, and review history. I iterated by checking generation, loading, and interaction separately."
+      },
+      "outcome": {
+        "zh": "已形成可检查的房间风格化原型，包含 Editor 界面、生成与加载流程，以及部分头显加载和审阅记录；源码仓库与项目记录可公开查看。",
+        "en": "Delivered an inspectable room-stylization prototype with an Editor interface, generation and loading flows, and partial headset loading and review records. The source repository and project notes are public."
+      },
+      "boundary": {
+        "zh": "完整独立头显操作、重启恢复及办公室表面效果的视觉验收仍未闭环。已有局部验证不等同于完整产品或全流程真机验收。",
+        "en": "Independent end-to-end headset operation, restart recovery, and visual acceptance of office-surface effects remain open. Partial validation does not establish full product readiness."
+      },
+      "tech": [
+        "Unity",
+        "Meta Quest",
+        "LLM APIs",
+        "Texture / 3D generation",
+        "Human review"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "源码仓库",
+            "en": "Source code"
+          },
+          "href": "https://github.com/Mikusc/SceneShift-Quest-Room-Stylization"
+        },
+        {
+          "label": {
+            "zh": "项目记录",
+            "en": "Project notes"
+          },
+          "href": "/scene-shift/"
+        }
+      ]
+    },
+    {
+      "id": "mr-homeassistant",
+      "title": {
+        "zh": "Quest MR 智能家居",
+        "en": "Quest MR smart home"
+      },
+      "subtitle": {
+        "zh": "把设备状态、控制和异常反馈组织成桌面与 MR 共用的界面。",
+        "en": "Device status, controls, and error feedback across desktop and MR interfaces."
+      },
+      "category": {
+        "zh": "交互原型 · 智能家居",
+        "en": "Interaction prototype · Smart home"
+      },
+      "status": {
+        "zh": "本地验证阶段",
+        "en": "Local validation"
+      },
+      "period": "2026",
+      "featured": true,
+      "problem": {
+        "zh": "在混合现实中控制家居设备，需要清楚呈现设备状态，并在连接异常或操作失败时提供可理解的反馈。",
+        "en": "Mixed-reality home control requires clear device states and understandable feedback when connections or commands fail."
+      },
+      "approach": {
+        "zh": "我利用 AI 辅助实现 Home Assistant 对接与 Unity UI，组织房间筛选、搜索、收藏、灯光调节和状态反馈，加入断线只读与恢复逻辑，并通过本地协议和界面检查修正交互。",
+        "en": "I used AI to assist Home Assistant integration and Unity UI development, organized room filters, search, favorites, lighting controls, and status feedback, and added read-only disconnection and recovery behavior. Local protocol and interface checks guided corrections."
+      },
+      "outcome": {
+        "zh": "形成面向灯、开关与 input_boolean 的控制原型，以及桌面与 MR 共用的界面结构；公开仓库保留实现、运行方式和验证记录。",
+        "en": "Built a control prototype for lights, switches, and input_boolean entities, with an interface structure shared across desktop and MR. Implementation, setup instructions, and validation records are available in the public repository."
+      },
+      "boundary": {
+        "zh": "当前证据来自本地协议与 Unity 界面检查；真实家电连接、Quest APK 和完整头显操作仍需验收。",
+        "en": "Current evidence comes from local protocol and Unity interface checks. Real appliance connections, a Quest APK, and complete headset operation still need validation."
+      },
+      "tech": [
+        "Unity",
+        "Home Assistant",
+        "Meta Quest",
+        "WebSocket",
+        "Interaction design"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "源码与验证记录",
+            "en": "Source & validation"
+          },
+          "href": "https://github.com/Mikusc/MR-HomeAssistant"
+        }
+      ]
+    },
+    {
+      "id": "campus",
+      "title": {
+        "zh": "宁诺校园 3D 导览",
+        "en": "UNNC 3D campus guide"
+      },
+      "subtitle": {
+        "zh": "在浏览器里探索校园建筑、照片与空间关系。",
+        "en": "Explore campus buildings, photographs, and spatial relationships in the browser."
+      },
+      "category": {
+        "zh": "Web 3D · 数字空间",
+        "en": "Web 3D · Digital spaces"
+      },
+      "status": {
+        "zh": "在线体验",
+        "en": "Live demo"
+      },
+      "period": "2026",
+      "featured": false,
+      "problem": {
+        "zh": "二维地图难以直接展示建筑体量、照片视角与校园空间关系。",
+        "en": "A flat map does not directly convey building volumes, photographic viewpoints, or spatial relationships."
+      },
+      "approach": {
+        "zh": "我结合地图、卫星影像、官方资料和照片，通过 AI 辅助建模与前端迭代，加入建筑点选、实景对照、现状与建成愿景切换，并优化模型传输与手机布局。",
+        "en": "I combined maps, satellite imagery, official information, and photos with AI-assisted modeling and frontend iteration, adding building selection, photo comparison, current/planned views, and mobile layouts, then optimized model delivery."
+      },
+      "outcome": {
+        "zh": "已上线可交互的校园导览。一次模型传输优化将 66.7 MB 原始模型压缩为 16.5 MB gzip，减少约 75.2%。",
+        "en": "An interactive campus guide is online. One model-delivery optimization reduced a 66.7 MB original model to a 16.5 MB gzip payload, about 75.2% smaller."
+      },
+      "boundary": {
+        "zh": "模型根据公开资料估建，用于浏览与展示，不具备实测精度或实时导航能力；建成愿景与现状分开展示。",
+        "en": "The model is estimated from public references for exploration and presentation. It is not a surveyed model or live navigation system; planned and current states are shown separately."
+      },
+      "tech": [
+        "Three.js",
+        "glTF",
+        "Meshopt",
+        "AI-assisted modeling"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "进入校园导览",
+            "en": "Explore the campus"
+          },
+          "href": "/campus/"
+        }
+      ],
+      "image": "/campus/poster.webp",
+      "imageAlt": {
+        "zh": "校园 3D 导览预览",
+        "en": "Preview of the 3D campus guide"
+      }
+    },
+    {
+      "id": "ai-pets",
+      "title": {
+        "zh": "AI 动画宠物与网页交互",
+        "en": "AI animated pets & web interaction"
+      },
+      "subtitle": {
+        "zh": "从角色画面到动作、方向与可交互的网页作品。",
+        "en": "From character imagery to motion, direction, and interactive web experiences."
+      },
+      "category": {
+        "zh": "AI 创作 · 交互制作",
+        "en": "AI creation · Interaction"
+      },
+      "status": {
+        "zh": "在线体验",
+        "en": "Live demo"
+      },
+      "period": "2026",
+      "featured": false,
+      "problem": {
+        "zh": "单张角色图需要转化成连贯的动作、方向和交互状态，才能成为可以使用的动画宠物。",
+        "en": "A character image needs coherent motion, directions, and interaction states to become a usable animated pet."
+      },
+      "approach": {
+        "zh": "我用 AI 辅助视觉素材生成和动作迭代，组织 2D / 3D 形态、动作状态与 16 方向跟随，再通过网页预览和资源检查修正动画及交互。",
+        "en": "I used AI to assist visual asset generation and motion iteration, organized 2D/3D forms, action states, and 16-direction following, then used browser previews and resource checks to refine animation and interaction."
+      },
+      "outcome": {
+        "zh": "已上线四个角色的网页展示，并为 Miku、Derakkuma 提供共四套 2D / 3D Q版形态及对应的可下载 v2 动画包。",
+        "en": "Published browser presentations for four characters, including four 2D/3D chibi variants of Miku and Derakkuma with corresponding downloadable v2 animation packages."
+      },
+      "boundary": {
+        "zh": "包含角色衍生创作，不主张角色 IP 的原创权；网页交互体验与其他平台的运行效果分别验证。",
+        "en": "The collection includes derivative character works and does not claim original ownership of those character IPs. Browser behavior and behavior on other platforms are validated separately."
+      },
+      "tech": [
+        "AI image generation",
+        "Sprite animation",
+        "Web interaction"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "体验动画宠物",
+            "en": "Try the animated pets"
+          },
+          "href": "/pet/"
+        }
+      ]
+    },
+    {
+      "id": "meta-uiset",
+      "title": {
+        "zh": "Meta UISet Composer",
+        "en": "Meta UISet Composer"
+      },
+      "subtitle": {
+        "zh": "把重复的 Unity MR 界面搭建步骤整理为可复用 Skill。",
+        "en": "A reusable Skill for recurring Unity MR interface-building tasks."
+      },
+      "category": {
+        "zh": "开放工具 · AI Skill",
+        "en": "Open tool · AI Skill"
+      },
+      "status": {
+        "zh": "公开仓库",
+        "en": "Public repository"
+      },
+      "period": "2026",
+      "featured": false,
+      "problem": {
+        "zh": "MR 界面开发需要反复核对官方组件、预制体布局与交互约束。",
+        "en": "MR interface development repeatedly requires checking official components, prefab layouts, and interaction constraints."
+      },
+      "approach": {
+        "zh": "我把 Meta UISet / UISetPatterns 的使用方法、界面搭建步骤和检查点组织成 Codex Skill，用明确的组件来源和验证流程约束 AI 辅助实现。",
+        "en": "I organized Meta UISet/UISetPatterns usage, interface-building steps, and checks into a Codex Skill, grounding AI-assisted implementation in explicit component sources and validation steps."
+      },
+      "outcome": {
+        "zh": "公开了可复用的 Skill 仓库，用于 Unity 世界空间 UI 的搭建、修复与检查。",
+        "en": "Published a reusable Skill repository for building, repairing, and checking Unity world-space interfaces."
+      },
+      "boundary": {
+        "zh": "Skill 提供实现与检查流程，不能替代目标项目的版本兼容检查与头显真机验收。",
+        "en": "The Skill supports implementation and checks; it does not replace version compatibility checks or headset acceptance in each target project."
+      },
+      "tech": [
+        "Codex Skill",
+        "Unity",
+        "Meta Interaction SDK",
+        "UISet"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "查看 Skill",
+            "en": "Explore the Skill"
+          },
+          "href": "https://github.com/Mikusc/meta-uiset-composer"
+        }
+      ]
+    },
+    {
+      "id": "onebot-listener",
+      "title": {
+        "zh": "OneBot 消息处理工具",
+        "en": "OneBot message processing tool"
+      },
+      "subtitle": {
+        "zh": "将特定消息识别、去重和队列处理做成可检查的本地流程。",
+        "en": "An inspectable local workflow for targeted message extraction, deduplication, and queues."
+      },
+      "category": {
+        "zh": "自动化工具",
+        "en": "Automation tool"
+      },
+      "status": {
+        "zh": "测试工具",
+        "en": "Testing tool"
+      },
+      "period": "2026",
+      "featured": false,
+      "problem": {
+        "zh": "重复消息与目标内容混杂时，需要可控的提取、去重和处理记录。",
+        "en": "Mixed and duplicate messages require controlled extraction, deduplication, and processing records."
+      },
+      "approach": {
+        "zh": "我通过 AI 辅助开发串联 NapCat / OneBot v11 消息接入、内容提取、去重、队列、日志与本地看板，逐步检查异常情况。",
+        "en": "Using AI-assisted development, I connected NapCat/OneBot v11 ingestion to content extraction, deduplication, queues, logs, and a local dashboard, checking failure cases along the way."
+      },
+      "outcome": {
+        "zh": "形成可配置、可回看处理记录的本地测试工具，源码公开。",
+        "en": "Created a configurable local testing tool with inspectable processing records and public source code."
+      },
+      "boundary": {
+        "zh": "定位为授权环境中的测试与辅助处理工具，不是商业化服务；运行环境和账号配置由使用者自行管理。",
+        "en": "Intended for testing and assisted processing in authorized environments, not a commercial service. Runtime and account configuration remain the user’s responsibility."
+      },
+      "tech": [
+        "OneBot v11",
+        "NapCat",
+        "Queue",
+        "Local dashboard"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "查看源码",
+            "en": "Source code"
+          },
+          "href": "https://github.com/Mikusc/onebot-code-listener"
+        }
+      ]
+    },
+    {
+      "id": "java-solver",
+      "title": {
+        "zh": "Java 视点覆盖与路径优化",
+        "en": "Java viewpoint coverage & route solver"
+      },
+      "subtitle": {
+        "zh": "将覆盖目标、可达关系和路线连续性放进同一个求解流程。",
+        "en": "Combine coverage goals, reachability, and route continuity in one solver."
+      },
+      "category": {
+        "zh": "算法实践",
+        "en": "Algorithm practice"
+      },
+      "status": {
+        "zh": "算法原型",
+        "en": "Algorithm prototype"
+      },
+      "period": "2025–2026",
+      "featured": false,
+      "problem": {
+        "zh": "选择足够的观测视点之外，还要避免路线断裂，并考虑视点之间的可达关系。",
+        "en": "Choosing viewpoints for coverage also requires connected routes and reachability between viewpoints."
+      },
+      "approach": {
+        "zh": "我将视点、采样点与碰撞矩阵组织成图，结合贪心覆盖、最短路径修复与连续路线构造，把输入解析、求解和结果导出串成 Java 流程。",
+        "en": "I modeled viewpoints, sample points, and collision matrices as a graph, combining greedy coverage, shortest-path repair, and continuous-route construction into a Java input–solve–export workflow."
+      },
+      "outcome": {
+        "zh": "完成无需第三方 JSON 库的输入处理与 solution.json 结果输出，保留算法结构与实现经历作为项目记录。",
+        "en": "Implemented input handling without a third-party JSON library and solution.json output, documenting the algorithm structure and implementation experience."
+      },
+      "boundary": {
+        "zh": "此页为已有算法实践的概述，未提供通用性能评测或公开源码下载。",
+        "en": "This page summarizes prior algorithm work; it does not provide general performance benchmarks or a public source download."
+      },
+      "tech": [
+        "Java",
+        "Graph algorithms",
+        "Greedy coverage",
+        "Shortest path"
+      ],
+      "links": []
+    },
+    {
+      "id": "xr-literature",
+      "title": {
+        "zh": "XR 节奏交互文献浏览",
+        "en": "XR rhythm interaction literature browser"
+      },
+      "subtitle": {
+        "zh": "把课程文献整理成可以筛选与浏览的研究资料。",
+        "en": "An explorable collection of course literature on XR rhythm interaction."
+      },
+      "category": {
+        "zh": "研究资料 · 课程项目",
+        "en": "Research resources · Coursework"
+      },
+      "status": {
+        "zh": "公开课程项目",
+        "en": "Public coursework"
+      },
+      "period": "2026",
+      "featured": false,
+      "problem": {
+        "zh": "文献列表需要可比较的分类和可回溯来源，才能支持后续主题探索。",
+        "en": "Literature collections need comparable categories and traceable sources to support further exploration."
+      },
+      "approach": {
+        "zh": "我围绕 XR 与节奏交互整理文献及元数据，用 SurVis 组织浏览与筛选入口，并将资料和配置放入公开仓库。",
+        "en": "I organized literature and metadata around XR and rhythm interaction, used SurVis for browsing and filtering, and published the materials and configuration in a repository."
+      },
+      "outcome": {
+        "zh": "完成 COMP4126 课程的可浏览文献资料项目，保留来源与组织方式供查阅。",
+        "en": "Completed an explorable literature resource for COMP4126 coursework, preserving sources and the organization method."
+      },
+      "boundary": {
+        "zh": "这是课程资料整理与浏览工具，不是已发表的系统综述或研究论文。",
+        "en": "This is a coursework collection and browsing tool, not a published systematic review or research paper."
+      },
+      "tech": [
+        "SurVis",
+        "Literature organization",
+        "Metadata"
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "查看资料仓库",
+            "en": "Explore the repository"
+          },
+          "href": "https://github.com/Mikusc/COMP4126_CW3_XR_Rhythm_SurVis"
+        }
+      ]
+    }
+  ]
+}

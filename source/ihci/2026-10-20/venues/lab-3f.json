@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "content": "../lab-demo/exhibition.json",
+  "contentId": "ihci-demo-content",
+  "contentVersion": 2,
+  "placementsStatus": "demo-unverified",
+  "scan": {
+    "manifest": "../lab-demo/scan-targets.json",
+    "packId": "lab-p01-v1"
+  },
+  "id": "lab-3f",
+  "title": "实验室三楼",
+  "purpose": "技术验证",
+  "exhibitionId": "lab-preview-01",
+  "layoutVersion": "lab-3f-offices-v1",
+  "model": "../lab-floor/model.json",
+  "modelId": "lab-floor-draft",
+  "adapter": "lab",
+  "planURL": "../lab-floor/",
+  "description": "在实验室验证扫描、浏览与海报切换；示例挂点和尺寸待现场核对。",
+  "placements": [
+    {
+      "posterId": "P-01",
+      "modelAnchorId": "P-01"
+    },
+    {
+      "posterId": "P-02",
+      "modelAnchorId": "P-02"
+    },
+    {
+      "posterId": "P-03",
+      "modelAnchorId": "P-03"
+    }
+  ],
+  "routes": [
+    {
+      "from": "P-01",
+      "to": "P-02",
+      "via": [
+        [
+          552,
+          195
+        ],
+        [
+          552,
+          244
+        ],
+        [
+          504,
+          244
+        ],
+        [
+          504,
+          382
+        ],
+        [
+          548,
+          382
+        ]
+      ]
+    },
+    {
+      "from": "P-02",
+      "to": "P-03",
+      "via": [
+        [
+          548,
+          382
+        ],
+        [
+          504,
+          382
+        ],
+        [
+          504,
+          900
+        ],
+        [
+          744,
+          900
+        ],
+        [
+          744,
+          858
+        ]
+      ]
+    },
+    {
+      "from": "P-03",
+      "to": "P-01",
+      "via": [
+        [
+          744,
+          858
+        ],
+        [
+          744,
+          900
+        ],
+        [
+          504,
+          900
+        ],
+        [
+          504,
+          244
+        ],
+        [
+          552,
+          244
+        ],
+        [
+          552,
+          195
+        ]
+      ]
+    }
+  ]
+}
