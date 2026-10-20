@@ -13,3 +13,17 @@ IHCI 数字会场以原演示站版本 30 为来源，单独保存只读快照�
 - 归档 JS 导入、模型资源与本地依赖完整性，移除实时读写接口。
 
 浏览器响应式预览不等同于真机或现场验收；相机识别、真实尺度、实地通行等继续保留为待验证项。
+
+## 真实项目截图
+
+首页其余五个精选项目已替换字母封面，项目目录与详情页同步使用；详情页图片可打开完整原图。截图保持实际界面内容，卡片仅通过 CSS 调整显示范围。
+
+| 图片 | 来源与展示范围 |
+| --- | --- |
+| `ai-community-arcaea.jpg` | 2026-10-20 截取公开 Arcaea 频道「更新情报」页面，包含 Mikusc 的已发布资讯。 |
+| `llm-topic-graph-review.jpg` | 现有 Topic Graph Review Workspace 的实际运行界面，加载项目自带的虚构共享单车示例；不使用参与者数据。 |
+| `pico-forest-runtime.png` | 2026-07-05 PICO 历史原型的双眼运行截图，展示森林环境、动作提示与追踪线；不代表当前完整工作流验收。 |
+| `sceneshift-simulator.png` | 2026-05-24 Unity / Meta XR Simulator 的实际 Game View；不冒充最终头显效果。 |
+| `mr-homeassistant-demo.png` | Unity Play Mode 中的实际设备列表，使用明确标记的 DEMO / Sample devices。 |
+
+五张图均已目视检查，图注和卡片标签提供中英文；六个首页精选项目都有图片。已验证 Hexo 全量构建、首页/目录/详情图片路径、桌面两排卡片与 390px 手机布局。原有 IHCI 截图与其他项目内容保留。

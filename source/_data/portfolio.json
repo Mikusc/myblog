@@ -133,7 +133,18 @@
           },
           "href": "https://pd.qq.com/s/frdj4o2cl?b=9"
         }
-      ]
+      ],
+      "image": "/images/projects/ai-community-arcaea.jpg",
+      "imageAlt": {
+        "zh": "Arcaea 腾讯频道「更新情报」版块与 Mikusc 发布的资讯，截于 2026 年 10 月 20 日。",
+        "en": "Arcaea Tencent Channel news section and a post by Mikusc, captured on 20 October 2026."
+      },
+      "imageLabel": {
+        "zh": "公开运营页面",
+        "en": "Published community page"
+      },
+      "imagePosition": "50% 50%",
+      "imageFit": "contain"
     },
     {
       "id": "llm-persuasion",
@@ -178,7 +189,18 @@
         "数据审计 / Data auditing",
         "Baseline evaluation"
       ],
-      "links": []
+      "links": [],
+      "image": "/images/projects/llm-topic-graph-review.jpg",
+      "imageAlt": {
+        "zh": "LLM-Persuasion 实际图谱审核工具：使用虚构共享单车示例，展示主张、关切与人工审核面板；不包含参与者数据。",
+        "en": "The actual LLM-Persuasion graph review tool with a fictional bike-parking example, showing claims, concerns, and review controls; no participant data."
+      },
+      "imageLabel": {
+        "zh": "实际工具 · 虚构示例",
+        "en": "Actual tool · Fictional example"
+      },
+      "imagePosition": "50% 50%",
+      "imageFit": "contain"
     },
     {
       "id": "pico-workflow",
@@ -223,7 +245,18 @@
         "PICO",
         "Structured configuration"
       ],
-      "links": []
+      "links": [],
+      "image": "/images/projects/pico-forest-runtime.png",
+      "imageAlt": {
+        "zh": "PICO 项目 2026 年 7 月原型的真实双眼运行截图：森林场景、动作提示与追踪可视化；这是阶段记录，不代表当前完整工作流或设备验收完成。",
+        "en": "Actual stereo runtime capture from the July 2026 PICO prototype: forest scene, action prompts, and tracking visualization. This milestone capture does not imply acceptance of the current full workflow or device integration."
+      },
+      "imageLabel": {
+        "zh": "2026.07 原型运行记录",
+        "en": "July 2026 prototype capture"
+      },
+      "imageFit": "contain",
+      "imagePosition": "50% 50%"
     },
     {
       "id": "sceneshift",
@@ -283,7 +316,18 @@
           },
           "href": "/scene-shift/"
         }
-      ]
+      ],
+      "image": "/images/projects/sceneshift-simulator.png",
+      "imageAlt": {
+        "zh": "SceneShift 在 Unity 与 Meta XR Simulator 中的实际房间预览、控制面板和虚拟控制器，属于设备运行前的原型检查。",
+        "en": "Actual SceneShift room preview, control panel, and virtual controllers in Unity with Meta XR Simulator, from a pre-device prototype check."
+      },
+      "imageLabel": {
+        "zh": "Unity / XR Simulator",
+        "en": "Unity / XR Simulator"
+      },
+      "imagePosition": "50% 69%",
+      "imageFit": "cover"
     },
     {
       "id": "mr-homeassistant",
@@ -336,7 +380,18 @@
           },
           "href": "https://github.com/Mikusc/MR-HomeAssistant"
         }
-      ]
+      ],
+      "image": "/images/projects/mr-homeassistant-demo.png",
+      "imageAlt": {
+        "zh": "MR HomeAssistant 的 Unity Play Mode 实际设备控制界面，使用 DEMO / Sample devices 演示数据。",
+        "en": "Actual MR HomeAssistant device control UI in Unity Play Mode, using DEMO / Sample devices data."
+      },
+      "imageLabel": {
+        "zh": "Unity 运行界面 · 演示数据",
+        "en": "Unity runtime · Demo data"
+      },
+      "imagePosition": "50% 50%",
+      "imageFit": "contain"
     },
     {
       "id": "campus",

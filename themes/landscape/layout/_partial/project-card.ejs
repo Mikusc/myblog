@@ -1,7 +1,8 @@
 <article class="portfolio-card" id="project-<%= project.id %>">
   <a class="portfolio-card-visual<%= project.image ? '' : ' portfolio-card-visual-type' %>" href="<%- url_for('/projects/' + project.id + '/') %>" aria-label="<%= project.title.zh %>" data-aria-zh="<%= project.title.zh %>" data-aria-en="<%= project.title.en %>">
     <% if (project.image) { %>
-      <img src="<%- url_for(project.image) %>" alt="<%= (project.imageAlt || project.title).zh %>" data-alt-zh="<%= (project.imageAlt || project.title).zh %>" data-alt-en="<%= (project.imageAlt || project.title).en %>" loading="lazy" decoding="async">
+      <img src="<%- url_for(project.image) %>" alt="<%= (project.imageAlt || project.title).zh %>" data-alt-zh="<%= (project.imageAlt || project.title).zh %>" data-alt-en="<%= (project.imageAlt || project.title).en %>" style="object-fit:<%= project.imageFit || 'cover' %>;object-position:<%= project.imagePosition || '50% 50%' %>" loading="lazy" decoding="async">
+      <% if (project.imageLabel) { %><span class="portfolio-card-image-label" data-zh="<%= project.imageLabel.zh %>" data-en="<%= project.imageLabel.en %>"><%= project.imageLabel.zh %></span><% } %>
     <% } else { %>
       <span class="portfolio-card-monogram" aria-hidden="true"><%= project.id.split('-').map(function(word){return word.charAt(0).toUpperCase();}).slice(0,3).join('') %></span>
       <span class="portfolio-card-visual-label" data-zh="<%= project.category.zh %>" data-en="<%= project.category.en %>"><%= project.category.zh %></span>
