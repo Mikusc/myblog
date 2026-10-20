@@ -8,5 +8,19 @@
 %>
 <div class="portfolio-page portfolio-directory">
   <header class="portfolio-page-heading"><p class="portfolio-kicker">PROJECT DIRECTORY</p><h1 data-page-title data-zh="项目与实践" data-en="Projects & practice">项目与实践</h1><p data-zh="围绕真实需求组织 AI、代码和内容。每个项目记录问题、推进方式、可查看的成果与当前边界。" data-en="AI, code, and content organized around real needs. Each case explains the problem, the process, what you can inspect, and the current limits.">围绕真实需求组织 AI、代码和内容。每个项目记录问题、推进方式、可查看的成果与当前边界。</p><div class="portfolio-directory-meta"><span><%= projects.length %> <span data-zh="项实践" data-en="projects">项实践</span></span><% if (portfolio.updated) { %><span><span data-zh="更新于" data-en="Updated">更新于</span> <time><%= portfolio.updated %></time></span><% } %></div></header>
-  <% groups.forEach(function(group){ if (!group.items.length) return; %><section class="portfolio-section"><div class="portfolio-section-head"><h2 data-zh="<%= group.zh %>" data-en="<%= group.en %>"><%= group.zh %></h2><span class="portfolio-count"><%= group.items.length %></span></div><div class="portfolio-grid"><% group.items.forEach(function(project){ %><%- partial('_partial/project-card', {project:project}, {cache:false}) %><% }); %></div></section><% }); %>
+  <div class="portfolio-filter-bar" hidden>
+    <div class="portfolio-filters" role="group" aria-label="按方向筛选项目" data-aria-zh="按方向筛选项目" data-aria-en="Filter projects by focus">
+      <% [
+        {id:'all',zh:'全部',en:'All work'}, {id:'ai',zh:'AI 应用',en:'Applied AI'},
+        {id:'spatial',zh:'空间交互',en:'Spatial'}, {id:'content',zh:'内容与创作',en:'Content'},
+        {id:'research',zh:'研究实践',en:'Research'}, {id:'tools',zh:'工具',en:'Tools'}
+      ].forEach(function(filter){ %>
+      <button class="portfolio-filter" type="button" data-project-filter="<%= filter.id %>" aria-pressed="<%= filter.id === 'all' %>"><span data-zh="<%= filter.zh %>" data-en="<%= filter.en %>"><%= filter.zh %></span></button>
+      <% }); %>
+    </div>
+    <p class="portfolio-filter-result" role="status" aria-live="polite" aria-atomic="true"></p>
+  </div>
+  <div class="portfolio-results">
+    <% groups.forEach(function(group){ if (!group.items.length) return; %><section class="portfolio-section portfolio-project-group"><div class="portfolio-section-head"><h2 data-zh="<%= group.zh %>" data-en="<%= group.en %>"><%= group.zh %></h2><span class="portfolio-count"><%= group.items.length %></span></div><div class="portfolio-grid"><% group.items.forEach(function(project){ %><%- partial('_partial/project-card', {project:project}, {cache:false}) %><% }); %></div></section><% }); %>
+  </div>
 </div>

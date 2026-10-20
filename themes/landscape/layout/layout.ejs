@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= config.language || 'zh-CN' %>">
 <%- partial('_partial/head') %>
-<body>
+<body<% if (is_home() || page.layout === 'projects' || page.layout === 'project') { %> class="portfolio-view"<% } %>>
   <div id="container">
     <div id="wrap">
       <% var homeView = is_home(); %>

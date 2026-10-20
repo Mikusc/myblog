@@ -1,4 +1,13 @@
-<article class="portfolio-card" id="project-<%= project.id %>">
+<%
+  var topicMap = {
+    ihci: 'spatial ai', 'ai-community': 'content ai', 'llm-persuasion': 'research ai',
+    'pico-workflow': 'spatial ai', sceneshift: 'spatial ai', 'mr-homeassistant': 'spatial',
+    campus: 'spatial', 'ai-pets': 'content ai', 'meta-uiset': 'tools spatial ai',
+    'onebot-listener': 'tools', 'java-solver': 'tools', 'xr-literature': 'research'
+  };
+  var summary = project.cardSummary || project.outcome;
+%>
+<article class="portfolio-card" id="project-<%= project.id %>" data-project-topics="<%= topicMap[project.id] || '' %>">
   <a class="portfolio-card-visual<%= project.image ? '' : ' portfolio-card-visual-type' %>" href="<%- url_for('/projects/' + project.id + '/') %>" aria-label="<%= project.title.zh %>" data-aria-zh="<%= project.title.zh %>" data-aria-en="<%= project.title.en %>">
     <% if (project.image) { %>
       <img src="<%- url_for(project.image) %>" alt="<%= (project.imageAlt || project.title).zh %>" data-alt-zh="<%= (project.imageAlt || project.title).zh %>" data-alt-en="<%= (project.imageAlt || project.title).en %>" style="object-fit:<%= project.imageFit || 'cover' %>;object-position:<%= project.imagePosition || '50% 50%' %>" loading="lazy" decoding="async">
@@ -13,7 +22,7 @@
     <div class="portfolio-card-eyebrow"><span data-zh="<%= project.category.zh %>" data-en="<%= project.category.en %>"><%= project.category.zh %></span><span class="portfolio-status" data-zh="<%= project.status.zh %>" data-en="<%= project.status.en %>"><%= project.status.zh %></span></div>
     <h3><a href="<%- url_for('/projects/' + project.id + '/') %>" data-zh="<%= project.title.zh %>" data-en="<%= project.title.en %>"><%= project.title.zh %></a></h3>
     <p class="portfolio-card-subtitle" data-zh="<%= project.subtitle.zh %>" data-en="<%= project.subtitle.en %>"><%= project.subtitle.zh %></p>
-    <p class="portfolio-card-outcome" data-zh="<%= project.outcome.zh %>" data-en="<%= project.outcome.en %>"><%= project.outcome.zh %></p>
+    <p class="portfolio-card-outcome" data-zh="<%= summary.zh %>" data-en="<%= summary.en %>"><%= summary.zh %></p>
     <ul class="portfolio-tags" aria-label="Tools"><% (project.tech || []).slice(0,4).forEach(function(tech){ %><li><%= tech %></li><% }); %></ul>
     <div class="portfolio-card-actions">
       <a class="portfolio-text-link" href="<%- url_for('/projects/' + project.id + '/') %>"><span data-zh="查看项目" data-en="Case study">查看项目</span><span aria-hidden="true">↗</span></a>

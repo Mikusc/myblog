@@ -16,11 +16,11 @@
         <a class="portfolio-button" href="#selected-work"><span data-zh="浏览代表项目" data-en="Explore selected work">浏览代表项目</span><span aria-hidden="true">↓</span></a>
         <a class="portfolio-button portfolio-button-quiet" href="<%- url_for('/about/') %>" data-zh="关于我" data-en="About me">关于我</a>
       </div>
-      <p class="portfolio-intro-footnote"><span data-zh="AI 应用 · 空间交互 · 内容工作流" data-en="Applied AI · Spatial interaction · Content workflows">AI 应用 · 空间交互 · 内容工作流</span></p>
+      <p class="portfolio-intro-footnote"><span class="portfolio-accent-dot" aria-hidden="true"></span><span data-zh="AI 应用 · 空间交互 · 内容工作流" data-en="Applied AI · Spatial interaction · Content workflows">AI 应用 · 空间交互 · 内容工作流</span></p>
     </div>
     <% if (demo) { %>
     <a class="portfolio-feature" href="<%- url_for('/projects/ihci/') %>">
-      <% if (demo.image) { %><img src="<%- url_for(demo.image) %>" alt="<%= (demo.imageAlt || demo.title).zh %>" data-alt-zh="<%= (demo.imageAlt || demo.title).zh %>" data-alt-en="<%= (demo.imageAlt || demo.title).en %>" decoding="async"><% } else { %><div class="portfolio-feature-pattern" aria-hidden="true"><span>IHCI</span><span>2026</span></div><% } %>
+      <% if (demo.image) { %><div class="portfolio-feature-media"><span class="portfolio-feature-index" aria-hidden="true">IN FOCUS / 01</span><img src="<%- url_for(demo.image) %>" alt="<%= (demo.imageAlt || demo.title).zh %>" data-alt-zh="<%= (demo.imageAlt || demo.title).zh %>" data-alt-en="<%= (demo.imageAlt || demo.title).en %>" fetchpriority="high" decoding="async"></div><% } else { %><div class="portfolio-feature-pattern" aria-hidden="true"><span>IHCI</span><span>2026</span></div><% } %>
       <div class="portfolio-feature-caption"><div><span class="portfolio-kicker" data-zh="近期项目" data-en="Recent work">近期项目</span><strong data-zh="<%= demo.title.zh %>" data-en="<%= demo.title.en %>"><%= demo.title.zh %></strong></div><span class="portfolio-feature-arrow" aria-hidden="true">↗</span></div>
     </a>
     <% } %>
@@ -38,6 +38,7 @@
       <article><span class="portfolio-step">02</span><h3 data-zh="把 AI 接入工作流" data-en="Build an AI-assisted workflow">把 AI 接入工作流</h3><p data-zh="将上下文、任务拆解和反复使用的步骤沉淀为脚本、Skill 与原型。" data-en="Turn context, task breakdowns, and repeatable steps into scripts, Skills, and prototypes.">将上下文、任务拆解和反复使用的步骤沉淀为脚本、Skill 与原型。</p></article>
       <article><span class="portfolio-step">03</span><h3 data-zh="检查后再交付" data-en="Verify before delivery">检查后再交付</h3><p data-zh="结合来源核验、测试、人工审阅和交互预览，记录成果与尚待验证的部分。" data-en="Use source checks, tests, human review, and interaction previews to document results and remaining limits.">结合来源核验、测试、人工审阅和交互预览，记录成果与尚待验证的部分。</p></article>
     </div>
+    <% if (portfolio.aiTools && portfolio.aiTools.length) { %><div class="portfolio-tool-row"><span data-zh="常用 AI 协作工具" data-en="My AI toolkit">常用 AI 协作工具</span><ul class="portfolio-tags"><% portfolio.aiTools.forEach(function(tool){ %><li><%= tool %></li><% }); %></ul></div><% } %>
   </section>
 
   <section class="portfolio-section portfolio-notes">

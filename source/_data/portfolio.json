@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "intro": {
     "zh": "我是肖凯文（Mikusc），宁波诺丁汉大学计算机科学硕士在读。我把 AI 用在产品原型、空间交互、研究评测与社群运营中：拆解问题、组织工具、检查结果，再把想法推进成可查看的作品。",
     "en": "I’m Kaiwen Xiao (Mikusc), an MSc Computer Science student at the University of Nottingham Ningbo China. I use AI across product prototypes, spatial interaction, research evaluation, and community operations—framing problems, coordinating tools, checking results, and building work people can explore."
@@ -67,6 +67,10 @@
       "imageAlt": {
         "zh": "IHCI 数字会场 IEB 一楼只读快照：大厅、Alumni 与咖啡厅",
         "en": "IHCI IEB ground-floor archive: lobby, Alumni lounge, and café"
+      },
+      "cardSummary": {
+        "zh": "连接海报、二维码与三维展厅，并保留两个会场的只读归档。",
+        "en": "A poster-to-3D venue prototype with read-only archives of two venues."
       }
     },
     {
@@ -76,8 +80,8 @@
         "en": "AI-assisted community operations"
       },
       "subtitle": {
-        "zh": "把官方资讯变成可追溯的内容工作流，服务 5.6 万人的 Arcaea 频道。",
-        "en": "Source-backed content workflows for an Arcaea channel with 56,000 members."
+        "zh": "创建并运营 Arcaea 与 In Falsus 频道，用 AI 支持资讯、教程、百科和活动内容。",
+        "en": "Building and running Arcaea and In Falsus channels with AI-assisted news, guides, reference articles, and event content."
       },
       "category": {
         "zh": "AI 应用 · 内容运营",
@@ -90,24 +94,25 @@
       "period": "2026",
       "featured": true,
       "problem": {
-        "zh": "游戏资讯更新频繁，跨来源整理、版本分类、配图和发布检查容易重复耗时，也容易遗漏出处或重复发布。",
-        "en": "Frequent game updates make source collection, version classification, image selection, and publication checks repetitive and prone to missing sources or duplicates."
+        "zh": "资讯、教程、百科和活动内容持续更新，资料整理、事实核对、图文制作与发布需要统一流程，避免遗漏出处或重复发布。",
+        "en": "Ongoing news, guides, reference articles, and events need a consistent workflow for source collection, fact checking, visuals, and publication to avoid missing sources and duplicate posts."
       },
       "approach": {
-        "zh": "我把 Arcaea 和 In Falsus 的官方资料整理、分类、图文编排、查重和发布校验拆成明确步骤，结合 AI 与脚本封装为可复用 Skill。保留人工选题、事实核对和发布决策，并在发布后回读页面确认结果。",
-        "en": "I structured official-source collection, classification, editing, deduplication, and publication checks for Arcaea and In Falsus into reusable AI Skills and scripts. I retain responsibility for topic selection, fact checking, and publication decisions, then read back published pages to verify the result."
+        "zh": "我将 AI 用于两个频道的资讯编辑、游戏教程和内容百科编写，以及活动策划与素材生成。把来源整理、历史查重、图文排版、发布前校验与发布后回读整理为可复用 Skill；由我负责选题、事实审核和发布决策。",
+        "en": "I use AI across both channels to edit news, write game guides and reference articles, plan events, and generate supporting materials. I turn source collection, checks against earlier posts, text and image layout, pre-publication checks, and published-page review into reusable Skills, while retaining responsibility for topic selection, fact checking, and publication decisions."
       },
       "outcome": {
-        "zh": "Arcaea 腾讯频道规模为 5.6 万人。另一个独立案例是 In Falsus 情报长帖：汇总 22 条官方来源、27 张配图，并保留可公开阅读的发布页面；Arcaea 相关 Skill 已公开。",
-        "en": "The Arcaea Tencent Channel has 56,000 members. A separate In Falsus news post consolidates 22 official sources and 27 images into a publicly readable article. Arcaea-related Skills are publicly available."
+        "zh": "创建并运营 5.6 万人的韵律源点 Arcaea 频道及 2600 人的 In Falsus 频道，在两个频道持续开展 AI 辅助内容编辑与发布。公开案例包括汇总 22 条官方来源、27 张配图的一篇 In Falsus 情报长帖；Arcaea 相关 Skill 已公开，可查看实际工作流与频道内容。",
+        "en": "I created and run the 韵律源点 Arcaea channel with 56,000 members and the In Falsus channel with 2,600 members, using AI to support ongoing editing and publication in both communities. One public example is an In Falsus news article consolidating 22 official sources and 27 images. Arcaea-related Skills are public, alongside examples of the workflow and published channel content."
       },
       "boundary": {
-        "zh": "5.6 万是截至 2026 年 10 月确认的频道人数，不代表 AI 带来的新增人数；In Falsus 的内容案例与 Arcaea 的频道规模分别统计。",
-        "en": "56,000 is the confirmed Arcaea membership as of October 2026, not growth attributed to AI. The In Falsus content example and Arcaea membership are separate measures."
+        "zh": "5.6 万与 2600 是两个频道分别确认的成员规模，不代表 AI 带来的增长；22 条来源、27 张配图仅描述所链接的单篇 In Falsus 案例，不代表累计发布量。",
+        "en": "56,000 and 2,600 are the confirmed membership counts of the two channels, not growth attributed to AI. The 22 sources and 27 images describe only the linked In Falsus article, not the total volume of published content."
       },
       "tech": [
         "AI Skills",
         "来源核验 / Source verification",
+        "内容与活动策划 / Content & event planning",
         "图文工作流 / Editorial workflow",
         "Automation"
       ],
@@ -144,7 +149,11 @@
         "en": "Published community page"
       },
       "imagePosition": "50% 50%",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "cardSummary": {
+        "zh": "创建并运营 5.6 万人 Arcaea 与 2600 人 In Falsus 频道，用 AI 支持内容与活动制作。",
+        "en": "I run Arcaea and In Falsus channels with 56,000 and 2,600 members, using AI to support content and event creation."
+      }
     },
     {
       "id": "llm-persuasion",
@@ -200,7 +209,11 @@
         "en": "Actual tool · Fictional example"
       },
       "imagePosition": "50% 50%",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "cardSummary": {
+        "zh": "将对话原型、数据审计与基线评测串成可回看的研究流程。",
+        "en": "Dialogue prototypes, data audits, and baseline evaluation form a traceable research workflow."
+      }
     },
     {
       "id": "pico-workflow",
@@ -256,7 +269,11 @@
         "en": "July 2026 prototype capture"
       },
       "imageFit": "contain",
-      "imagePosition": "50% 50%"
+      "imagePosition": "50% 50%",
+      "cardSummary": {
+        "zh": "把用户偏好转成场景配置，串联生成、人工审阅与素材导出。",
+        "en": "A prototype turns preferences into scene configurations, generation tasks, human review, and asset export."
+      }
     },
     {
       "id": "sceneshift",
@@ -327,7 +344,11 @@
         "en": "Unity / XR Simulator"
       },
       "imagePosition": "50% 69%",
-      "imageFit": "cover"
+      "imageFit": "cover",
+      "cardSummary": {
+        "zh": "把风格描述转成纹理与 3D 候选，在 Unity 中预览、调整和审阅。",
+        "en": "Style descriptions become texture and 3D candidates for preview, adjustment, and review in Unity."
+      }
     },
     {
       "id": "mr-homeassistant",
@@ -391,7 +412,11 @@
         "en": "Unity runtime · Demo data"
       },
       "imagePosition": "50% 50%",
-      "imageFit": "contain"
+      "imageFit": "contain",
+      "cardSummary": {
+        "zh": "统一设备状态、房间筛选与异常反馈，构建桌面和 MR 共用的控制原型。",
+        "en": "A shared desktop and MR control prototype brings together device states, room filters, and error feedback."
+      }
     },
     {
       "id": "campus",
@@ -448,6 +473,10 @@
       "imageAlt": {
         "zh": "校园 3D 导览预览",
         "en": "Preview of the 3D campus guide"
+      },
+      "cardSummary": {
+        "zh": "在浏览器中点选建筑、对照实景，探索校园的现状与建成愿景。",
+        "en": "Explore campus buildings, photo comparisons, and current or planned views in the browser."
       }
     },
     {
@@ -499,7 +528,11 @@
           },
           "href": "/pet/"
         }
-      ]
+      ],
+      "cardSummary": {
+        "zh": "将 AI 视觉素材制作成角色动画、方向跟随与可下载的宠物资源。",
+        "en": "AI-assisted visuals become character animations, directional following, and downloadable pet assets."
+      }
     },
     {
       "id": "meta-uiset",
@@ -551,7 +584,11 @@
           },
           "href": "https://github.com/Mikusc/meta-uiset-composer"
         }
-      ]
+      ],
+      "cardSummary": {
+        "zh": "把 Unity 世界空间 UI 的搭建、修复与检查整理成可复用 Skill。",
+        "en": "A reusable Skill organizes building, repairing, and checking Unity world-space interfaces."
+      }
     },
     {
       "id": "onebot-listener",
@@ -603,7 +640,11 @@
           },
           "href": "https://github.com/Mikusc/onebot-code-listener"
         }
-      ]
+      ],
+      "cardSummary": {
+        "zh": "用本地看板串联消息提取、去重、队列与可回看的处理记录。",
+        "en": "A local dashboard connects message extraction, deduplication, queues, and inspectable processing records."
+      }
     },
     {
       "id": "java-solver",
@@ -647,7 +688,11 @@
         "Greedy coverage",
         "Shortest path"
       ],
-      "links": []
+      "links": [],
+      "cardSummary": {
+        "zh": "将视点覆盖、最短路径修复与连续路线构造整合为 Java 求解流程。",
+        "en": "A Java solver combines viewpoint coverage, shortest-path repair, and continuous-route construction."
+      }
     },
     {
       "id": "xr-literature",
@@ -698,7 +743,17 @@
           },
           "href": "https://github.com/Mikusc/COMP4126_CW3_XR_Rhythm_SurVis"
         }
-      ]
+      ],
+      "cardSummary": {
+        "zh": "把 XR 节奏交互文献整理为可筛选、可追溯的课程资料库。",
+        "en": "An explorable coursework collection organizes XR rhythm literature with filters and traceable sources."
+      }
     }
+  ],
+  "aiTools": [
+    "Codex",
+    "Claude Code",
+    "DSH",
+    "Skills"
   ]
 }

@@ -21,6 +21,9 @@
 
 <%- js('js/script') %>
 <%- js('js/i18n') %>
+<% if (is_home() || page.layout === 'projects' || page.layout === 'project') { %>
+<script src="<%- url_for('/js/portfolio.js') %>" defer></script>
+<% } %>
 <%- partial('gauges-analytics') %>
 
 <% if(theme.valine.enable && theme.valine.appId && theme.valine.appKey){ %>
