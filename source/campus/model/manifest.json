@@ -1,33 +1,33 @@
 {
-  "bytes": 45686004,
-  "sha256": "ecf676b1996bcab4c2c195b41dc35ccb87efc226cd4172d9b091ab7085c58615",
+  "bytes": 45818800,
+  "sha256": "2086fed45ab2c32eba52f021eba03a9eaffbb9b956b9152439e600cd91d23180",
   "parts": [
-    "campus-ecf676b1996b-0.bin",
-    "campus-ecf676b1996b-1.bin",
-    "campus-ecf676b1996b-2.bin"
+    "campus-2086fed45ab2-0.bin",
+    "campus-2086fed45ab2-1.bin",
+    "campus-2086fed45ab2-2.bin"
   ],
-  "revision": "2026-10-22-vr-nicc-massing",
+  "revision": "2026-10-23-vr-library-massing",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 9999570,
+    "bytes": 10009701,
     "parts": [
       {
-        "file": "campus-ecf676b1996b-0.bin.gz",
-        "bytes": 1454315,
+        "file": "campus-2086fed45ab2-0.bin.gz",
+        "bytes": 1456241,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-ecf676b1996b-1.bin.gz",
-        "bytes": 6904290,
+        "file": "campus-2086fed45ab2-1.bin.gz",
+        "bytes": 6904562,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-ecf676b1996b-2.bin.gz",
-        "bytes": 1640965,
-        "decodedBytes": 13686004
+        "file": "campus-2086fed45ab2-2.bin.gz",
+        "bytes": 1648898,
+        "decodedBytes": 13818800
       }
     ]
   },
   "geometryEncoding": "EXT_meshopt_compression",
-  "sourceSha256": "2d107e86e95618118eb17f915884c225995ebe6f97e8d2eeea0bd70c3df3366b"
+  "sourceSha256": "cbc549c7ae8a144b5131ce003199af02fcb50d0857be26dda45358bba24fb293"
 }
