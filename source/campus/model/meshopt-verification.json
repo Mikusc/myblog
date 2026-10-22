@@ -1,16 +1,16 @@
 {
-  "rawBytes": 71269500,
-  "meshoptBytes": 40828108,
-  "gzipBytes": 9316760,
-  "rawSha256": "9f70b1747ee5db78c5f527f176a8d3223b1bb71abf84f62784f45742367ed5dd",
-  "meshoptSha256": "fc676578996427dd48a1da4be5fd5c0f9ae8912955025fa9ec50f57d482e9387",
-  "views": 1580,
+  "rawBytes": 76171412,
+  "meshoptBytes": 43660808,
+  "gzipBytes": 9462279,
+  "rawSha256": "7af196a542876f67c5c490542a29b42157ad13a24a14a86e5730ae405efe8135",
+  "meshoptSha256": "a5605dc7a6a9875a95142e111aa120e945ea1dce7710fccefbf4ea4d1619264b",
+  "views": 1652,
   "modes": {
-    "ATTRIBUTES": 1114,
-    "INDICES": 466
+    "ATTRIBUTES": 1164,
+    "INDICES": 488
   },
-  "sceneObjects": 671,
-  "meshes": 555,
+  "sceneObjects": 701,
+  "meshes": 580,
   "verification": "All index/attribute arrays, names, transforms, userData and material properties identical",
   "encoderVersion": "1.1.1"
 }

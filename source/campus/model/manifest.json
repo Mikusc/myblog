@@ -1,33 +1,33 @@
 {
-  "bytes": 40828108,
-  "sha256": "fc676578996427dd48a1da4be5fd5c0f9ae8912955025fa9ec50f57d482e9387",
+  "bytes": 43660808,
+  "sha256": "a5605dc7a6a9875a95142e111aa120e945ea1dce7710fccefbf4ea4d1619264b",
   "parts": [
-    "campus-fc6765789964-0.bin",
-    "campus-fc6765789964-1.bin",
-    "campus-fc6765789964-2.bin"
+    "campus-a5605dc7a6a9-0.bin",
+    "campus-a5605dc7a6a9-1.bin",
+    "campus-a5605dc7a6a9-2.bin"
   ],
-  "revision": "2026-10-06-batch4-meshopt-siyuan-tree-lod",
+  "revision": "2026-10-22-vr-campus-details",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 9316760,
+    "bytes": 9462279,
     "parts": [
       {
-        "file": "campus-fc6765789964-0.bin.gz",
-        "bytes": 1424662,
+        "file": "campus-a5605dc7a6a9-0.bin.gz",
+        "bytes": 1426699,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-fc6765789964-1.bin.gz",
-        "bytes": 6911746,
+        "file": "campus-a5605dc7a6a9-1.bin.gz",
+        "bytes": 6911257,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-fc6765789964-2.bin.gz",
-        "bytes": 980352,
-        "decodedBytes": 8828108
+        "file": "campus-a5605dc7a6a9-2.bin.gz",
+        "bytes": 1124323,
+        "decodedBytes": 11660808
       }
     ]
   },
   "geometryEncoding": "EXT_meshopt_compression",
-  "sourceSha256": "9f70b1747ee5db78c5f527f176a8d3223b1bb71abf84f62784f45742367ed5dd"
+  "sourceSha256": "7af196a542876f67c5c490542a29b42157ad13a24a14a86e5730ae405efe8135"
 }

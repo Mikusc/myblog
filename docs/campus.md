@@ -2,18 +2,26 @@
 
 公开页面：`https://www.mikusc.top/campus/`。项目页和工具页提供入口，导览页可返回博客。
 
-`source/campus/` 是校园项目 `campus-site` 导出的完整静态版本，包含同源的界面、Three.js 和模型文件；不依赖原有 Sites 地址、第三方 iframe 或服务端运行时。Hexo 通过 `_config.yml` 中的 `skip_render: campus/**` 原样复制，沿用当前 GitHub → Azure Static Web Apps 发布流程。
+`source/campus/` 是校园源仓库 `Mikusc/unnc-campus` 导出的完整静态版本，包含同源的界面、Three.js 和模型文件；不依赖原有 Sites 地址、第三方 iframe 或服务端运行时。Hexo 通过 `_config.yml` 中的 `skip_render: campus/**` 原样复制，沿用当前 GitHub → Azure Static Web Apps 发布流程。
 
 ## 更新导览
 
-1. 在校园项目的 `campus-site` 目录运行 `npm run build:blog`。
-2. 将 `dist-blog/` 的完整内容同步到本仓库 `source/campus/`，移除被新版替代的旧哈希资源。不要手改编译后的 JavaScript。
+1. 在校园源仓库工作目录（当前为 `/Users/mikusc/Documents/Codex/2026-10-07/task/unnc-campus-sync`）运行相关模型/交互检查及 `npm run build:compact`。
+2. 将 `dist-compact/` 的完整内容同步到本仓库 `source/campus/`，移除被新版替代的旧哈希资源。不要手改编译后的 JavaScript。
 3. 运行本仓库 `npm run build`，确认 `public/campus/index.html` 及其引用资源齐全。检查 `/campus/`、视角切换、返回博客、资料说明以及博客中的两个入口。
 4. 按博客发布流程提交并推送，等待 Azure 工作流成功，再检查公开地址与模型清单。
 
-当前模型为 `unnc-campus-satellite-roads.glb`（`2026-09-22 satellite road refinement 1`）。导览保留对数深度缓冲以减少屋顶、水面、操场和绿地的闪烁。模型按哈希命名并分块传输；支持浏览器优先下载约 16.5 MB 的 gzip 分块（比原始 66.7 MB 减少 75.2%），解压后逐字节一致并校验 SHA-256。旧浏览器保留原始分块回退。2026-09-22 道路校核模型 SHA-256：`5435cd146ef591d6bdf84551e691d4e6f219088372fe0696ebcda0efbcee847e`。
+当前发布版本为 `2026-10-22-vr-campus-details`，模型 SHA-256：`a5605dc7a6a9875a95142e111aa120e945ea1dce7710fccefbf4ea4d1619264b`。无损 meshopt 模型 43,660,808 字节，3 个 gzip 分块合计 9,462,279 字节。客户端兼容原生 gzip、服务器自动解压及无 DecompressionStream 的解码回退；静态包不再附带原始分块。导览保留对数深度缓冲、按需渲染、建筑点选、手机取景和现状／规划切换。以下旧版本内容作为历史记录保留。
 
 `source/campus/sources.html` 保留参考资料、估建限制和 OpenStreetMap/ODbL 来源说明；更新时必须一起保留。
+
+## 2026-10-22 官网 VR 建筑修订发布
+
+本次从已验证的静态包发布 Portland、杨福家楼和 PMB、Greenaway、Lord Dearing、D.H. Lawrence 的累计 VR 修订。Portland／杨福家楼修正露天中庭与走廊；四栋后续建筑补入口、玻璃分格、雨棚支撑、栏杆和石材分缝，Lawrence 移除与参考不符的前墙玻璃带。资料与估建边界见 `source/campus/sources.html`。
+
+VR 导览整体标注照片为2023年5月／2024年11月，单场景日期不明；尺寸仍属照片估建，不代表2026实时现状。PMB 中庭屋顶未被此次视角确认，保留原模型。既有 Batch 4 思源改造、树木 LOD、道路与生活区成果保留。
+
+发布源的模型保护、无损解码、类型、构建和本地浏览器验证已通过。本次更新仅包含 `source/campus/` 静态资源及本文档，Blender 源文件和私人工作资料不进入博客。线上成功以本提交对应的 Azure 工作流结果和公开站点的上述 SHA 核验为准。
 
 ## 2026-09-22 卫星道路第一轮校核
 
