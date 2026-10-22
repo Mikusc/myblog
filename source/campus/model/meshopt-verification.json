@@ -1,9 +1,9 @@
 {
-  "rawBytes": 81446016,
-  "meshoptBytes": 45612472,
-  "gzipBytes": 9939724,
-  "rawSha256": "2dde7af8d1146fc405ec8cb27ee6744b5d2191332e0a2a258fc58c567ebea700",
-  "meshoptSha256": "d9d9395f3aedf206a6c4a6876428f51e93cda6b173385af7f19cfb76021699d1",
+  "rawBytes": 81334896,
+  "meshoptBytes": 45686004,
+  "gzipBytes": 9999570,
+  "rawSha256": "2d107e86e95618118eb17f915884c225995ebe6f97e8d2eeea0bd70c3df3366b",
+  "meshoptSha256": "ecf676b1996bcab4c2c195b41dc35ccb87efc226cd4172d9b091ab7085c58615",
   "views": 1694,
   "modes": {
     "ATTRIBUTES": 1194,
