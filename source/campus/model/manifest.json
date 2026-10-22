@@ -1,33 +1,33 @@
 {
-  "bytes": 43765812,
-  "sha256": "4cab6cc1801feff781fd7c290ef8a609d48be86719f68fa6ae04e79deaaea5e9",
+  "bytes": 45612472,
+  "sha256": "d9d9395f3aedf206a6c4a6876428f51e93cda6b173385af7f19cfb76021699d1",
   "parts": [
-    "campus-4cab6cc1801f-0.bin",
-    "campus-4cab6cc1801f-1.bin",
-    "campus-4cab6cc1801f-2.bin"
+    "campus-d9d9395f3aed-0.bin",
+    "campus-d9d9395f3aed-1.bin",
+    "campus-d9d9395f3aed-2.bin"
   ],
-  "revision": "2026-10-22-vr-landmarks",
+  "revision": "2026-10-22-vr-innovation",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 9478088,
+    "bytes": 9939724,
     "parts": [
       {
-        "file": "campus-4cab6cc1801f-0.bin.gz",
-        "bytes": 1427315,
+        "file": "campus-d9d9395f3aed-0.bin.gz",
+        "bytes": 1427719,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-4cab6cc1801f-1.bin.gz",
-        "bytes": 6909716,
+        "file": "campus-d9d9395f3aed-1.bin.gz",
+        "bytes": 6904553,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-4cab6cc1801f-2.bin.gz",
-        "bytes": 1141057,
-        "decodedBytes": 11765812
+        "file": "campus-d9d9395f3aed-2.bin.gz",
+        "bytes": 1607452,
+        "decodedBytes": 13612472
       }
     ]
   },
   "geometryEncoding": "EXT_meshopt_compression",
-  "sourceSha256": "421fc8bd6c03a4b68c5847d140ef81e21b9885a58fe056c3e06a82f30172731e"
+  "sourceSha256": "2dde7af8d1146fc405ec8cb27ee6744b5d2191332e0a2a258fc58c567ebea700"
 }
