@@ -1,33 +1,33 @@
 {
-  "bytes": 46374916,
-  "sha256": "56d183266fde8e1d18772ab133661bc427e8905bbcf23a645270349e4d68a9a5",
+  "bytes": 46473816,
+  "sha256": "bb14f7d8648ff3017cbe1d331f2d051988f0cdfccb8859b75dbbbeb928ed2736",
   "parts": [
-    "campus-56d183266fde-0.bin",
-    "campus-56d183266fde-1.bin",
-    "campus-56d183266fde-2.bin"
+    "campus-bb14f7d8648f-0.bin",
+    "campus-bb14f7d8648f-1.bin",
+    "campus-bb14f7d8648f-2.bin"
   ],
-  "revision": "2026-11-19-vr-sports-courts",
+  "revision": "2026-11-19-vr-central-garden",
   "compressed": {
     "encoding": "gzip",
-    "bytes": 10235302,
+    "bytes": 10317000,
     "parts": [
       {
-        "file": "campus-56d183266fde-0.bin.gz",
-        "bytes": 1617609,
+        "file": "campus-bb14f7d8648f-0.bin.gz",
+        "bytes": 1617864,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-56d183266fde-1.bin.gz",
-        "bytes": 6920462,
+        "file": "campus-bb14f7d8648f-1.bin.gz",
+        "bytes": 6994111,
         "decodedBytes": 16000000
       },
       {
-        "file": "campus-56d183266fde-2.bin.gz",
-        "bytes": 1697231,
-        "decodedBytes": 14374916
+        "file": "campus-bb14f7d8648f-2.bin.gz",
+        "bytes": 1705025,
+        "decodedBytes": 14473816
       }
     ]
   },
   "geometryEncoding": "EXT_meshopt_compression",
-  "sourceSha256": "093105843cbe97dc578c26a8e56503c0e8cd140a5c7dfd80f7772afd015ea3b5"
+  "sourceSha256": "79cc2cacf1a1382542e1f3dd889aa1570b28b49865848177e5aeac04469d580c"
 }
